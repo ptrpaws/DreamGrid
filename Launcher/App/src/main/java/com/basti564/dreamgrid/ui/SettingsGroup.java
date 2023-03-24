@@ -1,4 +1,4 @@
-package com.lvonasek.pilauncher.ui;
+package com.basti564.dreamgrid.ui;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.lvonasek.pilauncher.R;
+import com.basti564.dreamgrid.R;
 
 public class SettingsGroup extends LinearLayout {
 

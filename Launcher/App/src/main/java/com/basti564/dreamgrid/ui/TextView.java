@@ -1,4 +1,4 @@
-package com.lvonasek.pilauncher.ui;
+package com.basti564.dreamgrid.ui;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -9,7 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 
-import com.lvonasek.pilauncher.R;
+import com.basti564.dreamgrid.R;
 
 public class TextView extends android.widget.TextView {
 

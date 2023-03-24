@@ -30,7 +30,7 @@
                 android:dividerHeight="0dp"
                 android:divider="#00000000" />
 
-            <com.lvonasek.pilauncher.ui.TextView
+            <com.basti564.dreamgrid.ui.TextView
                 android:id="@+id/pi"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"

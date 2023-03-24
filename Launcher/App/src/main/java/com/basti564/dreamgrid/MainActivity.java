@@ -1,4 +1,4 @@
-package com.lvonasek.pilauncher;
+package com.basti564.dreamgrid;
 
 import android.Manifest;
 import android.app.Activity;
@@ -28,13 +28,13 @@ import android.widget.SeekBar;
 
 import com.esafirm.imagepicker.features.ImagePicker;
 import com.esafirm.imagepicker.model.Image;
-import com.lvonasek.pilauncher.platforms.AbstractPlatform;
-import com.lvonasek.pilauncher.platforms.AndroidPlatform;
-import com.lvonasek.pilauncher.platforms.PSPPlatform;
-import com.lvonasek.pilauncher.platforms.VRPlatform;
-import com.lvonasek.pilauncher.ui.AppsAdapter;
-import com.lvonasek.pilauncher.ui.GroupsAdapter;
-import com.lvonasek.pilauncher.ui.SettingsGroup;
+import com.basti564.dreamgrid.platforms.AbstractPlatform;
+import com.basti564.dreamgrid.platforms.AndroidPlatform;
+import com.basti564.dreamgrid.platforms.PSPPlatform;
+import com.basti564.dreamgrid.platforms.VRPlatform;
+import com.basti564.dreamgrid.ui.AppsAdapter;
+import com.basti564.dreamgrid.ui.GroupsAdapter;
+import com.basti564.dreamgrid.ui.SettingsGroup;
 
 import java.io.File;
 import java.util.ArrayList;

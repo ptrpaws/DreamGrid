@@ -1,4 +1,4 @@
-package com.lvonasek.pilauncher;
+package com.basti564.dreamgrid;
 
 import android.Manifest;
 import android.app.Activity;

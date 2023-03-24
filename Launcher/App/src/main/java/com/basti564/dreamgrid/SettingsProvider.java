@@ -1,4 +1,4 @@
-package com.lvonasek.pilauncher;
+package com.basti564.dreamgrid;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -6,9 +6,9 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
 
-import com.lvonasek.pilauncher.platforms.AndroidPlatform;
-import com.lvonasek.pilauncher.platforms.PSPPlatform;
-import com.lvonasek.pilauncher.platforms.VRPlatform;
+import com.basti564.dreamgrid.platforms.AndroidPlatform;
+import com.basti564.dreamgrid.platforms.PSPPlatform;
+import com.basti564.dreamgrid.platforms.VRPlatform;
 
 import java.util.ArrayList;
 import java.util.HashMap;

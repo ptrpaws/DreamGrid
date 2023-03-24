@@ -1,4 +1,4 @@
-package com.lvonasek.pilauncher.ui;
+package com.basti564.dreamgrid.ui;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -12,9 +12,9 @@ import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.lvonasek.pilauncher.MainActivity;
-import com.lvonasek.pilauncher.R;
-import com.lvonasek.pilauncher.SettingsProvider;
+import com.basti564.dreamgrid.MainActivity;
+import com.basti564.dreamgrid.R;
+import com.basti564.dreamgrid.SettingsProvider;
 
 import java.util.HashMap;
 import java.util.HashSet;

@@ -1,4 +1,4 @@
-package com.lvonasek.pilauncher.ui;
+package com.basti564.dreamgrid.ui;
 
 import android.app.AlertDialog;
 import android.content.ClipData;
@@ -20,11 +20,11 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.lvonasek.pilauncher.ImageUtils;
-import com.lvonasek.pilauncher.MainActivity;
-import com.lvonasek.pilauncher.R;
-import com.lvonasek.pilauncher.SettingsProvider;
-import com.lvonasek.pilauncher.platforms.AbstractPlatform;
+import com.basti564.dreamgrid.ImageUtils;
+import com.basti564.dreamgrid.MainActivity;
+import com.basti564.dreamgrid.R;
+import com.basti564.dreamgrid.SettingsProvider;
+import com.basti564.dreamgrid.platforms.AbstractPlatform;
 
 import java.io.File;
 import java.util.ArrayList;

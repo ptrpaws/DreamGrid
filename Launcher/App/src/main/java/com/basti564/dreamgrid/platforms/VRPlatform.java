@@ -1,4 +1,4 @@
-package com.lvonasek.pilauncher.platforms;
+package com.basti564.dreamgrid.platforms;
 
 import android.app.Activity;
 import android.content.Context;
