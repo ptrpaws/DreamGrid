@@ -24,7 +24,7 @@ import java.util.Set;
 
 public class GroupsAdapter extends BaseAdapter
 {
-    public static final int MAX_GROUPS = 6;
+    public static final int MAX_GROUPS = 12;
     public static final String HIDDEN_GROUP = "HIDDEN!";
 
     private MainActivity mActivity;
