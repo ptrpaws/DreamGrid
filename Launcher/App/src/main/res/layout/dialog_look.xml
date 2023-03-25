@@ -33,28 +33,28 @@
             android:layout_width="80dp"
             android:layout_height="60dp"
             android:padding="5dp"
-            android:src="@drawable/bkg_glass"/>
+            android:src="@drawable/bkg_blossoms"/>
 
         <ImageView
             android:id="@+id/theme2"
             android:layout_width="80dp"
             android:layout_height="60dp"
             android:padding="5dp"
-            android:src="@drawable/bkg_rgb"/>
+            android:src="@drawable/bkg_drips"/>
 
         <ImageView
             android:id="@+id/theme3"
             android:layout_width="80dp"
             android:layout_height="60dp"
             android:padding="5dp"
-            android:src="@drawable/bkg_skin"/>
+            android:src="@drawable/bkg_orange"/>
 
         <ImageView
             android:id="@+id/theme4"
             android:layout_width="80dp"
             android:layout_height="60dp"
             android:padding="5dp"
-            android:src="@drawable/bkg_underwater"/>
+            android:src="@drawable/bkg_dawn"/>
 
         <ImageView
             android:id="@+id/theme_custom"

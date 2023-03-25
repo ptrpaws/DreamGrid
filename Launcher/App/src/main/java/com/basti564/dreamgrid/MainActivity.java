@@ -55,10 +55,10 @@ public class MainActivity extends Activity
     private static final int[] SCALES = {55, 70, 95, 130, 210};
     private static final int[] THEMES = {
             R.drawable.bkg_default,
-            R.drawable.bkg_glass,
-            R.drawable.bkg_rgb,
-            R.drawable.bkg_skin,
-            R.drawable.bkg_underwater
+            R.drawable.bkg_blossoms,
+            R.drawable.bkg_drips,
+            R.drawable.bkg_orange,
+            R.drawable.bkg_dawn
     };
     private static ImageView[] mTempViews;
 
