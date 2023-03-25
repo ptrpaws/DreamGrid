@@ -241,7 +241,7 @@ public class MainActivity extends Activity
     public void setTheme(ImageView[] views, int index) {
         SharedPreferences.Editor editor = mPreferences.edit();
         editor.putInt(SettingsProvider.KEY_CUSTOM_THEME, index);
-        editor.commit();
+        editor.apply();
         reloadUI();
 
         for (ImageView image : views) {
@@ -287,7 +287,7 @@ public class MainActivity extends Activity
             }
             SharedPreferences.Editor editor = mPreferences.edit();
             editor.putBoolean(SettingsProvider.KEY_EDITMODE, editMode);
-            editor.commit();
+            editor.apply();
             reloadUI();
             dialog.dismiss();
         });
@@ -317,7 +317,7 @@ public class MainActivity extends Activity
         names.setOnCheckedChangeListener((compoundButton, value) -> {
             SharedPreferences.Editor editor = mPreferences.edit();
             editor.putBoolean(SettingsProvider.KEY_CUSTOM_NAMES, value);
-            editor.commit();
+            editor.apply();
             reloadUI();
         });
 
@@ -327,7 +327,7 @@ public class MainActivity extends Activity
             public void onProgressChanged(SeekBar seekBar, int value, boolean b) {
                 SharedPreferences.Editor editor = mPreferences.edit();
                 editor.putInt(SettingsProvider.KEY_CUSTOM_OPACITY, value);
-                editor.commit();
+                editor.apply();
                 reloadUI();
             }
 
@@ -347,7 +347,7 @@ public class MainActivity extends Activity
             public void onProgressChanged(SeekBar seekBar, int value, boolean b) {
                 SharedPreferences.Editor editor = mPreferences.edit();
                 editor.putInt(SettingsProvider.KEY_CUSTOM_SCALE, value);
-                editor.commit();
+                editor.apply();
                 reloadUI();
             }
 
@@ -398,7 +398,7 @@ public class MainActivity extends Activity
         android.setOnCheckedChangeListener((compoundButton, value) -> {
             SharedPreferences.Editor editor = mPreferences.edit();
             editor.putBoolean(SettingsProvider.KEY_PLATFORM_ANDROID, value);
-            editor.commit();
+            editor.apply();
             reloadUI();
         });
         d.findViewById(R.id.layout_android).setVisibility(new AndroidPlatform().isSupported(this) ? View.VISIBLE : View.GONE);
@@ -408,7 +408,7 @@ public class MainActivity extends Activity
         psp.setOnCheckedChangeListener((compoundButton, value) -> {
             SharedPreferences.Editor editor = mPreferences.edit();
             editor.putBoolean(SettingsProvider.KEY_PLATFORM_PSP, value);
-            editor.commit();
+            editor.apply();
             reloadUI();
         });
         d.findViewById(R.id.layout_psp).setVisibility(new PSPPlatform().isSupported(this) ? View.VISIBLE : View.GONE);
@@ -418,7 +418,7 @@ public class MainActivity extends Activity
         vr.setOnCheckedChangeListener((compoundButton, value) -> {
             SharedPreferences.Editor editor = mPreferences.edit();
             editor.putBoolean(SettingsProvider.KEY_PLATFORM_VR, value);
-            editor.commit();
+            editor.apply();
             reloadUI();
         });
         d.findViewById(R.id.layout_vr).setVisibility(new VRPlatform().isSupported(this) ? View.VISIBLE : View.GONE);

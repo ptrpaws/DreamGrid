@@ -220,7 +220,7 @@ public class SettingsProvider
             }
             editor.putStringSet(KEY_APP_LIST, apps);
 
-            editor.commit();
+            editor.apply();
         }
         catch(Exception e)
         {
@@ -268,7 +268,7 @@ public class SettingsProvider
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(appInfo.packageName, newName);
-        editor.commit();
+        editor.apply();
     }
 
     public String simplifyName(String name) {
