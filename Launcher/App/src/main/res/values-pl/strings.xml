@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">.. \u03C0 Launcher ..</string>
+    <string name="app_name">DreamGrid</string>
     <string name="default_apps_group">Aplikacje</string>
     <string name="add_group">Dodaj grupę</string>
     <string name="delete_group">Usuń grupę</string>
