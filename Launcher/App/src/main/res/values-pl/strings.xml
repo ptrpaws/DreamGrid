@@ -7,20 +7,10 @@
     <string name="app_details">Szczegóły aplikacji</string>
     <string name="apps_hidden">Ukryte</string>
 
-    <string name="settings_apps_enable">Wł. edytowanie</string>
-    <string name="settings_apps_disable">Wył. edytowanie</string>
-    <string name="settings_device">Ustawienia urządzenia</string>
-    <string name="settings_look">Dostosuj</string>
-    <string name="settings_platforms">Platformy</string>
-    <string name="settings_tweaks">Usprawnienia systemowe</string>
     <string name="background_opacity">Przezroczystość tła</string>
     <string name="icons_size">Rozmiar ikon</string>
     <string name="show_app_names">Pokaż nazwy aplikacji</string>
     <string name="start_shortcut">Otwórz launcher za pomocą ikony Eksploruj z poziomu paska systemowego. W celu lepszego działania zaleca się wyłączenie aplikacji Eksploruj.</string>
-
-    <string name="service_app_shortcut">Skrót aplikacji</string>
-    <string name="service_explore_app">Aplikacja Eksploruj</string>
-    <string name="service_os_updater">Aktualizator systemu</string>
 
     <string name="explore_accessibility_event_name">[Eksploruj]</string>
 </resources>

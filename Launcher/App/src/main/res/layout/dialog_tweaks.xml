@@ -7,15 +7,6 @@
     android:padding="20dp"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:paddingBottom="20dp"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        android:text="@string/settings_tweaks"/>
-
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -25,24 +16,18 @@
             android:id="@+id/service_app_shortcut"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:tooltipText="@string/service_app_shortcut"
-            app:icon="@drawable/ic_shortcut"
-            app:text="@string/service_app_shortcut"/>
+            app:icon="@drawable/ic_shortcut"/>
 
         <com.basti564.dreamgrid.ui.SettingsGroup
             android:id="@+id/service_explore_app"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:tooltipText="@string/service_explore_app"
-            app:icon="@drawable/ic_explore"
-            app:text="@string/service_explore_app"/>
+            app:icon="@drawable/ic_explore"/>
 
         <com.basti564.dreamgrid.ui.SettingsGroup
             android:id="@+id/service_os_updater"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:tooltipText="@string/service_os_updater"
-            app:icon="@drawable/ic_updater"
-            app:text="@string/service_os_updater"/>
+            app:icon="@drawable/ic_updater"/>
     </LinearLayout>
 </LinearLayout>

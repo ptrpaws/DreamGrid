@@ -8,20 +8,10 @@
     <string name="app_details">App Details</string>
     <string name="apps_hidden">Versteckt</string>
 
-    <string name="settings_apps_enable">Editieren aktivieren</string>
-    <string name="settings_apps_disable">Editieren deaktivieren</string>
-    <string name="settings_device">Geräteeinstellungen</string>
-    <string name="settings_look">Anpassen</string>
-    <string name="settings_platforms">Plattformen</string>
-    <string name="settings_tweaks">System Tweaks</string>
     <string name="background_opacity">Hintergrund sichtbarkeit</string>
     <string name="icons_size">Icons Größe</string>
     <string name="show_app_names">Zeige App Namen</string>
     <string name="start_shortcut">Öffne den Launcher mit dem Entdecken Icon vom Dashboard aus. Für ein flüssigeres Erlebnis sollte die Entdecken App deaktiviert werden.\n\nUNTERSTÜZT NICHT ALLE HEADSET SPRACHEN. SETZE DEINE HEADSETSPRACHE AUF ENGLISCH FALLS DIESE FUNKTION NICHT RICHTIG FUNKTIONIERT.</string>
-
-    <string name="service_app_shortcut">App Verknüpfung</string>
-    <string name="service_explore_app">Entdecken App</string>
-    <string name="service_os_updater">OS Updater</string>
 
     <string name="explore_accessibility_event_name">[Entdecken]</string>
 </resources>

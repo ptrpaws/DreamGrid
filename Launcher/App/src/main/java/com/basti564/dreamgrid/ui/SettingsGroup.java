@@ -13,7 +13,6 @@ import com.basti564.dreamgrid.R;
 public class SettingsGroup extends LinearLayout {
 
     private ImageView mIcon;
-    private TextView mText;
 
     public SettingsGroup(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -34,24 +33,16 @@ public class SettingsGroup extends LinearLayout {
 
     private void initView() {
         View root = inflate(getContext(), R.layout.lv_app, this);
-        mText = root.findViewById(R.id.textLabel);
         mIcon = root.findViewById(R.id.imageLabel);
     }
 
     private void getAttributes(Context context, AttributeSet attrs, int defStyleAttr) {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SettingsGroup, defStyleAttr, 0);
-        mText.setText(a.getString(R.styleable.SettingsGroup_text));
-        mText.setSingleLine(false);
-        mText.setLines(2);
         mIcon.setImageDrawable(a.getDrawable(R.styleable.SettingsGroup_icon));
         a.recycle();
     }
 
     public void setIcon(int resource) {
         mIcon.setImageResource(resource);
-    }
-
-    public void setText(String value) {
-        mText.setText(value);
     }
 }
