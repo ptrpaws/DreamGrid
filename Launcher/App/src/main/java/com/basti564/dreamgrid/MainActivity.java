@@ -432,6 +432,7 @@ public class MainActivity extends Activity
             editor.apply();
             reloadUI();
         });
+        android.setVisibility(new AndroidPlatform().isSupported(this) ? View.VISIBLE : View.GONE);
 
         SettingsGroup psp = d.findViewById(R.id.settings_psp);
         psp.setOnClickListener(view -> {
@@ -441,6 +442,7 @@ public class MainActivity extends Activity
             editor.apply();
             reloadUI();
         });
+        psp.setVisibility(new PSPPlatform().isSupported(this) ? View.VISIBLE : View.GONE);
 
         SettingsGroup vr = d.findViewById(R.id.settings_vr);
         vr.setOnClickListener(view -> {
@@ -450,6 +452,7 @@ public class MainActivity extends Activity
             editor.apply();
             reloadUI();
         });
+        vr.setVisibility(new VRPlatform().isSupported(this) ? View.VISIBLE : View.GONE);
     }
 
     private void showSettingsTweaks() {
