@@ -18,7 +18,9 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
@@ -260,15 +262,24 @@ public class MainActivity extends Activity
 
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         lp.copyFrom(dialog.getWindow().getAttributes());
-        if (AbstractPlatform.isMagicLeapHeadset() || AbstractPlatform.isOculusHeadset()) {
-            lp.width = 660;
-            lp.height = 400;
-        }
+        lp.width = 660;
+        lp.height = getWindowHeight() - 200;
+        lp.gravity = Gravity.END;  // or Gravity.RIGHT
+        lp.x = 50;  // add some distance from the border
+        lp.y = 50;
         dialog.getWindow().setAttributes(lp);
         dialog.findViewById(R.id.layout).requestLayout();
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.bkg_dialog);
         return dialog;
     }
+
+    private int getWindowHeight() {
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        return metrics.heightPixels;
+    }
+
+
 
     private void showSettingsMain() {
 
