@@ -22,6 +22,7 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.GridView;
@@ -43,6 +44,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import eightbitlab.com.blurview.BlurView;
+import eightbitlab.com.blurview.RenderScriptBlur;
 
 public class MainActivity extends Activity
 {
@@ -96,6 +100,24 @@ public class MainActivity extends Activity
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         mSettings = SettingsProvider.getInstance(this);
         instance = this;
+
+
+
+
+        BlurView blurView = findViewById(R.id.blurView);
+
+        float radius = 20f;
+
+        View decorView = getWindow().getDecorView();
+        ViewGroup rootView = decorView.findViewById(android.R.id.content);
+
+        Drawable windowBackground = decorView.getBackground();
+
+        blurView.setupWith(rootView, new RenderScriptBlur(this)) // or RenderEffectBlur
+                .setFrameClearDrawable(windowBackground) // Optional
+                .setBlurRadius(radius);
+
+
 
         // Get UI instances
         mAppGrid = findViewById(R.id.appsView);
