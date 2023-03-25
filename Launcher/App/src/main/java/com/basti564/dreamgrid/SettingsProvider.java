@@ -225,7 +225,7 @@ public class SettingsProvider
     }
 
     public String addGroup() {
-        String name = "XXX";
+        String name = "Unnamed ";
         List<String> groups = getAppGroupsSorted(false);
         if (groups.contains(name)) {
             int index = 1;
