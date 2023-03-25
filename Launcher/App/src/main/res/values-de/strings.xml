@@ -3,7 +3,7 @@
     <string name="app_name">DreamGrid</string>
     <string name="default_apps_group">Apps</string>
     <string name="add_group">Gruppe hinzufügen</string>
-    <string name="delete_group">Gruppoe löschen</string>
+    <string name="delete_group">Gruppe löschen</string>
     <string name="edit_group">Gruppe editieren</string>
     <string name="app_details">App Details</string>
     <string name="apps_hidden">Versteckt</string>
