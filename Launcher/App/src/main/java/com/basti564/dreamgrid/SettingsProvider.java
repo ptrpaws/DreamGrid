@@ -86,34 +86,37 @@ public class SettingsProvider
         // Put them into a map with package name as keyword for faster handling
         String ownPackageName = context.getApplicationContext().getPackageName();
         Map<String, ApplicationInfo> appMap = new LinkedHashMap<>();
-        for(ApplicationInfo installedApplication : installedApplications)
-        {
+        for (ApplicationInfo installedApplication : installedApplications) {
             String pkg = installedApplication.packageName;
             boolean showAll = selected.isEmpty();
             boolean isNotAssigned = !apps.containsKey(pkg) && first;
             boolean isInGroup = apps.containsKey(pkg) && selected.contains(apps.get(pkg));
             boolean isVr = hasMetadata(installedApplication, "com.samsung.android.vr.application.mode");
             boolean isEnvironment = !isVr && hasMetadata(installedApplication, "com.oculus.environmentVersion");
-            if(showAll || isNotAssigned || isInGroup)
-            {
-                // Check for system app
+            if (showAll || isNotAssigned || isInGroup) {
                 boolean isSystemApp = (installedApplication.flags & ApplicationInfo.FLAG_SYSTEM) == 1;
-                if (pkg.startsWith("com.oculus.browser")) isSystemApp = false;
-                if (pkg.startsWith("metapwa")) isSystemApp = true;
-                if (pkg.startsWith("oculuspwa")) isSystemApp = true;
-                if (pkg.startsWith("com.facebook.arvr")) isSystemApp = true;
-                if (pkg.startsWith("com.meta.environment")) isSystemApp = true;
-                if (pkg.startsWith("com.oculus.avatar2")) isSystemApp = true;
-                if (pkg.startsWith("com.oculus.environment")) isSystemApp = true;
-                if (pkg.startsWith("com.oculus.helpcenter")) isSystemApp = true;
-                if (pkg.startsWith("com.oculus.systemutilities")) isSystemApp = true;
-                if (pkg.startsWith("com.meta.AccountsCenter.pwa")) isSystemApp = true;
-                if (pkg.startsWith("com.pico")) isSystemApp = true;
-                if (pkg.startsWith("com.pvr")) isSystemApp = true;
-                if (!isSystemApp && !isEnvironment) {
-                    if(!installedApplication.packageName.equals(ownPackageName)) {
-                        appMap.put(installedApplication.packageName, installedApplication);
+                String[] systemAppPrefixes = {
+                        "metapwa", "oculuspwa", "com.facebook.arvr", "com.meta.environment",
+                        "com.oculus.avatar2", "com.oculus.environment", "com.oculus.helpcenter",
+                        "com.oculus.systemutilities", "com.meta.AccountsCenter.pwa", "com.pico", "com.pvr"
+                };
+                String[] nonSystemAppPrefixes = {
+                        "com.oculus.browser", "com.pico.playsys", "com.picovr.assistantphone", "com.pico.metricstool"
+                };
+                for (String prefix : systemAppPrefixes) {
+                    if (pkg.startsWith(prefix)) {
+                        isSystemApp = true;
+                        break;
                     }
+                }
+                for (String prefix : nonSystemAppPrefixes) {
+                    if (pkg.startsWith(prefix)) {
+                        isSystemApp = false;
+                        break;
+                    }
+                }
+                if (!isSystemApp && !isEnvironment && !pkg.equals(ownPackageName)) {
+                    appMap.put(pkg, installedApplication);
                 }
             }
         }
