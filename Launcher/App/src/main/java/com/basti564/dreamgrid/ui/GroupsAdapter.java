@@ -183,11 +183,25 @@ public class GroupsAdapter extends BaseAdapter
     }
 
     private void setLook(int position, View itemView, View menu) {
-        if (mSelection.contains(mItems.get(position))) {
-            int[] colors = new int[] {Color.argb(192, 255, 255, 255), Color.TRANSPARENT};
-            GradientDrawable.Orientation orientation = GradientDrawable.Orientation.TOP_BOTTOM;
-            itemView.setBackground(new GradientDrawable(orientation, colors));
+        boolean isSelected = mSelection.contains(mItems.get(position));
 
+        if (isSelected) {
+            boolean isLeft = (position == 0) || !mSelection.contains(mItems.get(position - 1));
+            boolean isRight = (position + 1 >= mItems.size()) || !mSelection.contains(mItems.get(position + 1));
+
+            int shapeResourceId;
+            if (isLeft && isRight) {
+                shapeResourceId = R.drawable.selected_tab;
+            } else if (isLeft) {
+                shapeResourceId = R.drawable.left_selected_tab;
+            } else if (isRight) {
+                shapeResourceId = R.drawable.right_selected_tab;
+            } else {
+                shapeResourceId = R.drawable.middle_selected_tab;
+            }
+            itemView.setBackgroundResource(shapeResourceId);
+            TextView textView = itemView.findViewById(R.id.textLabel);
+            textView.setTextColor(Color.parseColor("#FF000000")); // set selected tab text color
             if (mEditMode && (position < getCount() - 2)) {
                 menu.setVisibility(View.VISIBLE);
             } else {
@@ -195,6 +209,8 @@ public class GroupsAdapter extends BaseAdapter
             }
         } else {
             itemView.setBackgroundColor(Color.TRANSPARENT);
+            TextView textView = itemView.findViewById(R.id.textLabel);
+            textView.setTextColor(Color.parseColor("#90000000")); // set unselected tab text color
             menu.setVisibility(View.GONE);
         }
     }
