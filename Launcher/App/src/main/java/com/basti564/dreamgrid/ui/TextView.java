@@ -11,7 +11,7 @@ import android.util.AttributeSet;
 
 import com.basti564.dreamgrid.R;
 
-public class TextView extends android.widget.TextView {
+public class TextView extends androidx.appcompat.widget.AppCompatTextView {
 
 	private float strokeWidth;
 	private Integer strokeColor;
