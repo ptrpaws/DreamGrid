@@ -4,8 +4,9 @@ android {
     compileSdkVersion 29
 
     defaultConfig {
-        minSdkVersion 23
-        targetSdkVersion 23
+        minSdkVersion 26
+        //noinspection ExpiredTargetSdkVersion
+        targetSdkVersion 26
         versionCode 55
         versionName "0.5.5"
     }
