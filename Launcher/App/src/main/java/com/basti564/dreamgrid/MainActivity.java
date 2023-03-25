@@ -293,11 +293,17 @@ public class MainActivity extends Activity
         return metrics.heightPixels;
     }
 
-
+    private boolean isSettingsLookOpen = false;
 
     private void showSettingsMain() {
-
         Dialog dialog = showPopup(R.layout.dialog_settings);
+
+        dialog.findViewById(R.id.settings_look).setOnClickListener(view -> {
+            if (!isSettingsLookOpen) {
+                isSettingsLookOpen = true;
+                showSettingsLook();
+            }
+        });
         SettingsGroup apps = dialog.findViewById(R.id.settings_apps);
         boolean editMode = !mPreferences.getBoolean(SettingsProvider.KEY_EDITMODE, false);
         apps.setIcon(editMode ? R.drawable.ic_editing_on : R.drawable.ic_editing_off);
@@ -336,6 +342,9 @@ public class MainActivity extends Activity
 
     private void showSettingsLook() {
         Dialog d = showPopup(R.layout.dialog_look);
+
+        // set onDismissListener to reset the flag when dialog is dismissed
+        d.setOnDismissListener(dialogInterface -> isSettingsLookOpen = false);
 
         CheckBox names = d.findViewById(R.id.checkbox_names);
         names.setChecked(mPreferences.getBoolean(SettingsProvider.KEY_CUSTOM_NAMES, DEFAULT_NAMES));
