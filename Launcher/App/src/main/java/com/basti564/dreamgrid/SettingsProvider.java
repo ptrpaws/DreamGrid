@@ -229,14 +229,14 @@ public class SettingsProvider
     }
 
     public String addGroup() {
-        String name = "Unnamed ";
+        String name = "New";
         List<String> groups = getAppGroupsSorted(false);
         if (groups.contains(name)) {
             int index = 1;
-            while (groups.contains(name + index)) {
+            while (groups.contains(name + " " + index)) {
                 index++;
             }
-            name = name + index;
+            name = name + " " + index;
         }
         groups.add(name);
         setAppGroups(new HashSet<>(groups));
