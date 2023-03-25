@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
@@ -21,18 +22,18 @@ public class VRPlatform extends AbstractPlatform {
 
     @Override
     public ArrayList<ApplicationInfo> getInstalledApps(Context context) {
-        ArrayList<ApplicationInfo> output = new ArrayList<>();
+        ArrayList<ApplicationInfo> installedApps = new ArrayList<>();
         if (!isSupported(context)) {
-            return output;
+            return installedApps;
         }
 
         PackageManager pm = context.getPackageManager();
         for (ApplicationInfo app : pm.getInstalledApplications(PackageManager.GET_META_DATA)) {
             if (isVirtualRealityApp(app)) {
-                output.add(app);
+                installedApps.add(app);
             }
         }
-        return output;
+        return installedApps;
     }
 
     @Override
@@ -52,11 +53,12 @@ public class VRPlatform extends AbstractPlatform {
 
         final File file = pkg2path(activity, pkg);
         if (file.exists()) {
-            if (AbstractPlatform.updateIcon(icon, file, pkg)) {
+            if (updateIcon(icon, file, pkg)) {
                 return;
             }
         }
-        downloadIcon(activity, pkg, name, () -> AbstractPlatform.updateIcon(icon, file, pkg));
+
+        downloadIcon(activity, pkg, name, () -> updateIcon(icon, file, pkg));
     }
 
     @Override
@@ -65,21 +67,21 @@ public class VRPlatform extends AbstractPlatform {
         context.getApplicationContext().startActivity(launchIntent);
     }
 
-    private void downloadIcon(final Activity context, String pkg, String name, final Runnable callback) {
-        final File file = pkg2path(context, pkg);
+    private void downloadIcon(Activity activity, String pkg, String name, Runnable callback) {
+        final File file = pkg2path(activity, pkg);
         new Thread(() -> {
             try {
                 String autogen = null;
                 if (ignoredIcons.contains(file.getName())) {
-                    //ignored icon
-                } else if (downloadFile(ICONS1_URL + pkg + ".jpg", file)) {
-                    context.runOnUiThread(callback);
-                } else if (downloadFile(ICONS2_URL + pkg.toLowerCase(Locale.US) + ".jpg", file)) {
-                    context.runOnUiThread(callback);
+                    // ignored icon
+                } else if (downloadIconFromUrl(ICONS1_URL + pkg + ".jpg", file)) {
+                    activity.runOnUiThread(callback);
+                } else if (downloadIconFromUrl(ICONS2_URL + pkg.toLowerCase(Locale.US) + ".jpg", file)) {
+                    activity.runOnUiThread(callback);
                 } else {
                     int count = 0;
-                    File info = new File(context.getApplicationInfo().dataDir, "applab.info");
-                    if (downloadFile(ICONS2_URL + "applab.info", info)) {
+                    File info = new File(activity.getApplicationInfo().dataDir, "applab.info");
+                    if (downloadIconFromUrl(ICONS2_URL + "applab.info", info)) {
                         try {
                             FileInputStream fis = new FileInputStream(info);
                             Scanner sc = new Scanner(fis);
@@ -94,7 +96,7 @@ public class VRPlatform extends AbstractPlatform {
                             }
                             sc.close();
                             fis.close();
-                        } catch (Exception e) {
+                        } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
@@ -102,13 +104,13 @@ public class VRPlatform extends AbstractPlatform {
                         Log.d("Missing icon", file.getName());
                         ignoredIcons.add(file.getName());
                     } else if (count == 1) {
-                        if (downloadFile(ICONS2_URL + autogen + ".jpg", file)) {
-                            context.runOnUiThread(callback);
+                        if (downloadIconFromUrl(ICONS2_URL + autogen + ".jpg", file)) {
+                            activity.runOnUiThread(callback);
                         } else {
                             Log.d("Missing icon", file.getName());
                             ignoredIcons.add(file.getName());
                         }
-                    } else if (count >= 2) {
+                    } else {
                         Log.d("Too many icons", file.getName());
                         ignoredIcons.add(file.getName());
                     }

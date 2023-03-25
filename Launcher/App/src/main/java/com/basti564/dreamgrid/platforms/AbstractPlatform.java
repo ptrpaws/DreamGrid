@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
@@ -61,12 +62,17 @@ public abstract class AbstractPlatform {
         return false;
     }
 
-    protected static boolean downloadFile(String url, File outputFile) {
+    boolean downloadIconFromUrl(String url, File outputFile) {
         try {
-            return saveStream(new URL(url).openStream(), outputFile);
-        } catch (Exception e) {
-            return false;
+            try (InputStream is = new URL(url).openStream()) {
+                if (saveStream(is, outputFile)) {
+                    return true;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return false;
     }
 
     protected static boolean saveStream(InputStream is, File outputFile) {
