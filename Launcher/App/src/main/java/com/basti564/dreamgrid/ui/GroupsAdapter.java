@@ -117,7 +117,7 @@ public class GroupsAdapter extends BaseAdapter
             dialog.findViewById(R.id.group_delete).setOnClickListener(view12 -> {
                 HashMap<String, String> newApps = new HashMap<>();
                 for (String pkg : apps.keySet()) {
-                    if (apps.get(pkg).compareTo(oldName) == 0) {
+                    if (oldName.equals(apps.get(pkg))) {
                         newApps.put(pkg, HIDDEN_GROUP);
                     } else {
                         newApps.put(pkg, apps.get(pkg));
@@ -173,7 +173,7 @@ public class GroupsAdapter extends BaseAdapter
 
         // set value into textview
         TextView textView = itemView.findViewById(R.id.textLabel);
-        if (mItems.get(position).compareTo(HIDDEN_GROUP) == 0) {
+        if (HIDDEN_GROUP.equals(mItems.get(position))) {
             textView.setText(" -  " + mActivity.getString(R.string.apps_hidden));
         } else {
             textView.setText(mItems.get(position));
