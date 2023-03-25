@@ -45,6 +45,9 @@ public class TextView extends androidx.appcompat.widget.AppCompatTextView {
 
 	@Override
 	public void onDraw(Canvas canvas){
+		String text = getText().toString();
+		setText(text.toUpperCase());
+
 		super.onDraw(canvas);
 		
 		freeze();
