@@ -23,6 +23,7 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewOutlineProvider;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.GridView;
@@ -101,9 +102,6 @@ public class MainActivity extends Activity
         mSettings = SettingsProvider.getInstance(this);
         instance = this;
 
-
-
-
         BlurView blurView = findViewById(R.id.blurView);
 
         float radius = 20f;
@@ -117,7 +115,8 @@ public class MainActivity extends Activity
                 .setFrameClearDrawable(windowBackground) // Optional
                 .setBlurRadius(radius);
 
-
+        blurView.setOutlineProvider(ViewOutlineProvider.BACKGROUND);
+        blurView.setClipToOutline(true);
 
         // Get UI instances
         mAppGrid = findViewById(R.id.appsView);

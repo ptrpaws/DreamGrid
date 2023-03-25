@@ -17,12 +17,14 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
         <eightbitlab.com.blurview.BlurView
             android:id="@+id/blurView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="46dp"
+            android:layout_marginBottom="23dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:background="@drawable/rounded"
             app:blurOverlayColor="#30FFFFFF">
 
@@ -36,8 +38,6 @@
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_weight="1"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
                     android:padding="0dp"
                     android:dividerHeight="0dp"
                     android:divider="#00000000"/>
