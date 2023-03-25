@@ -3,6 +3,8 @@ package com.basti564.dreamgrid.ui;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
@@ -11,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
 
 import com.basti564.dreamgrid.MainActivity;
 import com.basti564.dreamgrid.R;
@@ -75,6 +79,10 @@ public class GroupsAdapter extends BaseAdapter
 
         // set menu action
         View menu = itemView.findViewById(R.id.menu);
+        Drawable drawable = ContextCompat.getDrawable(menu.getContext(), R.drawable.ic_info);
+        assert drawable != null;
+        drawable.setColorFilter(Color.parseColor("#90000000"), PorterDuff.Mode.SRC_ATOP);
+        menu.setBackground(drawable);
         menu.setOnClickListener(view -> {
 
             final Map<String, String> apps = mSettings.getAppList();
