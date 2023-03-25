@@ -421,39 +421,35 @@ public class MainActivity extends Activity
         }
     }
 
-
     private void showSettingsPlatforms() {
         Dialog d = showPopup(R.layout.dialog_platforms);
 
-        CheckBox android = d.findViewById(R.id.checkbox_android);
-        android.setChecked(mPreferences.getBoolean(SettingsProvider.KEY_PLATFORM_ANDROID, true));
-        android.setOnCheckedChangeListener((compoundButton, value) -> {
+        SettingsGroup android = d.findViewById(R.id.settings_android);
+        android.setOnClickListener(view -> {
+            boolean isChecked = mPreferences.getBoolean(SettingsProvider.KEY_PLATFORM_ANDROID, true);
             SharedPreferences.Editor editor = mPreferences.edit();
-            editor.putBoolean(SettingsProvider.KEY_PLATFORM_ANDROID, value);
+            editor.putBoolean(SettingsProvider.KEY_PLATFORM_ANDROID, !isChecked);
             editor.apply();
             reloadUI();
         });
-        d.findViewById(R.id.layout_android).setVisibility(new AndroidPlatform().isSupported(this) ? View.VISIBLE : View.GONE);
 
-        CheckBox psp = d.findViewById(R.id.checkbox_psp);
-        psp.setChecked(mPreferences.getBoolean(SettingsProvider.KEY_PLATFORM_PSP, true));
-        psp.setOnCheckedChangeListener((compoundButton, value) -> {
+        SettingsGroup psp = d.findViewById(R.id.settings_psp);
+        psp.setOnClickListener(view -> {
+            boolean isChecked = mPreferences.getBoolean(SettingsProvider.KEY_PLATFORM_PSP, true);
             SharedPreferences.Editor editor = mPreferences.edit();
-            editor.putBoolean(SettingsProvider.KEY_PLATFORM_PSP, value);
+            editor.putBoolean(SettingsProvider.KEY_PLATFORM_PSP, !isChecked);
             editor.apply();
             reloadUI();
         });
-        d.findViewById(R.id.layout_psp).setVisibility(new PSPPlatform().isSupported(this) ? View.VISIBLE : View.GONE);
 
-        CheckBox vr = d.findViewById(R.id.checkbox_vr);
-        vr.setChecked(mPreferences.getBoolean(SettingsProvider.KEY_PLATFORM_VR, true));
-        vr.setOnCheckedChangeListener((compoundButton, value) -> {
+        SettingsGroup vr = d.findViewById(R.id.settings_vr);
+        vr.setOnClickListener(view -> {
+            boolean isChecked = mPreferences.getBoolean(SettingsProvider.KEY_PLATFORM_VR, true);
             SharedPreferences.Editor editor = mPreferences.edit();
-            editor.putBoolean(SettingsProvider.KEY_PLATFORM_VR, value);
+            editor.putBoolean(SettingsProvider.KEY_PLATFORM_VR, !isChecked);
             editor.apply();
             reloadUI();
         });
-        d.findViewById(R.id.layout_vr).setVisibility(new VRPlatform().isSupported(this) ? View.VISIBLE : View.GONE);
     }
 
     private void showSettingsTweaks() {

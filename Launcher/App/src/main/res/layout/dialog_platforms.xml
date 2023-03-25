@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,90 +8,24 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/layout_android"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+        android:layout_gravity="center_horizontal">
 
-        <View
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/ic_platform_android"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Android apps"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"/>
-
-        <CheckBox
-            android:id="@+id/checkbox_android"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/checkbox_off_background" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout_psp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
-
-        <View
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/ic_platform_psp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Sony Playstation Portable (PPSSPP)"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"/>
-
-        <CheckBox
-            android:id="@+id/checkbox_psp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/checkbox_off_background" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/layout_vr"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
-
-        <View
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/ic_platform_vr"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Virtual Reality"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"/>
-
-        <CheckBox
-            android:id="@+id/checkbox_vr"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/checkbox_off_background" />
+        <com.basti564.dreamgrid.ui.SettingsGroup
+            android:id="@+id/settings_android"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:icon="@drawable/ic_platform_android"/>
+        <com.basti564.dreamgrid.ui.SettingsGroup
+            android:id="@+id/settings_psp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:icon="@drawable/ic_platform_psp"/>
+        <com.basti564.dreamgrid.ui.SettingsGroup
+            android:id="@+id/settings_vr"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:icon="@drawable/ic_platform_vr"/>
     </LinearLayout>
 </LinearLayout>
