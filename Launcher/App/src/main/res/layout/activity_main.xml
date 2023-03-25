@@ -42,21 +42,6 @@
                     android:dividerHeight="0dp"
                     android:divider="#00000000"/>
 
-
-                <com.basti564.dreamgrid.ui.TextView
-                    android:id="@+id/pi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:background="@drawable/bkg_pi"
-                    android:text="\u03C0"
-                    android:textColor="@android:color/white"
-                    android:shadowColor="#80000000"
-                    android:shadowRadius="5"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"/>
-
             </LinearLayout>
         </eightbitlab.com.blurview.BlurView>
 
@@ -77,4 +62,16 @@
             android:horizontalSpacing="15dp"
             android:verticalSpacing="15dp"/>
     </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/pi"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_launcher"
+        android:background="@android:color/transparent"
+        android:scaleType="centerCrop"/>
 </RelativeLayout>

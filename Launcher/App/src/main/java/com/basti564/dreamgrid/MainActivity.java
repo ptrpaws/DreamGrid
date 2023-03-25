@@ -27,6 +27,7 @@ import android.view.ViewOutlineProvider;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 
@@ -158,16 +159,8 @@ public class MainActivity extends Activity
         });
 
         // Set pi button
-        View pi = findViewById(R.id.pi);
+        ImageButton pi = findViewById(R.id.pi);
         pi.setOnClickListener(view -> showSettingsMain());
-        pi.setOnLongClickListener(view -> {
-            boolean editMode = mPreferences.getBoolean(SettingsProvider.KEY_EDITMODE, false);
-            if (!editMode) {
-                mSettings.setSelectedGroups(mSettings.getAppGroups());
-                reloadUI();
-            }
-            return true;
-        });
     }
 
     @Override
