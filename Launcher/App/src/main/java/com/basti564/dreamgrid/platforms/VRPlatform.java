@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -43,7 +46,20 @@ public class VRPlatform extends AbstractPlatform {
 
     @Override
     public void loadIcon(Activity activity, ImageView icon, ApplicationInfo app, String name) {
-        icon.setImageDrawable(app.loadIcon(activity.getPackageManager()));
+        PackageManager pm = activity.getPackageManager();
+        Resources resources;
+        try {
+            resources = pm.getResourcesForApplication(app.packageName);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return;
+        }
+        int iconId = app.icon;
+        if (iconId == 0) {
+            iconId = android.R.drawable.sym_def_app_icon;
+        }
+        Drawable appIcon = resources.getDrawableForDensity(iconId, DisplayMetrics.DENSITY_XXXHIGH);
+        icon.setImageDrawable(appIcon);
 
         String pkg = app.packageName;
         if (iconCache.containsKey(pkg)) {
