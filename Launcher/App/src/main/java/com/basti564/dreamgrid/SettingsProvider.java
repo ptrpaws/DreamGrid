@@ -123,14 +123,8 @@ public class SettingsProvider {
             boolean isEnvironment = !isVr && hasMetadata(installedApplication, "com.oculus.environmentVersion");
             if (showAll || isNotAssigned || isInGroup) {
                 boolean isSystemApp = (installedApplication.flags & ApplicationInfo.FLAG_SYSTEM) == 1;
-                String[] systemAppPrefixes = {
-                        "metapwa", "oculuspwa", "com.facebook.arvr", "com.meta.environment",
-                        "com.oculus.avatar2", "com.oculus.environment", "com.oculus.helpcenter", "com.oculus.remotedesktop",
-                        "com.oculus.systemutilities", "com.oculus.mobile_mrc_setup", "com.meta.AccountsCenter.pwa", "com.oculus.accountscenter", "com.pico", "com.pvr"
-                };
-                String[] nonSystemAppPrefixes = {
-                        "com.oculus.browser", "com.pico.playsys", "com.picovr.assistantphone", "com.pico.metricstool", "com.ss.android.ttvr.global", "com.android.settings"
-                };
+                String[] systemAppPrefixes = context.getResources().getStringArray(R.array.system_app_prefixes);
+                String[] nonSystemAppPrefixes = context.getResources().getStringArray(R.array.non_system_app_prefixes);
                 for (String prefix : systemAppPrefixes) {
                     if (pkg.startsWith(prefix)) {
                         isSystemApp = true;

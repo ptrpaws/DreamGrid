@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="non_system_app_prefixes">
+        <item>com.android.settings</item>
+        <item>com.oculus.browser</item>
+        <item>com.pico.metricstool</item>
+        <item>com.pico.playsys</item>
+        <item>com.picovr.assistantphone</item>
+        <item>com.ss.android.ttvr.global</item>
+    </string-array>
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="system_app_prefixes">
+        <item>com.facebook.arvr</item>
+        <item>com.meta.AccountsCenter.pwa</item>
+        <item>com.meta.environment</item>
+        <item>com.oculus.accountscenter</item>
+        <item>com.oculus.avatar2</item>
+        <item>com.oculus.environment</item>
+        <item>com.oculus.helpcenter</item>
+        <item>com.oculus.mobile_mrc_setup</item>
+        <item>com.oculus.remotedesktop</item>
+        <item>com.oculus.systemutilities</item>
+        <item>com.pico</item>
+        <item>com.pvr</item>
+        <item>metapwa</item>
+        <item>oculuspwa</item>
+    </string-array>
+</resources>
