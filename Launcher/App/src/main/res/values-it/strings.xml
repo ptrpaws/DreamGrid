@@ -11,5 +11,5 @@
     <string name="background_opacity">Opacità sfondo</string>
     <string name="icons_size">Dimensione icone</string>
     <string name="show_app_names">Mostra nomi app</string>
-    <string name="start_shortcut">Apri il launcher con l'icona Esplora dalla dashboard di sistema. Per un'esperienza fluida, si consiglia di disattivare l'app Esplora.</string>
+    <string name="start_shortcut">Apri il launcher con l\'icona Esplora dalla dashboard di sistema. Per un\'esperienza fluida, si consiglia di disattivare l\'app Esplora.</string>
 </resources>
