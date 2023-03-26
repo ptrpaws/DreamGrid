@@ -39,14 +39,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.esafirm.imagepicker.features.ImagePicker;
-import com.esafirm.imagepicker.model.Image;
 import com.basti564.dreamgrid.platforms.AbstractPlatform;
 import com.basti564.dreamgrid.platforms.AndroidPlatform;
 import com.basti564.dreamgrid.platforms.PSPPlatform;
 import com.basti564.dreamgrid.platforms.VRPlatform;
 import com.basti564.dreamgrid.ui.AppsAdapter;
 import com.basti564.dreamgrid.ui.GroupsAdapter;
+import com.esafirm.imagepicker.features.ImagePicker;
+import com.esafirm.imagepicker.model.Image;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,16 +61,14 @@ import java.util.Set;
 import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
 
-public class MainActivity extends Activity
-{
+public class MainActivity extends Activity {
+    public static final int PICK_ICON_CODE = 450;
+    public static final int PICK_THEME_CODE = 95;
     private static final String CUSTOM_THEME = "theme.png";
     private static final boolean DEFAULT_NAMES = true;
     private static final int DEFAULT_OPACITY = 10;
     private static final int DEFAULT_SCALE = 2;
     private static final int DEFAULT_THEME = 0;
-    public static final int PICK_ICON_CODE = 450;
-    public static final int PICK_THEME_CODE = 95;
-
     private static final int[] SCALES = {55, 70, 95, 130, 210};
     private static final int[] THEMES = {
             R.drawable.bkg_blossoms,
@@ -80,15 +78,15 @@ public class MainActivity extends Activity
             R.drawable.bkg_bland
     };
     private static ImageView[] mTempViews;
-
+    private static MainActivity instance = null;
     private GridView mAppGrid;
     private ImageView mBackground;
     private GridView mGroupPanel;
-
-    private static MainActivity instance = null;
     private boolean mFocus;
     private SharedPreferences mPreferences;
     private SettingsProvider mSettings;
+    private ImageView mSelectedImageView;
+    private boolean isSettingsLookOpen = false;
 
     public static void reset(Context context) {
         try {
@@ -103,8 +101,7 @@ public class MainActivity extends Activity
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         if (AbstractPlatform.isMagicLeapHeadset()) {
@@ -271,8 +268,6 @@ public class MainActivity extends Activity
         }
     }
 
-    private ImageView mSelectedImageView;
-
     public void setSelectedImageView(ImageView imageView) {
         mSelectedImageView = imageView;
     }
@@ -283,11 +278,11 @@ public class MainActivity extends Activity
         if (requestCode == PICK_ICON_CODE) {
             if (resultCode == RESULT_OK) {
                 for (Image image : ImagePicker.getImages(data)) {
-                    ((AppsAdapter)mAppGrid.getAdapter()).onImageSelected(image.getPath(), mSelectedImageView);
+                    ((AppsAdapter) mAppGrid.getAdapter()).onImageSelected(image.getPath(), mSelectedImageView);
                     break;
                 }
             } else {
-                ((AppsAdapter)mAppGrid.getAdapter()).onImageSelected(null, mSelectedImageView);
+                ((AppsAdapter) mAppGrid.getAdapter()).onImageSelected(null, mSelectedImageView);
             }
         } else if (requestCode == PICK_THEME_CODE) {
             if (resultCode == RESULT_OK) {
@@ -304,7 +299,7 @@ public class MainActivity extends Activity
     }
 
     public String getSelectedPackage() {
-        return ((AppsAdapter)mAppGrid.getAdapter()).getSelectedPackage();
+        return ((AppsAdapter) mAppGrid.getAdapter()).getSelectedPackage();
     }
 
     public void reloadUI() {
@@ -373,8 +368,6 @@ public class MainActivity extends Activity
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         return metrics.heightPixels;
     }
-
-    private boolean isSettingsLookOpen = false;
 
     private void showSettingsMain() {
         Dialog dialog = showPopup(R.layout.dialog_settings);
@@ -460,10 +453,12 @@ public class MainActivity extends Activity
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {}
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {}
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
         });
         opacity.setProgress(mPreferences.getInt(SettingsProvider.KEY_CUSTOM_OPACITY, DEFAULT_OPACITY));
         opacity.setMax(10);
@@ -480,10 +475,12 @@ public class MainActivity extends Activity
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {}
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {}
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
         });
         scale.setProgress(mPreferences.getInt(SettingsProvider.KEY_CUSTOM_SCALE, DEFAULT_SCALE));
         scale.setMax(SCALES.length - 1);

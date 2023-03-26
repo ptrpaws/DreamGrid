@@ -24,11 +24,6 @@ public abstract class AbstractPlatform {
     protected static final HashMap<String, Drawable> iconCache = new HashMap<>();
     protected static final HashSet<String> ignoredIcons = new HashSet<>();
 
-    public abstract ArrayList<ApplicationInfo> getInstalledApps(Context context);
-    public abstract boolean isSupported(Context context);
-    public abstract void loadIcon(Activity activity, ImageView icon, ApplicationInfo app, String name);
-    public abstract void runApp(Context context, ApplicationInfo app, boolean multiwindow);
-
     public static void clearIconCache() {
         ignoredIcons.clear();
         iconCache.clear();
@@ -62,19 +57,6 @@ public abstract class AbstractPlatform {
         return false;
     }
 
-    boolean downloadIconFromUrl(String url, File outputFile) {
-        try {
-            try (InputStream is = new URL(url).openStream()) {
-                if (saveStream(is, outputFile)) {
-                    return true;
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
     protected static boolean saveStream(InputStream is, File outputFile) {
         try {
             DataInputStream dis = new DataInputStream(is);
@@ -82,7 +64,7 @@ public abstract class AbstractPlatform {
             int length;
             byte[] buffer = new byte[65536];
             FileOutputStream fos = new FileOutputStream(outputFile);
-            while ((length = dis.read(buffer))>0) {
+            while ((length = dis.read(buffer)) > 0) {
                 fos.write(buffer, 0, length);
             }
             fos.flush();
@@ -95,8 +77,7 @@ public abstract class AbstractPlatform {
                         fos = new FileOutputStream(outputFile);
                         bitmap.compress(Bitmap.CompressFormat.JPEG, 90, fos);
                         fos.close();
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -139,6 +120,27 @@ public abstract class AbstractPlatform {
                     return true;
                 }
             }
+        }
+        return false;
+    }
+
+    public abstract ArrayList<ApplicationInfo> getInstalledApps(Context context);
+
+    public abstract boolean isSupported(Context context);
+
+    public abstract void loadIcon(Activity activity, ImageView icon, ApplicationInfo app, String name);
+
+    public abstract void runApp(Context context, ApplicationInfo app, boolean multiwindow);
+
+    boolean downloadIconFromUrl(String url, File outputFile) {
+        try {
+            try (InputStream is = new URL(url).openStream()) {
+                if (saveStream(is, outputFile)) {
+                    return true;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return false;
     }

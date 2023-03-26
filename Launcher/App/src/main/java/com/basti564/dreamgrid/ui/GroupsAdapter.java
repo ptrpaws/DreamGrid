@@ -24,8 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class GroupsAdapter extends BaseAdapter
-{
+public class GroupsAdapter extends BaseAdapter {
     public static final int MAX_GROUPS = 12;
     public static final String HIDDEN_GROUP = "HIDDEN!";
 
@@ -35,9 +34,10 @@ public class GroupsAdapter extends BaseAdapter
     private final SettingsProvider mSettings;
     private final boolean mEditMode;
 
-    /** Create new adapter */
-    public GroupsAdapter(MainActivity activity, boolean editMode)
-    {
+    /**
+     * Create new adapter
+     */
+    public GroupsAdapter(MainActivity activity, boolean editMode) {
         mActivity = activity;
         mEditMode = editMode;
         mSettings = SettingsProvider.getInstance(activity);
@@ -51,23 +51,19 @@ public class GroupsAdapter extends BaseAdapter
         mSelection = settings.getSelectedGroups();
     }
 
-    public int getCount()
-    {
+    public int getCount() {
         return mItems.size();
     }
 
-    public String getItem(int position)
-    {
+    public String getItem(int position) {
         return mItems.get(position);
     }
 
-    public long getItemId(int position)
-    {
+    public long getItemId(int position) {
         return position;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent)
-    {
+    public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View itemView = inflater.inflate(R.layout.lv_group, parent, false);
 
@@ -148,7 +144,7 @@ public class GroupsAdapter extends BaseAdapter
         // set drag and drop
         itemView.setOnDragListener((view, event) -> {
             if (event.getAction() == DragEvent.ACTION_DRAG_ENTERED) {
-                int[] colors = new int[] {Color.argb(192, 128, 128, 255), Color.TRANSPARENT};
+                int[] colors = new int[]{Color.argb(192, 128, 128, 255), Color.TRANSPARENT};
                 GradientDrawable.Orientation orientation = GradientDrawable.Orientation.LEFT_RIGHT;
                 itemView.setBackground(new GradientDrawable(orientation, colors));
             } else if (event.getAction() == DragEvent.ACTION_DRAG_EXITED) {

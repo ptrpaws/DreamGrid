@@ -30,8 +30,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AppsAdapter extends BaseAdapter
-{
+public class AppsAdapter extends BaseAdapter {
+    private static Drawable mTempIcon;
+    private static File mTempFile;
+    private static String mTempPackage;
+    private static long mTempTimestamp;
     private final MainActivity mContext;
     private final List<ApplicationInfo> mInstalledApps;
     private final boolean mEditMode;
@@ -39,13 +42,7 @@ public class AppsAdapter extends BaseAdapter
     private final int mScale;
     private final SettingsProvider mSettings;
 
-    private static Drawable mTempIcon;
-    private static File mTempFile;
-    private static String mTempPackage;
-    private static long mTempTimestamp;
-
-    public AppsAdapter(MainActivity context, boolean editMode, int scale, boolean names)
-    {
+    public AppsAdapter(MainActivity context, boolean editMode, int scale, boolean names) {
         mContext = context;
         mEditMode = editMode;
         mNames = names;
@@ -58,23 +55,19 @@ public class AppsAdapter extends BaseAdapter
         mInstalledApps = mSettings.getInstalledApps(context, selected, first);
     }
 
-    public int getCount()
-    {
+    public int getCount() {
         return mInstalledApps.size();
     }
 
-    public Object getItem(int position)
-    {
+    public Object getItem(int position) {
         return mInstalledApps.get(position);
     }
 
-    public long getItemId(int position)
-    {
+    public long getItemId(int position) {
         return position;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent)
-    {
+    public View getView(int position, View convertView, ViewGroup parent) {
         final ApplicationInfo actApp = mInstalledApps.get(position);
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View gridView = inflater.inflate(R.layout.lv_app, parent, false);
