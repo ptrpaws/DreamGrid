@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="SettingsGroup">
-        <attr name="icon" format="reference" />
-    </declare-styleable>
-
     <declare-styleable name="TextView">
         <attr name="strokeWidth" format="dimension" />
         <attr name="strokeColor" format="color" />

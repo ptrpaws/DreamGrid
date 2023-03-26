@@ -12,22 +12,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <com.basti564.dreamgrid.ui.SettingsGroup
+        <ImageView
             android:id="@+id/service_app_shortcut"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            app:icon="@drawable/ic_shortcut"/>
+            android:src="@drawable/ic_shortcut"/>
 
-        <com.basti564.dreamgrid.ui.SettingsGroup
+        <ImageView
             android:id="@+id/service_explore_app"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            app:icon="@drawable/ic_explore"/>
+            android:src="@drawable/ic_explore"/>
 
-        <com.basti564.dreamgrid.ui.SettingsGroup
+        <ImageView
             android:id="@+id/service_os_updater"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            app:icon="@drawable/ic_updater"/>
+            android:src="@drawable/ic_updater"/>
     </LinearLayout>
 </LinearLayout>

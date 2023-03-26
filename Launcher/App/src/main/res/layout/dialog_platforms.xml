@@ -12,20 +12,20 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
 
-        <com.basti564.dreamgrid.ui.SettingsGroup
+        <ImageView
             android:id="@+id/settings_android"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            app:icon="@drawable/ic_platform_android"/>
-        <com.basti564.dreamgrid.ui.SettingsGroup
+            android:src="@drawable/ic_platform_android"/>
+        <ImageView
             android:id="@+id/settings_psp"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            app:icon="@drawable/ic_platform_psp"/>
-        <com.basti564.dreamgrid.ui.SettingsGroup
+            android:src="@drawable/ic_platform_psp"/>
+        <ImageView
             android:id="@+id/settings_vr"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            app:icon="@drawable/ic_platform_vr"/>
+            android:src="@drawable/ic_platform_vr"/>
     </LinearLayout>
 </LinearLayout>

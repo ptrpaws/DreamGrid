@@ -12,29 +12,29 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
 
-        <com.basti564.dreamgrid.ui.SettingsGroup
+        <ImageView
             android:id="@+id/settings_look"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            app:icon="@drawable/ic_look"/>
+            android:src="@drawable/ic_look"/>
 
-        <com.basti564.dreamgrid.ui.SettingsGroup
+        <ImageView
             android:id="@+id/settings_device"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            app:icon="@drawable/ic_device"/>
+            android:src="@drawable/ic_device"/>
 
-        <com.basti564.dreamgrid.ui.SettingsGroup
+        <ImageView
             android:id="@+id/settings_apps"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            app:icon="@drawable/ic_editing_on"/>
+            android:src="@drawable/ic_editing_on"/>
 
-        <com.basti564.dreamgrid.ui.SettingsGroup
+        <ImageView
             android:id="@+id/settings_platforms"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            app:icon="@drawable/ic_platforms"/>
+            android:src="@drawable/ic_platforms"/>
     </LinearLayout>
 
     <LinearLayout
@@ -42,10 +42,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
 
-        <com.basti564.dreamgrid.ui.SettingsGroup
+        <ImageView
             android:id="@+id/settings_tweaks"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            app:icon="@drawable/ic_tweaks"/>
+            android:src="@drawable/ic_tweaks"/>
     </LinearLayout>
 </LinearLayout>

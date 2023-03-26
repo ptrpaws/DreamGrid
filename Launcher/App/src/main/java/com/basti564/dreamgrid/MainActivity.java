@@ -39,7 +39,6 @@ import com.basti564.dreamgrid.platforms.PSPPlatform;
 import com.basti564.dreamgrid.platforms.VRPlatform;
 import com.basti564.dreamgrid.ui.AppsAdapter;
 import com.basti564.dreamgrid.ui.GroupsAdapter;
-import com.basti564.dreamgrid.ui.SettingsGroup;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -304,9 +303,9 @@ public class MainActivity extends Activity
                 showSettingsLook();
             }
         });
-        SettingsGroup apps = dialog.findViewById(R.id.settings_apps);
+        ImageView apps = dialog.findViewById(R.id.settings_apps);
         boolean editMode = !mPreferences.getBoolean(SettingsProvider.KEY_EDITMODE, false);
-        apps.setIcon(editMode ? R.drawable.ic_editing_on : R.drawable.ic_editing_off);
+        apps.setImageResource(editMode ? R.drawable.ic_editing_on : R.drawable.ic_editing_off);
         apps.setOnClickListener(view1 -> {
             ArrayList<String> selected = mSettings.getAppGroupsSorted(true);
             if (editMode && (selected.size() > 1)) {
@@ -424,7 +423,7 @@ public class MainActivity extends Activity
     private void showSettingsPlatforms() {
         Dialog d = showPopup(R.layout.dialog_platforms);
 
-        SettingsGroup android = d.findViewById(R.id.settings_android);
+        ImageView android = d.findViewById(R.id.settings_android);
         android.setOnClickListener(view -> {
             boolean isChecked = mPreferences.getBoolean(SettingsProvider.KEY_PLATFORM_ANDROID, true);
             SharedPreferences.Editor editor = mPreferences.edit();
@@ -434,7 +433,7 @@ public class MainActivity extends Activity
         });
         android.setVisibility(new AndroidPlatform().isSupported(this) ? View.VISIBLE : View.GONE);
 
-        SettingsGroup psp = d.findViewById(R.id.settings_psp);
+        ImageView psp = d.findViewById(R.id.settings_psp);
         psp.setOnClickListener(view -> {
             boolean isChecked = mPreferences.getBoolean(SettingsProvider.KEY_PLATFORM_PSP, true);
             SharedPreferences.Editor editor = mPreferences.edit();
@@ -444,7 +443,7 @@ public class MainActivity extends Activity
         });
         psp.setVisibility(new PSPPlatform().isSupported(this) ? View.VISIBLE : View.GONE);
 
-        SettingsGroup vr = d.findViewById(R.id.settings_vr);
+        ImageView vr = d.findViewById(R.id.settings_vr);
         vr.setOnClickListener(view -> {
             boolean isChecked = mPreferences.getBoolean(SettingsProvider.KEY_PLATFORM_VR, true);
             SharedPreferences.Editor editor = mPreferences.edit();
