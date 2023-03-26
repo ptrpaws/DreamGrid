@@ -96,6 +96,9 @@ public class SettingsProvider
             installedApplications.addAll(new VRPlatform().getInstalledApps(context));
         }
 
+        // Save changes to app list
+        setAppList(mAppList);
+
         // Put them into a map with package name as keyword for faster handling
         String ownPackageName = context.getApplicationContext().getPackageName();
         Map<String, ApplicationInfo> appMap = new LinkedHashMap<>();
