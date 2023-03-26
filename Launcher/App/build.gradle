@@ -24,8 +24,7 @@ android {
 
     namespace 'com.basti564.dreamgrid'
     lint {
-        abortOnError false
-        checkReleaseBuilds false
+        abortOnError true
     }
 }
 
