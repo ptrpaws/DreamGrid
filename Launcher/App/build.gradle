@@ -33,4 +33,5 @@ dependencies {
     implementation 'com.github.bkhezry:android-image-picker:1.4.0'
     implementation 'com.github.stephenc.java-iso-tools:loopy-vfs:1.2.2'
     implementation 'com.github.Dimezis:BlurView:version-2.0.3'
+    implementation 'com.android.volley:volley:1.2.1'
 }

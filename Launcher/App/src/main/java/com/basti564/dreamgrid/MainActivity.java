@@ -5,10 +5,12 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,6 +21,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -31,6 +34,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.esafirm.imagepicker.features.ImagePicker;
 import com.esafirm.imagepicker.model.Image;
 import com.basti564.dreamgrid.platforms.AbstractPlatform;
@@ -39,6 +48,10 @@ import com.basti564.dreamgrid.platforms.PSPPlatform;
 import com.basti564.dreamgrid.platforms.VRPlatform;
 import com.basti564.dreamgrid.ui.AppsAdapter;
 import com.basti564.dreamgrid.ui.GroupsAdapter;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -160,6 +173,70 @@ public class MainActivity extends Activity
         // Set pi button
         ImageButton pi = findViewById(R.id.pi);
         pi.setOnClickListener(view -> showSettingsMain());
+
+        // Update Message
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        PackageManager manager = this.getPackageManager();
+        try {
+            PackageInfo info = manager.getPackageInfo(
+                    this.getPackageName(), PackageManager.GET_ACTIVITIES);
+
+            StringRequest stringRequest = new StringRequest(
+                    Request.Method.GET, "https://api.github.com/repos/basti564/DreamGrid/releases/latest",
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject jsonObject = (JSONObject) new JSONTokener(response).nextValue();
+                                if (!("v" + info.versionName).equals(jsonObject.getString("tag_name"))) {
+                                    Log.v("DreamGrid", "New version available!!!!");
+
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                                    builder.setTitle("An update is available!");
+                                    builder.setMessage("We recommend you to update to the latest version of DreamGrid (" +
+                                            jsonObject.getString("tag_name") + ")");
+                                    builder.setPositiveButton("View", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Intent browserIntent = null;
+                                            try {
+                                                browserIntent = new Intent(Intent.ACTION_VIEW,
+                                                        Uri.parse(jsonObject.getString("html_url")));
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                            startActivity(browserIntent);
+                                        }
+                                    });
+                                    builder.setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                                    AlertDialog alertDialog = builder.create();
+                                    alertDialog.show();
+                                    alertDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                                } else {
+                                    Log.i("DreamGrid", "DreamGrid is up to date :)");
+                                }
+                            } catch (JSONException e) {
+                                Log.e("DreamGrid", "Received invalid JSON", e);
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.w("DreamGrid", "Couldn't get update info");
+                }
+            });
+
+            queue.add(stringRequest);
+
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
