@@ -47,5 +47,11 @@
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:src="@drawable/ic_tweaks"/>
+
+        <ImageView
+            android:id="@+id/service_app_shortcut"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/ic_shortcut"/>
     </LinearLayout>
 </LinearLayout>

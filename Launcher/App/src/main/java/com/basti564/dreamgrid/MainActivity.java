@@ -399,19 +399,35 @@ public class MainActivity extends Activity
 
         dialog.findViewById(R.id.settings_look).setOnClickListener(view -> showSettingsLook());
         dialog.findViewById(R.id.settings_platforms).setOnClickListener(view -> showSettingsPlatforms());
-        dialog.findViewById(R.id.settings_tweaks).setOnClickListener(view -> showSettingsTweaks());
-        dialog.findViewById(R.id.settings_device).setOnClickListener(view -> {
-            Intent intent = new Intent();
-            intent.addCategory(Intent.CATEGORY_LAUNCHER);
-            intent.setPackage("com.android.settings");
-            startActivity(intent);
-        });
+        View deviceSettingsView = dialog.findViewById(R.id.settings_device);
         if (AbstractPlatform.isMagicLeapHeadset()) {
-            dialog.findViewById(R.id.settings_device).setVisibility(View.GONE);
+            deviceSettingsView.setVisibility(View.GONE);
+        } else {
+            deviceSettingsView.setOnClickListener(view -> {
+                Intent intent = new Intent();
+                intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                intent.setPackage("com.android.settings");
+                startActivity(intent);
+            });
         }
+
+        View tweaksSettingsView = dialog.findViewById(R.id.settings_tweaks);
         if (!AbstractPlatform.isOculusHeadset()) {
-            dialog.findViewById(R.id.settings_tweaks).setVisibility(View.GONE);
+            tweaksSettingsView.setVisibility(View.GONE);
+        } else {
+            tweaksSettingsView.setOnClickListener(view -> showSettingsTweaks());
         }
+
+        View appShortcutView = dialog.findViewById(R.id.service_app_shortcut);
+        if (!(AbstractPlatform.isOculusHeadset() || AbstractPlatform.isPicoHeadset())) {
+            appShortcutView.setVisibility(View.GONE);
+        } else {
+            appShortcutView.setOnClickListener(view -> {
+                ButtonManager.isAccesibilityInitialized(this);
+                ButtonManager.requestAccessibility(this);
+            });
+        }
+
     }
 
     private void showSettingsLook() {
@@ -534,10 +550,6 @@ public class MainActivity extends Activity
     private void showSettingsTweaks() {
         Dialog d = showPopup(R.layout.dialog_tweaks);
 
-        d.findViewById(R.id.service_app_shortcut).setOnClickListener(view -> {
-            ButtonManager.isAccesibilityInitialized(this);
-            ButtonManager.requestAccessibility(this);
-        });
         d.findViewById(R.id.service_explore_app).setOnClickListener(view -> openAppDetails("com.oculus.explore"));
         d.findViewById(R.id.service_os_updater).setOnClickListener(view -> openAppDetails("com.oculus.updater"));
     }
