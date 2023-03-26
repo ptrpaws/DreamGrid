@@ -5,9 +5,11 @@ import android.content.ClipData;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -133,7 +135,12 @@ public class AppsAdapter extends BaseAdapter {
         // set application icon
         AbstractPlatform appPlatform = AbstractPlatform.getPlatform(currentApp);
         ImageView imageView = gridView.findViewById(R.id.imageLabel);
-        appPlatform.loadIcon(mainActivityContext, imageView, currentApp, name);
+
+        try {
+            appPlatform.loadIcon(mainActivityContext, imageView, currentApp, name);
+        } catch (Resources.NotFoundException e) {
+            Log.e("DreamGrid", "Error loading icon for app: " + currentApp.packageName, e);
+        }
 
         return gridView;
     }
