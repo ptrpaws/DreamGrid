@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="explore_accessibility_event_names">
+        <!-- event names for both oculus and pico, be careful with removing event names -->
+        <item>[Eksploruj]</item>
+        <item>[Entdecken]</item>
+        <item>[Erkunden]</item>
+        <item>[Esplora]</item>
+        <item>[Explorar]</item>
+        <item>[Explore]</item>
+        <item>[Explorează]</item>
+        <item>[Explorer]</item>
+        <item>[Keşfet]</item>
+        <item>[Odkrywaj]</item>
+        <item>[Ontdekken]</item>
+        <item>[Prozkoumat]</item>
+        <item>[Scopri]</item>
+        <item>[Teroka]</item>
+        <item>[Tutki]</item>
+        <item>[Tutustu]</item>
+        <item>[Udforsk]</item>
+        <item>[Utforsk]</item>
+        <item>[Utforska]</item>
+        <item>[Verkennen]</item>
+        <item>[À découvrir]</item>
+        <item>[Εξερευνήστε]</item>
+        <item>[Лента]</item>
+        <item>[Обзор]</item>
+        <item>[สำรวจ]</item>
+        <item>[探索]</item>
+        <item>[探索圈]</item>
+        <item>[推荐]</item>
+        <item>[推薦]</item>
+        <item>[発見]</item>
+        <item>[둘러보기]</item>
+        <item>[살펴보기]</item>
+    </string-array>
+</resources>

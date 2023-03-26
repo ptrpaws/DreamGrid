@@ -10,7 +10,5 @@
     <string name="background_opacity">Background opacity</string>
     <string name="icons_size">Icons size</string>
     <string name="show_app_names">Show app names</string>
-    <string name="start_shortcut">Open the launcher with Explore icon from the system dashboard. For a smooth experience it is recommended to disable the Explore app.\n\nDOES NOT SUPPORT ALL HEADSET LANGUAGES. SET YOUR HEADSET LANGUAGE TO ENGLISH IF THIS FEATURE DOES NOT WORK PROPERLY.</string>
-
-    <string name="explore_accessibility_event_name">[Explore]</string>
+    <string name="start_shortcut">Open the launcher with Explore icon from the system dashboard. For a smooth experience it is recommended to disable the Explore app.</string>
 </resources>

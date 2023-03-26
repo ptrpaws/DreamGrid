@@ -3,6 +3,7 @@ package com.basti564.dreamgrid;
 import android.accessibilityservice.AccessibilityService;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 
 public class ButtonManager extends AccessibilityService
@@ -11,10 +12,13 @@ public class ButtonManager extends AccessibilityService
     {
         if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
             String eventText = event.getText().toString();
-            String exploreAccessibilityEventName = getResources().getString(R.string.explore_accessibility_event_name);
-
-            if (exploreAccessibilityEventName.compareTo(eventText) == 0) {
-                MainActivity.reset(getApplicationContext());
+            String[] exploreAccessibilityEventNames = getResources().getStringArray(R.array.explore_accessibility_event_names);
+            
+            for (String eventName : exploreAccessibilityEventNames) {
+                if (eventName.compareTo(eventText) == 0) {
+                    MainActivity.reset(getApplicationContext());
+                    break;
+                }
             }
         }
     }

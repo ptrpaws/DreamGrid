@@ -11,6 +11,4 @@
     <string name="icons_size">Taille des icones</string>
     <string name="show_app_names">Montrer le nom des applications</string>
     <string name="start_shortcut">Ouvrir le launcher via l\'icone Explorer du dashboard. Pour une meilleure experience il est recommende de desactiver l\'app Explorer.</string>
-
-    <string name="explore_accessibility_event_name">[Explorer]</string>
 </resources>

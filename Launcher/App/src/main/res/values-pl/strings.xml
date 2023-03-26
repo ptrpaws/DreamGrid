@@ -11,6 +11,4 @@
     <string name="icons_size">Rozmiar ikon</string>
     <string name="show_app_names">Pokaż nazwy aplikacji</string>
     <string name="start_shortcut">Otwórz launcher za pomocą ikony Eksploruj z poziomu paska systemowego. W celu lepszego działania zaleca się wyłączenie aplikacji Eksploruj.</string>
-
-    <string name="explore_accessibility_event_name">[Eksploruj]</string>
 </resources>

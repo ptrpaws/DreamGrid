@@ -11,7 +11,5 @@
     <string name="background_opacity">Hintergrund sichtbarkeit</string>
     <string name="icons_size">Icons Größe</string>
     <string name="show_app_names">Zeige App Namen</string>
-    <string name="start_shortcut">Öffne den Launcher mit dem Entdecken Icon vom Dashboard aus. Für ein flüssigeres Erlebnis sollte die Entdecken App deaktiviert werden.\n\nUNTERSTÜZT NICHT ALLE HEADSET SPRACHEN. SETZE DEINE HEADSETSPRACHE AUF ENGLISCH FALLS DIESE FUNKTION NICHT RICHTIG FUNKTIONIERT.</string>
-
-    <string name="explore_accessibility_event_name">[Entdecken]</string>
+    <string name="start_shortcut">Öffne den Launcher mit dem Entdecken Icon vom Dashboard aus. Für ein flüssigeres Erlebnis sollte die Entdecken App deaktiviert werden.</string>
 </resources>
