@@ -77,13 +77,20 @@ public class SettingsProvider
             List<ApplicationInfo> androidApps = new AndroidPlatform().getInstalledApps(context);
             for (ApplicationInfo app : androidApps) {
                 if (!mAppList.containsKey(app.packageName)) {
-                    mAppList.put(app.packageName, "B2D");
+                    mAppList.put(app.packageName, "Tools");
                 }
             }
             installedApplications.addAll(androidApps);
         }
-        if (isPlatformEnabled(KEY_PLATFORM_PSP)) {
-            installedApplications.addAll(new PSPPlatform().getInstalledApps(context));
+        if (isPlatformEnabled(KEY_PLATFORM_PSP) && new PSPPlatform().isSupported(context)) {
+            // only add PSP apps if the platform is supported
+            List<ApplicationInfo> pspApps = new PSPPlatform().getInstalledApps(context);
+            for (ApplicationInfo app : pspApps) {
+                if (!mAppList.containsKey(app.packageName)) {
+                    mAppList.put(app.packageName, "PSP");
+                }
+            }
+            installedApplications.addAll(pspApps);
         }
         if (isPlatformEnabled(KEY_PLATFORM_VR)) {
             installedApplications.addAll(new VRPlatform().getInstalledApps(context));
@@ -195,7 +202,10 @@ public class SettingsProvider
         {
             Set<String> def = new HashSet<>();
             def.add(context.getString(R.string.default_apps_group));
-            def.add("B2D");
+            def.add("Tools");
+            if (new PSPPlatform().isSupported(context)) {
+                def.add("PSP");
+            }
             mAppGroups = mPreferences.getStringSet(KEY_APP_GROUPS, def);
             mSelectedGroups = mPreferences.getStringSet(KEY_SELECTED_GROUPS, def);
 
