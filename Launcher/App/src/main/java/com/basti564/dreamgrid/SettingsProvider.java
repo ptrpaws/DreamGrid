@@ -93,13 +93,13 @@ public class SettingsProvider
             installedApplications.addAll(pspApps);
         }
         if (isPlatformEnabled(KEY_PLATFORM_VR)) {
-            List<ApplicationInfo> androidApps = new VRPlatform().getInstalledApps(context);
-            for (ApplicationInfo app : androidApps) {
+            List<ApplicationInfo> vrApps = new VRPlatform().getInstalledApps(context);
+            for (ApplicationInfo app : vrApps) {
                 if (!mAppList.containsKey(app.packageName) && mAppGroups.contains(context.getString(R.string.default_apps_group))) {
                     mAppList.put(app.packageName, context.getString(R.string.default_apps_group));
                 }
             }
-            installedApplications.addAll(new VRPlatform().getInstalledApps(context));
+            installedApplications.addAll(vrApps);
         }
 
         // Save changes to app list
