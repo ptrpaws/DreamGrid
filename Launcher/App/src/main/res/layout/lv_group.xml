@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.basti564.dreamgrid.ui.TextView
+    <TextView
         android:id="@+id/textLabel"
         android:singleLine="true"
         android:textSize="20sp"

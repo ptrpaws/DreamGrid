@@ -34,7 +34,7 @@
                 android:visibility="gone"/>
         </RelativeLayout>
 
-        <com.basti564.dreamgrid.ui.TextView
+        <TextView
             android:id="@+id/textLabel"
             android:singleLine="true"
             android:textSize="16sp"
