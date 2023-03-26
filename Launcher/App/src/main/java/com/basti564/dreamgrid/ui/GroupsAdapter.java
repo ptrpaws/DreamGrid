@@ -28,35 +28,35 @@ public class GroupsAdapter extends BaseAdapter {
     public static final int MAX_GROUPS = 12;
     public static final String HIDDEN_GROUP = "HIDDEN!";
 
-    private final MainActivity mActivity;
-    private final List<String> mItems;
-    private final Set<String> mSelection;
-    private final SettingsProvider mSettings;
-    private final boolean mEditMode;
+    private final MainActivity mainActivity;
+    private final List<String> appGroups;
+    private final Set<String> selectedGroups;
+    private final SettingsProvider settingsProvider;
+    private final boolean isEditMode;
 
     /**
      * Create new adapter
      */
     public GroupsAdapter(MainActivity activity, boolean editMode) {
-        mActivity = activity;
-        mEditMode = editMode;
-        mSettings = SettingsProvider.getInstance(activity);
+        mainActivity = activity;
+        isEditMode = editMode;
+        settingsProvider = SettingsProvider.getInstance(activity);
 
-        SettingsProvider settings = SettingsProvider.getInstance(mActivity);
-        mItems = settings.getAppGroupsSorted(false);
+        SettingsProvider settings = SettingsProvider.getInstance(mainActivity);
+        appGroups = settings.getAppGroupsSorted(false);
         if (editMode) {
-            mItems.add(HIDDEN_GROUP);
-            mItems.add("+ " + mActivity.getString(R.string.add_group));
+            appGroups.add(HIDDEN_GROUP);
+            appGroups.add("+ " + mainActivity.getString(R.string.add_group));
         }
-        mSelection = settings.getSelectedGroups();
+        selectedGroups = settings.getSelectedGroups();
     }
 
     public int getCount() {
-        return mItems.size();
+        return appGroups.size();
     }
 
     public String getItem(int position) {
-        return mItems.get(position);
+        return appGroups.get(position);
     }
 
     public long getItemId(int position) {
@@ -64,7 +64,7 @@ public class GroupsAdapter extends BaseAdapter {
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) mainActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View itemView = inflater.inflate(R.layout.lv_group, parent, false);
 
         if (position >= MAX_GROUPS - 1) {
@@ -79,61 +79,61 @@ public class GroupsAdapter extends BaseAdapter {
         menu.setBackground(drawable);
         menu.setOnClickListener(view -> {
 
-            final Map<String, String> apps = mSettings.getAppList();
-            final Set<String> groups = mSettings.getAppGroups();
-            final String oldName = mSettings.getAppGroupsSorted(false).get(position);
+            final Map<String, String> apps = settingsProvider.getAppList();
+            final Set<String> appGroupsList = settingsProvider.getAppGroups();
+            final String oldGroupName = settingsProvider.getAppGroupsSorted(false).get(position);
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+            AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
             builder.setView(R.layout.dialog_group_details);
 
             AlertDialog dialog = builder.create();
             dialog.getWindow().setBackgroundDrawableResource(R.drawable.bkg_dialog);
             dialog.show();
 
-            final EditText input = dialog.findViewById(R.id.group_name);
-            input.setText(oldName);
+            final EditText groupNameInput = dialog.findViewById(R.id.group_name);
+            groupNameInput.setText(oldGroupName);
 
             dialog.findViewById(R.id.ok).setOnClickListener(view1 -> {
-                String newName = input.getText().toString();
-                if (newName.length() > 0) {
-                    groups.remove(oldName);
-                    groups.add(newName);
-                    Map<String, String> updatedApps = new HashMap<>();
-                    for (String pkg : apps.keySet()) {
-                        if (apps.get(pkg).compareTo(oldName) == 0) {
-                            updatedApps.put(pkg, newName);
+                String newGroupName = groupNameInput.getText().toString();
+                if (newGroupName.length() > 0) {
+                    appGroupsList.remove(oldGroupName);
+                    appGroupsList.add(newGroupName);
+                    Map<String, String> updatedAppList = new HashMap<>();
+                    for (String packageName : apps.keySet()) {
+                        if (apps.get(packageName).compareTo(oldGroupName) == 0) {
+                            updatedAppList.put(packageName, newGroupName);
                         } else {
-                            updatedApps.put(pkg, apps.get(pkg));
+                            updatedAppList.put(packageName, apps.get(packageName));
                         }
                     }
-                    HashSet<String> selected = new HashSet<>();
-                    selected.add(newName);
-                    mSettings.setSelectedGroups(selected);
-                    mSettings.setAppGroups(groups);
-                    mSettings.setAppList(updatedApps);
-                    mActivity.reloadUI();
+                    HashSet<String> selectedGroup = new HashSet<>();
+                    selectedGroup.add(newGroupName);
+                    settingsProvider.setSelectedGroups(selectedGroup);
+                    settingsProvider.setAppGroups(appGroupsList);
+                    settingsProvider.setAppList(updatedAppList);
+                    mainActivity.reloadUI();
                 }
                 dialog.dismiss();
             });
 
             dialog.findViewById(R.id.group_delete).setOnClickListener(view12 -> {
-                HashMap<String, String> newApps = new HashMap<>();
-                for (String pkg : apps.keySet()) {
-                    if (oldName.equals(apps.get(pkg))) {
-                        newApps.put(pkg, HIDDEN_GROUP);
+                HashMap<String, String> newAppList = new HashMap<>();
+                for (String packageName : apps.keySet()) {
+                    if (oldGroupName.equals(apps.get(packageName))) {
+                        newAppList.put(packageName, HIDDEN_GROUP);
                     } else {
-                        newApps.put(pkg, apps.get(pkg));
+                        newAppList.put(packageName, apps.get(packageName));
                     }
                 }
-                mSettings.setAppList(newApps);
+                settingsProvider.setAppList(newAppList);
 
-                groups.remove(oldName);
-                mSettings.setAppGroups(groups);
+                appGroupsList.remove(oldGroupName);
+                settingsProvider.setAppGroups(appGroupsList);
 
-                Set<String> selectFirst = new HashSet<>();
-                selectFirst.add(mSettings.getAppGroupsSorted(false).get(0));
-                mSettings.setSelectedGroups(selectFirst);
-                mActivity.reloadUI();
+                Set<String> firstSelectedGroup = new HashSet<>();
+                firstSelectedGroup.add(settingsProvider.getAppGroupsSorted(false).get(0));
+                settingsProvider.setSelectedGroups(firstSelectedGroup);
+                mainActivity.reloadUI();
                 dialog.dismiss();
             });
         });
@@ -151,45 +151,45 @@ public class GroupsAdapter extends BaseAdapter {
                 setLook(position, view, menu);
             } else if (event.getAction() == DragEvent.ACTION_DROP) {
                 // add group or hidden group selection
-                String name = mItems.get(position);
-                List<String> groups = mSettings.getAppGroupsSorted(false);
-                if (groups.size() + 1 == position) {
-                    name = mSettings.addGroup();
-                } else if (groups.size() == position) {
+                String name = appGroups.get(position);
+                List<String> appGroupsList = settingsProvider.getAppGroupsSorted(false);
+                if (appGroupsList.size() + 1 == position) {
+                    name = settingsProvider.addGroup();
+                } else if (appGroupsList.size() == position) {
                     name = HIDDEN_GROUP;
                 }
 
                 // move app into group
-                String pkg = mActivity.getSelectedPackage();
-                Set<String> selected = mSettings.getSelectedGroups();
-                Map<String, String> apps = mSettings.getAppList();
-                apps.remove(pkg);
-                apps.put(pkg, name);
-                mSettings.setAppList(apps);
+                String packageName = mainActivity.getSelectedPackage();
+                Set<String> selectedGroup = settingsProvider.getSelectedGroups();
+                Map<String, String> apps = settingsProvider.getAppList();
+                apps.remove(packageName);
+                apps.put(packageName, name);
+                settingsProvider.setAppList(apps);
 
                 // false to dragged icon fly back
-                return !selected.contains(name);
+                return !selectedGroup.contains(name);
             }
             return true;
         });
 
         // set value into textview
         TextView textView = itemView.findViewById(R.id.textLabel);
-        if (HIDDEN_GROUP.equals(mItems.get(position))) {
-            textView.setText(" -  " + mActivity.getString(R.string.apps_hidden));
+        if (HIDDEN_GROUP.equals(appGroups.get(position))) {
+            textView.setText(" -  " + mainActivity.getString(R.string.apps_hidden));
         } else {
-            textView.setText(mItems.get(position));
+            textView.setText(appGroups.get(position));
         }
 
         return itemView;
     }
 
     private void setLook(int position, View itemView, View menu) {
-        boolean isSelected = mSelection.contains(mItems.get(position));
+        boolean isSelected = selectedGroups.contains(appGroups.get(position));
 
         if (isSelected) {
-            boolean isLeft = (position == 0) || !mSelection.contains(mItems.get(position - 1));
-            boolean isRight = (position + 1 >= mItems.size()) || !mSelection.contains(mItems.get(position + 1));
+            boolean isLeft = (position == 0) || !selectedGroups.contains(appGroups.get(position - 1));
+            boolean isRight = (position + 1 >= appGroups.size()) || !selectedGroups.contains(appGroups.get(position + 1));
 
             int shapeResourceId;
             if (isLeft && isRight) {
@@ -204,7 +204,7 @@ public class GroupsAdapter extends BaseAdapter {
             itemView.setBackgroundResource(shapeResourceId);
             TextView textView = itemView.findViewById(R.id.textLabel);
             textView.setTextColor(Color.parseColor("#FF000000")); // set selected tab text color
-            if (mEditMode && (position < getCount() - 2)) {
+            if (isEditMode && (position < getCount() - 2)) {
                 menu.setVisibility(View.VISIBLE);
             } else {
                 menu.setVisibility(View.GONE);

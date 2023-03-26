@@ -16,14 +16,14 @@ import java.util.ArrayList;
 public class AndroidPlatform extends AbstractPlatform {
     @Override
     public ArrayList<ApplicationInfo> getInstalledApps(Context context) {
-        PackageManager pm = context.getPackageManager();
-        ArrayList<ApplicationInfo> output = new ArrayList<>();
-        for (ApplicationInfo app : pm.getInstalledApplications(PackageManager.GET_META_DATA)) {
-            if (!isVirtualRealityApp(app)) {
-                output.add(app);
+        PackageManager packageManager = context.getPackageManager();
+        ArrayList<ApplicationInfo> installedAppsList = new ArrayList<>();
+        for (ApplicationInfo appInfo : packageManager.getInstalledApplications(PackageManager.GET_META_DATA)) {
+            if (!isVirtualRealityApp(appInfo)) {
+                installedAppsList.add(appInfo);
             }
         }
-        return output;
+        return installedAppsList;
     }
 
     @Override
@@ -32,32 +32,32 @@ public class AndroidPlatform extends AbstractPlatform {
     }
 
     @Override
-    public void loadIcon(Activity activity, ImageView icon, ApplicationInfo app, String name) {
-        PackageManager pm = activity.getPackageManager();
-        Resources resources;
+    public void loadIcon(Activity activity, ImageView iconView, ApplicationInfo appInfo, String appName) {
+        PackageManager packageManager = activity.getPackageManager();
+        Resources appResources;
         try {
-            resources = pm.getResourcesForApplication(app.packageName);
+            appResources = packageManager.getResourcesForApplication(appInfo.packageName);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
             return;
         }
-        int iconId = app.icon;
+        int iconId = appInfo.icon;
         if (iconId == 0) {
             iconId = android.R.drawable.sym_def_app_icon;
         }
-        Drawable appIcon = resources.getDrawableForDensity(iconId, DisplayMetrics.DENSITY_XXXHIGH);
-        icon.setImageDrawable(appIcon);
+        Drawable appIconDrawable = appResources.getDrawableForDensity(iconId, DisplayMetrics.DENSITY_XXXHIGH);
+        iconView.setImageDrawable(appIconDrawable);
 
-        final File file = pkg2path(activity, app.packageName);
-        if (file.exists()) {
-            AbstractPlatform.updateIcon(icon, file, app.packageName);
+        final File appFilePath = packageToPath(activity, appInfo.packageName);
+        if (appFilePath.exists()) {
+            AbstractPlatform.updateIcon(iconView, appFilePath, appInfo.packageName);
         }
     }
 
     @Override
-    public void runApp(Context context, ApplicationInfo app, boolean multiwindow) {
-        Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage(app.packageName);
-        if (multiwindow) {
+    public void runApp(Context context, ApplicationInfo appInfo, boolean isMultiWindow) {
+        Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage(appInfo.packageName);
+        if (isMultiWindow) {
             context.getApplicationContext().startActivity(launchIntent);
         } else {
             context.startActivity(launchIntent);

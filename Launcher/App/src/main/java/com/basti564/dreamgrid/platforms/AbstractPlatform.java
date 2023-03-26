@@ -21,34 +21,34 @@ import java.util.HashSet;
 
 public abstract class AbstractPlatform {
 
-    protected static final HashMap<String, Drawable> iconCache = new HashMap<>();
-    protected static final HashSet<String> ignoredIcons = new HashSet<>();
+    protected static final HashMap<String, Drawable> cachedIcons = new HashMap<>();
+    protected static final HashSet<String> excludedIconPackages = new HashSet<>();
 
     public static void clearIconCache() {
-        ignoredIcons.clear();
-        iconCache.clear();
+        excludedIconPackages.clear();
+        cachedIcons.clear();
     }
 
-    public static AbstractPlatform getPlatform(ApplicationInfo app) {
-        if (app.packageName.startsWith(PSPPlatform.PACKAGE_PREFIX)) {
+    public static AbstractPlatform getPlatform(ApplicationInfo applicationInfo) {
+        if (applicationInfo.packageName.startsWith(PSPPlatform.PACKAGE_PREFIX)) {
             return new PSPPlatform();
-        } else if (isVirtualRealityApp(app)) {
+        } else if (isVirtualRealityApp(applicationInfo)) {
             return new VRPlatform();
         } else {
             return new AndroidPlatform();
         }
     }
 
-    public static File pkg2path(Context context, String pkg) {
-        return new File(context.getApplicationInfo().dataDir, pkg + ".jpg");
+    public static File packageToPath(Context context, String packageName) {
+        return new File(context.getApplicationInfo().dataDir, packageName + ".jpg");
     }
 
-    public static boolean updateIcon(ImageView icon, File file, String pkg) {
+    public static boolean updateIcon(ImageView iconView, File file, String packageName) {
         try {
-            Drawable drawable = Drawable.createFromPath(file.getAbsolutePath());
-            if (drawable != null) {
-                icon.setImageDrawable(drawable);
-                iconCache.put(pkg, drawable);
+            Drawable newIconDrawable = Drawable.createFromPath(file.getAbsolutePath());
+            if (newIconDrawable != null) {
+                iconView.setImageDrawable(newIconDrawable);
+                cachedIcons.put(packageName, newIconDrawable);
                 return true;
             }
         } catch (Exception e) {
@@ -57,26 +57,26 @@ public abstract class AbstractPlatform {
         return false;
     }
 
-    protected static boolean saveStream(InputStream is, File outputFile) {
+    protected static boolean saveStream(InputStream inputStream, File outputFile) {
         try {
-            DataInputStream dis = new DataInputStream(is);
+            DataInputStream dataInputStream = new DataInputStream(inputStream);
 
             int length;
             byte[] buffer = new byte[65536];
-            FileOutputStream fos = new FileOutputStream(outputFile);
-            while ((length = dis.read(buffer)) > 0) {
-                fos.write(buffer, 0, length);
+            FileOutputStream fileOutputStream = new FileOutputStream(outputFile);
+            while ((length = dataInputStream.read(buffer)) > 0) {
+                fileOutputStream.write(buffer, 0, length);
             }
-            fos.flush();
-            fos.close();
+            fileOutputStream.flush();
+            fileOutputStream.close();
 
             if (outputFile.length() >= 64 * 1024) {
                 Bitmap bitmap = BitmapFactory.decodeFile(outputFile.getAbsolutePath());
                 if (bitmap != null) {
                     try {
-                        fos = new FileOutputStream(outputFile);
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 90, fos);
-                        fos.close();
+                        fileOutputStream = new FileOutputStream(outputFile);
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 90, fileOutputStream);
+                        fileOutputStream.close();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -90,23 +90,23 @@ public abstract class AbstractPlatform {
     }
 
     public static boolean isMagicLeapHeadset() {
-        String vendor = Build.MANUFACTURER.toUpperCase();
-        return vendor.startsWith("MAGIC LEAP");
+        String manufacturer = Build.MANUFACTURER.toUpperCase();
+        return manufacturer.startsWith("MAGIC LEAP");
     }
 
     public static boolean isOculusHeadset() {
-        String vendor = Build.MANUFACTURER.toUpperCase();
-        return vendor.startsWith("META") || vendor.startsWith("OCULUS");
+        String manufacturer = Build.MANUFACTURER.toUpperCase();
+        return manufacturer.startsWith("META") || manufacturer.startsWith("OCULUS");
     }
 
     public static boolean isPicoHeadset() {
-        String vendor = Build.MANUFACTURER.toUpperCase();
-        return vendor.startsWith("PICO") || vendor.startsWith("PİCO"); // PİCO on turkish systems
+        String manufacturer = Build.MANUFACTURER.toUpperCase();
+        return manufacturer.startsWith("PICO") || manufacturer.startsWith("PİCO"); // PİCO on turkish systems
     }
 
-    protected static boolean isVirtualRealityApp(ApplicationInfo app) {
-        if (app.metaData != null) {
-            for (String key : app.metaData.keySet()) {
+    protected static boolean isVirtualRealityApp(ApplicationInfo applicationInfo) {
+        if (applicationInfo.metaData != null) {
+            for (String key : applicationInfo.metaData.keySet()) {
                 if (key.startsWith("notch.config")) {
                     return true;
                 }
@@ -128,14 +128,14 @@ public abstract class AbstractPlatform {
 
     public abstract boolean isSupported(Context context);
 
-    public abstract void loadIcon(Activity activity, ImageView icon, ApplicationInfo app, String name);
+    public abstract void loadIcon(Activity activity, ImageView iconView, ApplicationInfo applicationInfo, String name);
 
-    public abstract void runApp(Context context, ApplicationInfo app, boolean multiwindow);
+    public abstract void runApp(Context context, ApplicationInfo applicationInfo, boolean multiwindow);
 
-    boolean downloadIconFromUrl(String url, File outputFile) {
+    boolean downloadIconFromUrl(String url, File iconFile) {
         try {
-            try (InputStream is = new URL(url).openStream()) {
-                if (saveStream(is, outputFile)) {
+            try (InputStream inputStream = new URL(url).openStream()) {
+                if (saveStream(inputStream, iconFile)) {
                     return true;
                 }
             }

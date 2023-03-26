@@ -19,31 +19,31 @@ import java.util.Scanner;
 public class PSPPlatform extends AbstractPlatform {
 
     public static final String PACKAGE_PREFIX = "psp/";
-    private static final String CONFIG_FILE = "/mnt/sdcard/PSP/SYSTEM/ppssppvr.ini";
-    private static final String EMULATOR_PACKAGE = "org.ppsspp.ppssppvr";
-    private static final String FILENAME_PREFIX = "FileName";
-    private static final String RECENT_TAG = "[Recent]";
+    private static final String CONFIG_FILE_PATH = "/mnt/sdcard/PSP/SYSTEM/ppssppvr.ini";
+    private static final String PPSSPPVR_PACKAGE_NAME = "org.ppsspp.ppssppvr";
+    private static final String GAME_FILENAME_PREFIX = "FileName";
+    private static final String RECENT_GAMES_TAG = "[Recent]";
 
     @Override
     public ArrayList<ApplicationInfo> getInstalledApps(Context context) {
-        ArrayList<ApplicationInfo> output = new ArrayList<>();
+        ArrayList<ApplicationInfo> installedApps = new ArrayList<>();
         if (!isSupported(context)) {
-            return output;
+            return installedApps;
         }
 
-        for (String path : locateGames()) {
+        for (String gamePath : locateGames()) {
             ApplicationInfo app = new ApplicationInfo();
-            app.name = path.substring(path.lastIndexOf('/') + 1);
-            app.packageName = PACKAGE_PREFIX + path;
-            output.add(app);
+            app.name = gamePath.substring(gamePath.lastIndexOf('/') + 1);
+            app.packageName = PACKAGE_PREFIX + gamePath;
+            installedApps.add(app);
         }
-        return output;
+        return installedApps;
     }
 
     @Override
     public boolean isSupported(Context context) {
         for (ApplicationInfo app : new VRPlatform().getInstalledApps(context)) {
-            if (app.packageName.startsWith(EMULATOR_PACKAGE)) {
+            if (app.packageName.startsWith(PPSSPPVR_PACKAGE_NAME)) {
                 return true;
             }
         }
@@ -52,7 +52,7 @@ public class PSPPlatform extends AbstractPlatform {
 
     @Override
     public void loadIcon(Activity activity, ImageView icon, ApplicationInfo app, String name) {
-        final File file = pkg2path(activity, app.packageName);
+        final File file = packageToPath(activity, app.packageName);
         if (file.exists()) {
             if (AbstractPlatform.updateIcon(icon, file, app.packageName)) {
                 return;
@@ -62,14 +62,14 @@ public class PSPPlatform extends AbstractPlatform {
         new Thread(() -> {
             try {
                 file.getParentFile().mkdirs();
-                String isoToRead = app.packageName.substring(PACKAGE_PREFIX.length());
-                ISO9660FileSystem discFs = new ISO9660FileSystem(new File(isoToRead), true);
+                String gameIsoFilePath = app.packageName.substring(PACKAGE_PREFIX.length());
+                ISO9660FileSystem discFs = new ISO9660FileSystem(new File(gameIsoFilePath), true);
 
-                Enumeration es = discFs.getEntries();
-                while (es.hasMoreElements()) {
-                    ISO9660FileEntry fileEntry = (ISO9660FileEntry) es.nextElement();
-                    if (fileEntry.getName().contains("ICON0.PNG")) {
-                        if (saveStream(discFs.getInputStream(fileEntry), file)) {
+                Enumeration entries = discFs.getEntries();
+                while (entries.hasMoreElements()) {
+                    ISO9660FileEntry entry = (ISO9660FileEntry) entries.nextElement();
+                    if (entry.getName().contains("ICON0.PNG")) {
+                        if (saveStream(discFs.getInputStream(entry), file)) {
                             activity.runOnUiThread(() -> AbstractPlatform.updateIcon(icon, file, app.packageName));
                         }
                     }
@@ -82,37 +82,37 @@ public class PSPPlatform extends AbstractPlatform {
 
     @Override
     public void runApp(Context context, ApplicationInfo app, boolean multiwindow) {
-        String path = app.packageName.substring(PACKAGE_PREFIX.length());
+        String gamePath = app.packageName.substring(PACKAGE_PREFIX.length());
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.parse("file://" + path), "*/*");
+        intent.setDataAndType(Uri.parse("file://" + gamePath), "*/*");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.setPackage(EMULATOR_PACKAGE);
+        intent.setPackage(PPSSPPVR_PACKAGE_NAME);
         context.getApplicationContext().startActivity(intent);
     }
 
     private ArrayList<String> locateGames() {
-        ArrayList<String> output = new ArrayList<>();
+        ArrayList<String> gamePaths = new ArrayList<>();
         try {
-            boolean enabled = false;
-            FileInputStream fis = new FileInputStream(CONFIG_FILE);
-            Scanner sc = new Scanner(fis);
-            while (sc.hasNext()) {
-                String line = sc.nextLine();
-                if (enabled && line.startsWith(FILENAME_PREFIX)) {
-                    output.add(line.substring(line.indexOf('/')));
+            boolean isReadingGames = false;
+            FileInputStream configFileStream = new FileInputStream(CONFIG_FILE_PATH);
+            Scanner configScanner = new Scanner(configFileStream);
+            while (configScanner.hasNext()) {
+                String configLine = configScanner.nextLine();
+                if (isReadingGames && configLine.startsWith(GAME_FILENAME_PREFIX)) {
+                    gamePaths.add(configLine.substring(configLine.indexOf('/')));
                 }
 
-                if (line.startsWith(RECENT_TAG)) {
-                    enabled = true;
-                } else if (line.startsWith("[")) {
-                    enabled = false;
+                if (configLine.startsWith(RECENT_GAMES_TAG)) {
+                    isReadingGames = true;
+                } else if (configLine.startsWith("[")) {
+                    isReadingGames = false;
                 }
             }
-            sc.close();
-            fis.close();
+            configScanner.close();
+            configFileStream.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return output;
+        return gamePaths;
     }
 }

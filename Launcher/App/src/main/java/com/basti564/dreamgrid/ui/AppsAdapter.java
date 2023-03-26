@@ -31,36 +31,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AppsAdapter extends BaseAdapter {
-    private static Drawable mTempIcon;
-    private static File mTempFile;
-    private static String mTempPackage;
-    private static long mTempTimestamp;
-    private final MainActivity mContext;
-    private final List<ApplicationInfo> mInstalledApps;
-    private final boolean mEditMode;
-    private final boolean mNames;
-    private final int mScale;
-    private final SettingsProvider mSettings;
+    private static Drawable iconDrawable;
+    private static File iconFile;
+    private static String packageName;
+    private static long lastClickTime;
+    private final MainActivity mainActivityContext;
+    private final List<ApplicationInfo> appList;
+    private final boolean isEditMode;
+    private final boolean showTextLabels;
+    private final int itemScale;
+    private final SettingsProvider settingsProvider;
 
     public AppsAdapter(MainActivity context, boolean editMode, int scale, boolean names) {
-        mContext = context;
-        mEditMode = editMode;
-        mNames = names;
-        mScale = scale;
-        mSettings = SettingsProvider.getInstance(mContext);
+        mainActivityContext = context;
+        isEditMode = editMode;
+        showTextLabels = names;
+        itemScale = scale;
+        settingsProvider = SettingsProvider.getInstance(mainActivityContext);
 
-        ArrayList<String> groups = mSettings.getAppGroupsSorted(false);
-        ArrayList<String> selected = mSettings.getAppGroupsSorted(true);
-        boolean first = !selected.isEmpty() && !groups.isEmpty() && selected.get(0).compareTo(groups.get(0)) == 0;
-        mInstalledApps = mSettings.getInstalledApps(context, selected, first);
+        ArrayList<String> sortedGroups = settingsProvider.getAppGroupsSorted(false);
+        ArrayList<String> sortedSelectedGroups = settingsProvider.getAppGroupsSorted(true);
+        boolean isFirstGroupSelected = !sortedSelectedGroups.isEmpty() && !sortedGroups.isEmpty() && sortedSelectedGroups.get(0).compareTo(sortedGroups.get(0)) == 0;
+        appList = settingsProvider.getInstalledApps(context, sortedSelectedGroups, isFirstGroupSelected);
     }
 
     public int getCount() {
-        return mInstalledApps.size();
+        return appList.size();
     }
 
     public Object getItem(int position) {
-        return mInstalledApps.get(position);
+        return appList.get(position);
     }
 
     public long getItemId(int position) {
@@ -68,51 +68,51 @@ public class AppsAdapter extends BaseAdapter {
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        final ApplicationInfo actApp = mInstalledApps.get(position);
-        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View gridView = inflater.inflate(R.layout.lv_app, parent, false);
+        final ApplicationInfo currentApp = appList.get(position);
+        LayoutInflater layoutInflater = (LayoutInflater) mainActivityContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View gridView = layoutInflater.inflate(R.layout.lv_app, parent, false);
 
         // Set size of items
         RelativeLayout layout = gridView.findViewById(R.id.layout);
         ViewGroup.LayoutParams params = layout.getLayoutParams();
-        params.width = mScale;
-        params.height = mScale;
+        params.width = itemScale;
+        params.height = itemScale;
         layout.setLayoutParams(params);
 
         // set value into textview
-        PackageManager pm = mContext.getPackageManager();
-        String name = SettingsProvider.getAppDisplayName(mContext, actApp.packageName, actApp.loadLabel(pm));
+        PackageManager packageManager = mainActivityContext.getPackageManager();
+        String name = SettingsProvider.getAppDisplayName(mainActivityContext, currentApp.packageName, currentApp.loadLabel(packageManager));
         ProgressBar progressBar = gridView.findViewById(R.id.progress_bar);
         TextView textView = gridView.findViewById(R.id.textLabel);
         textView.setText(name);
-        textView.setVisibility(mNames ? View.VISIBLE : View.GONE);
+        textView.setVisibility(showTextLabels ? View.VISIBLE : View.GONE);
 
-        if (mEditMode) {
+        if (isEditMode) {
             // short click for app details, long click to activate drag and drop
             layout.setOnTouchListener((view, motionEvent) -> {
                 if ((motionEvent.getAction() == MotionEvent.ACTION_DOWN) ||
                         (motionEvent.getAction() == MotionEvent.ACTION_POINTER_DOWN)) {
-                    mTempPackage = actApp.packageName;
-                    mTempTimestamp = System.currentTimeMillis();
-                    ClipData data = ClipData.newPlainText(name, name);
+                    packageName = currentApp.packageName;
+                    lastClickTime = System.currentTimeMillis();
+                    ClipData dragData = ClipData.newPlainText(name, name);
                     View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
-                    view.startDragAndDrop(data, shadowBuilder, view, 0);
+                    view.startDragAndDrop(dragData, shadowBuilder, view, 0);
                 }
                 return false;
             });
 
             // drag and drop
             layout.setOnDragListener((view, event) -> {
-                if (actApp.packageName.compareTo(mTempPackage) == 0) {
+                if (currentApp.packageName.compareTo(packageName) == 0) {
                     if (event.getAction() == DragEvent.ACTION_DRAG_STARTED) {
                         view.setVisibility(View.INVISIBLE);
                     } else if (event.getAction() == DragEvent.ACTION_DRAG_ENDED) {
-                        mContext.reloadUI();
+                        mainActivityContext.reloadUI();
                     } else if (event.getAction() == DragEvent.ACTION_DROP) {
-                        if (System.currentTimeMillis() - mTempTimestamp < 250) {
-                            showAppDetails(actApp);
+                        if (System.currentTimeMillis() - lastClickTime < 250) {
+                            showAppDetails(currentApp);
                         } else {
-                            mContext.reloadUI();
+                            mainActivityContext.reloadUI();
                         }
                     }
                     return event.getAction() != DragEvent.ACTION_DROP;
@@ -122,18 +122,18 @@ public class AppsAdapter extends BaseAdapter {
         } else {
             layout.setOnClickListener(view -> {
                 progressBar.setVisibility(View.VISIBLE);
-                mContext.openApp(actApp);
+                mainActivityContext.openApp(currentApp);
             });
             layout.setOnLongClickListener(view -> {
-                showAppDetails(actApp);
+                showAppDetails(currentApp);
                 return false;
             });
         }
 
         // set application icon
-        AbstractPlatform platform = AbstractPlatform.getPlatform(actApp);
+        AbstractPlatform appPlatform = AbstractPlatform.getPlatform(currentApp);
         ImageView imageView = gridView.findViewById(R.id.imageLabel);
-        platform.loadIcon(mContext, imageView, actApp, name);
+        appPlatform.loadIcon(mainActivityContext, imageView, currentApp, name);
 
         return gridView;
     }
@@ -142,57 +142,57 @@ public class AppsAdapter extends BaseAdapter {
         AbstractPlatform.clearIconCache();
         if (path != null) {
             Bitmap bitmap = ImageUtils.getResizedBitmap(BitmapFactory.decodeFile(path), 450);
-            ImageUtils.saveBitmap(bitmap, mTempFile);
+            ImageUtils.saveBitmap(bitmap, iconFile);
             selectedImageView.setImageBitmap(bitmap);
         } else {
-            selectedImageView.setImageDrawable(mTempIcon);
-            AbstractPlatform.updateIcon(selectedImageView, mTempFile, mTempPackage);
+            selectedImageView.setImageDrawable(iconDrawable);
+            AbstractPlatform.updateIcon(selectedImageView, iconFile, packageName);
         }
-        mContext.reloadUI();
+        mainActivityContext.reloadUI();
         this.notifyDataSetChanged(); // for real time updates
     }
 
-    private void showAppDetails(ApplicationInfo actApp) {
+    private void showAppDetails(ApplicationInfo currentApp) {
         // set layout
-        Context context = mContext;
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setView(R.layout.dialog_app_details);
-        AlertDialog dialog = builder.create();
-        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bkg_dialog);
-        dialog.show();
+        Context context = mainActivityContext;
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+        dialogBuilder.setView(R.layout.dialog_app_details);
+        AlertDialog appDetailsDialog = dialogBuilder.create();
+        appDetailsDialog.getWindow().setBackgroundDrawableResource(R.drawable.bkg_dialog);
+        appDetailsDialog.show();
 
         // info action
-        dialog.findViewById(R.id.info).setOnClickListener(view13 -> mContext.openAppDetails(actApp.packageName));
+        appDetailsDialog.findViewById(R.id.info).setOnClickListener(view13 -> mainActivityContext.openAppDetails(currentApp.packageName));
 
         // set name
-        PackageManager pm = mContext.getPackageManager();
-        String name = SettingsProvider.getAppDisplayName(mContext, actApp.packageName, actApp.loadLabel(pm));
-        final EditText input = dialog.findViewById(R.id.app_name);
-        input.setText(name);
-        dialog.findViewById(R.id.ok).setOnClickListener(view12 -> {
-            mSettings.setAppDisplayName(context, actApp, input.getText().toString());
-            mContext.reloadUI();
-            dialog.dismiss();
+        PackageManager packageManager = mainActivityContext.getPackageManager();
+        String name = SettingsProvider.getAppDisplayName(mainActivityContext, currentApp.packageName, currentApp.loadLabel(packageManager));
+        final EditText appNameEditText = appDetailsDialog.findViewById(R.id.app_name);
+        appNameEditText.setText(name);
+        appDetailsDialog.findViewById(R.id.ok).setOnClickListener(view12 -> {
+            settingsProvider.setAppDisplayName(context, currentApp, appNameEditText.getText().toString());
+            mainActivityContext.reloadUI();
+            appDetailsDialog.dismiss();
         });
 
         // load icon
-        ImageView tempImage = dialog.findViewById(R.id.app_icon);
-        AbstractPlatform platform = AbstractPlatform.getPlatform(actApp);
-        platform.loadIcon(mContext, tempImage, actApp, name);
+        ImageView tempImage = appDetailsDialog.findViewById(R.id.app_icon);
+        AbstractPlatform appPlatform = AbstractPlatform.getPlatform(currentApp);
+        appPlatform.loadIcon(mainActivityContext, tempImage, currentApp, name);
 
-        tempImage.setOnClickListener(view1 -> {
-            mTempIcon = actApp.loadIcon(pm);
-            mTempPackage = actApp.packageName;
-            mTempFile = AbstractPlatform.pkg2path(mContext, actApp.packageName);
-            if (mTempFile.exists()) {
-                mTempFile.delete();
+        tempImage.setOnClickListener(iconPickerView -> {
+            iconDrawable = currentApp.loadIcon(packageManager);
+            packageName = currentApp.packageName;
+            iconFile = AbstractPlatform.packageToPath(mainActivityContext, currentApp.packageName);
+            if (iconFile.exists()) {
+                iconFile.delete();
             }
-            mContext.setSelectedImageView(tempImage);
-            ImageUtils.showImagePicker(mContext, MainActivity.PICK_ICON_CODE);
+            mainActivityContext.setSelectedImageView(tempImage);
+            ImageUtils.showImagePicker(mainActivityContext, MainActivity.PICK_ICON_CODE);
         });
     }
 
     public String getSelectedPackage() {
-        return mTempPackage;
+        return packageName;
     }
 }

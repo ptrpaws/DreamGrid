@@ -10,9 +10,9 @@ import java.io.FileOutputStream;
 
 public class ImageUtils {
 
-    public static Bitmap getResizedBitmap(Bitmap image, int maxSize) {
-        int width = image.getWidth();
-        int height = image.getHeight();
+    public static Bitmap getResizedBitmap(Bitmap originalBitmap, int maxSize) {
+        int width = originalBitmap.getWidth();
+        int height = originalBitmap.getHeight();
 
         float bitmapRatio = (float) width / (float) height;
         if (bitmapRatio > 1) {
@@ -22,12 +22,12 @@ public class ImageUtils {
             height = maxSize;
             width = (int) (height * bitmapRatio);
         }
-        return Bitmap.createScaledBitmap(image, width, height, true);
+        return Bitmap.createScaledBitmap(originalBitmap, width, height, true);
     }
 
-    public static void saveBitmap(Bitmap bitmap, File file) {
+    public static void saveBitmap(Bitmap bitmap, File destinationFile) {
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            FileOutputStream fileOutputStream = new FileOutputStream(destinationFile);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
             fileOutputStream.flush();
             fileOutputStream.close();
@@ -37,8 +37,8 @@ public class ImageUtils {
     }
 
     public static void showImagePicker(Activity activity, int requestCode) {
-        ImagePicker picker = ImagePicker.create(activity).single();
-        picker.showCamera(false);
-        picker.start(requestCode);
+        ImagePicker imagePicker = ImagePicker.create(activity).single();
+        imagePicker.showCamera(false);
+        imagePicker.start(requestCode);
     }
 }

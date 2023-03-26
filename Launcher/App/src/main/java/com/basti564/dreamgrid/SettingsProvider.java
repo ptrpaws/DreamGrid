@@ -34,13 +34,13 @@ public class SettingsProvider {
     private final String KEY_SELECTED_GROUPS = "prefSelectedGroups";
     private final String SEPARATOR = "#@%";
     //storage
-    private final SharedPreferences mPreferences;
-    private Map<String, String> mAppList = new HashMap<>();
-    private Set<String> mAppGroups = new HashSet<>();
-    private Set<String> mSelectedGroups = new HashSet<>();
+    private final SharedPreferences sharedPreferences;
+    private Map<String, String> appListMap = new HashMap<>();
+    private Set<String> appGroupsSet = new HashSet<>();
+    private Set<String> selectedGroupsSet = new HashSet<>();
 
     private SettingsProvider(Context context) {
-        mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         SettingsProvider.context = context;
     }
 
@@ -66,11 +66,11 @@ public class SettingsProvider {
 
     public Map<String, String> getAppList() {
         readValues();
-        return mAppList;
+        return appListMap;
     }
 
     public void setAppList(Map<String, String> appList) {
-        mAppList = appList;
+        appListMap = appList;
         storeValues();
     }
 
@@ -82,8 +82,8 @@ public class SettingsProvider {
         if (isPlatformEnabled(KEY_PLATFORM_ANDROID)) {
             List<ApplicationInfo> androidApps = new AndroidPlatform().getInstalledApps(context);
             for (ApplicationInfo app : androidApps) {
-                if (!mAppList.containsKey(app.packageName) && mAppGroups.contains("Tools")) {
-                    mAppList.put(app.packageName, "Tools");
+                if (!appListMap.containsKey(app.packageName) && appGroupsSet.contains("Tools")) {
+                    appListMap.put(app.packageName, "Tools");
                 }
             }
             installedApplications.addAll(androidApps);
@@ -92,8 +92,8 @@ public class SettingsProvider {
             // only add PSP apps if the platform is supported
             List<ApplicationInfo> pspApps = new PSPPlatform().getInstalledApps(context);
             for (ApplicationInfo app : pspApps) {
-                if (!mAppList.containsKey(app.packageName) && mAppGroups.contains("PSP")) {
-                    mAppList.put(app.packageName, "PSP");
+                if (!appListMap.containsKey(app.packageName) && appGroupsSet.contains("PSP")) {
+                    appListMap.put(app.packageName, "PSP");
                 }
             }
             installedApplications.addAll(pspApps);
@@ -101,18 +101,18 @@ public class SettingsProvider {
         if (isPlatformEnabled(KEY_PLATFORM_VR)) {
             List<ApplicationInfo> vrApps = new VRPlatform().getInstalledApps(context);
             for (ApplicationInfo app : vrApps) {
-                if (!mAppList.containsKey(app.packageName) && mAppGroups.contains(context.getString(R.string.default_apps_group))) {
-                    mAppList.put(app.packageName, context.getString(R.string.default_apps_group));
+                if (!appListMap.containsKey(app.packageName) && appGroupsSet.contains(context.getString(R.string.default_apps_group))) {
+                    appListMap.put(app.packageName, context.getString(R.string.default_apps_group));
                 }
             }
             installedApplications.addAll(vrApps);
         }
 
         // Save changes to app list
-        setAppList(mAppList);
+        setAppList(appListMap);
 
         // Put them into a map with package name as keyword for faster handling
-        String ownPackageName = context.getApplicationContext().getPackageName();
+        String packageName = context.getApplicationContext().getPackageName();
         Map<String, ApplicationInfo> appMap = new LinkedHashMap<>();
         for (ApplicationInfo installedApplication : installedApplications) {
             String pkg = installedApplication.packageName;
@@ -137,21 +137,21 @@ public class SettingsProvider {
                         break;
                     }
                 }
-                if (!isSystemApp && !isEnvironment && !pkg.equals(ownPackageName)) {
+                if (!isSystemApp && !isEnvironment && !pkg.equals(packageName)) {
                     appMap.put(pkg, installedApplication);
                 }
             }
         }
 
         // Create new list of apps
-        PackageManager pm = context.getPackageManager();
-        ArrayList<ApplicationInfo> output = new ArrayList<>(appMap.values());
-        output.sort((a, b) -> {
-            String na = getAppDisplayName(context, a.packageName, a.loadLabel(pm)).toUpperCase();
-            String nb = getAppDisplayName(context, b.packageName, b.loadLabel(pm)).toUpperCase();
-            return na.compareTo(nb);
+        PackageManager packageManager = context.getPackageManager();
+        ArrayList<ApplicationInfo> sortedApps = new ArrayList<>(appMap.values());
+        sortedApps.sort((a, b) -> {
+            String displayNameA = getAppDisplayName(context, a.packageName, a.loadLabel(packageManager)).toUpperCase();
+            String displayNameB = getAppDisplayName(context, b.packageName, b.loadLabel(packageManager)).toUpperCase();
+            return displayNameA.compareTo(displayNameB);
         });
-        return output;
+        return sortedApps;
     }
 
     public boolean hasMetadata(ApplicationInfo app, String metadata) {
@@ -167,52 +167,52 @@ public class SettingsProvider {
 
     public Set<String> getAppGroups() {
         readValues();
-        return mAppGroups;
+        return appGroupsSet;
     }
 
     public void setAppGroups(Set<String> appGroups) {
-        mAppGroups = appGroups;
+        appGroupsSet = appGroups;
         storeValues();
     }
 
     public Set<String> getSelectedGroups() {
         readValues();
-        return mSelectedGroups;
+        return selectedGroupsSet;
     }
 
     public void setSelectedGroups(Set<String> appGroups) {
-        mSelectedGroups = appGroups;
+        selectedGroupsSet = appGroups;
         storeValues();
     }
 
     public ArrayList<String> getAppGroupsSorted(boolean selected) {
         readValues();
-        ArrayList<String> output = new ArrayList<>(selected ? mSelectedGroups : mAppGroups);
-        output.sort((a, b) -> {
-            String name1 = simplifyName(a.toUpperCase());
-            String name2 = simplifyName(b.toUpperCase());
-            return name1.compareTo(name2);
+        ArrayList<String> sortedApplicationList = new ArrayList<>(selected ? selectedGroupsSet : appGroupsSet);
+        sortedApplicationList.sort((a, b) -> {
+            String simplifiedNameA = simplifyName(a.toUpperCase());
+            String simplifiedNameB = simplifyName(b.toUpperCase());
+            return simplifiedNameA.compareTo(simplifiedNameB);
         });
-        return output;
+        return sortedApplicationList;
     }
 
     private synchronized void readValues() {
         try {
-            Set<String> def = new HashSet<>();
-            def.add(context.getString(R.string.default_apps_group));
-            def.add("Tools");
+            Set<String> defaultGroupsSet = new HashSet<>();
+            defaultGroupsSet.add(context.getString(R.string.default_apps_group));
+            defaultGroupsSet.add("Tools");
             if (new PSPPlatform().isSupported(context)) {
-                def.add("PSP");
+                defaultGroupsSet.add("PSP");
             }
-            mAppGroups = mPreferences.getStringSet(KEY_APP_GROUPS, def);
-            mSelectedGroups = mPreferences.getStringSet(KEY_SELECTED_GROUPS, def);
+            appGroupsSet = sharedPreferences.getStringSet(KEY_APP_GROUPS, defaultGroupsSet);
+            selectedGroupsSet = sharedPreferences.getStringSet(KEY_SELECTED_GROUPS, defaultGroupsSet);
 
-            mAppList.clear();
-            Set<String> apps = new HashSet<>();
-            apps = mPreferences.getStringSet(KEY_APP_LIST, apps);
-            for (String s : apps) {
+            appListMap.clear();
+            Set<String> appListSet = new HashSet<>();
+            appListSet = sharedPreferences.getStringSet(KEY_APP_LIST, appListSet);
+            for (String s : appListSet) {
                 String[] data = s.split(SEPARATOR);
-                mAppList.put(data[0], data[1]);
+                appListMap.put(data[0], data[1]);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -221,15 +221,15 @@ public class SettingsProvider {
 
     private synchronized void storeValues() {
         try {
-            SharedPreferences.Editor editor = mPreferences.edit();
-            editor.putStringSet(KEY_APP_GROUPS, mAppGroups);
-            editor.putStringSet(KEY_SELECTED_GROUPS, mSelectedGroups);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putStringSet(KEY_APP_GROUPS, appGroupsSet);
+            editor.putStringSet(KEY_SELECTED_GROUPS, selectedGroupsSet);
 
-            Set<String> apps = new HashSet<>();
-            for (String pkg : mAppList.keySet()) {
-                apps.add(pkg + SEPARATOR + mAppList.get(pkg));
+            Set<String> appListSet = new HashSet<>();
+            for (String pkg : appListMap.keySet()) {
+                appListSet.add(pkg + SEPARATOR + appListMap.get(pkg));
             }
-            editor.putStringSet(KEY_APP_LIST, apps);
+            editor.putStringSet(KEY_APP_LIST, appListSet);
 
             editor.apply();
         } catch (Exception e) {
@@ -238,18 +238,18 @@ public class SettingsProvider {
     }
 
     public String addGroup() {
-        String name = "New";
-        List<String> groups = getAppGroupsSorted(false);
-        if (groups.contains(name)) {
+        String newGroupName = "New";
+        List<String> existingGroups = getAppGroupsSorted(false);
+        if (existingGroups.contains(newGroupName)) {
             int index = 1;
-            while (groups.contains(name + " " + index)) {
+            while (existingGroups.contains(newGroupName + " " + index)) {
                 index++;
             }
-            name = name + " " + index;
+            newGroupName = newGroupName + " " + index;
         }
-        groups.add(name);
-        setAppGroups(new HashSet<>(groups));
-        return name;
+        existingGroups.add(newGroupName);
+        setAppGroups(new HashSet<>(existingGroups));
+        return newGroupName;
     }
 
     public void selectGroup(String name) {
@@ -266,13 +266,13 @@ public class SettingsProvider {
     }
 
     public String simplifyName(String name) {
-        StringBuilder output = new StringBuilder();
+        StringBuilder simplifiedName = new StringBuilder();
         for (int i = 0; i < name.length(); i++) {
             char c = name.charAt(i);
-            if ((c >= 'A') && (c <= 'Z')) output.append(c);
-            if ((c >= '0') && (c <= '9')) output.append(c);
+            if ((c >= 'A') && (c <= 'Z')) simplifiedName.append(c);
+            if ((c >= '0') && (c <= '9')) simplifiedName.append(c);
         }
-        return output.toString();
+        return simplifiedName.toString();
     }
 
     public boolean isPlatformEnabled(String key) {

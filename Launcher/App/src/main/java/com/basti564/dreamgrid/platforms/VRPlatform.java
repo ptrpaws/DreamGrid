@@ -30,10 +30,10 @@ public class VRPlatform extends AbstractPlatform {
             return installedApps;
         }
 
-        PackageManager pm = context.getPackageManager();
-        for (ApplicationInfo app : pm.getInstalledApplications(PackageManager.GET_META_DATA)) {
-            if (isVirtualRealityApp(app)) {
-                installedApps.add(app);
+        PackageManager packageManager = context.getPackageManager();
+        for (ApplicationInfo appInfo : packageManager.getInstalledApplications(PackageManager.GET_META_DATA)) {
+            if (isVirtualRealityApp(appInfo)) {
+                installedApps.add(appInfo);
             }
         }
         return installedApps;
@@ -45,68 +45,68 @@ public class VRPlatform extends AbstractPlatform {
     }
 
     @Override
-    public void loadIcon(Activity activity, ImageView icon, ApplicationInfo app, String name) {
-        PackageManager pm = activity.getPackageManager();
+    public void loadIcon(Activity activity, ImageView iconView, ApplicationInfo appInfo, String name) {
+        PackageManager packageManager = activity.getPackageManager();
         Resources resources;
         try {
-            resources = pm.getResourcesForApplication(app.packageName);
+            resources = packageManager.getResourcesForApplication(appInfo.packageName);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
             return;
         }
-        int iconId = app.icon;
+        int iconId = appInfo.icon;
         if (iconId == 0) {
             iconId = android.R.drawable.sym_def_app_icon;
         }
         Drawable appIcon = resources.getDrawableForDensity(iconId, DisplayMetrics.DENSITY_XXXHIGH);
-        icon.setImageDrawable(appIcon);
+        iconView.setImageDrawable(appIcon);
 
-        String pkg = app.packageName;
-        if (iconCache.containsKey(pkg)) {
-            icon.setImageDrawable(iconCache.get(pkg));
+        String pkgName = appInfo.packageName;
+        if (cachedIcons.containsKey(pkgName)) {
+            iconView.setImageDrawable(cachedIcons.get(pkgName));
             return;
         }
 
-        final File file = pkg2path(activity, pkg);
-        if (file.exists()) {
-            if (updateIcon(icon, file, pkg)) {
+        final File iconFile = packageToPath(activity, pkgName);
+        if (iconFile.exists()) {
+            if (updateIcon(iconView, iconFile, pkgName)) {
                 return;
             }
         }
 
-        downloadIcon(activity, pkg, name, () -> updateIcon(icon, file, pkg));
+        downloadIcon(activity, pkgName, name, () -> updateIcon(iconView, iconFile, pkgName));
     }
 
     @Override
-    public void runApp(Context context, ApplicationInfo app, boolean multiwindow) {
-        Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage(app.packageName);
+    public void runApp(Context context, ApplicationInfo appInfo, boolean multiwindow) {
+        Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage(appInfo.packageName);
         context.getApplicationContext().startActivity(launchIntent);
     }
 
-    private void downloadIcon(Activity activity, String pkg, String name, Runnable callback) {
-        final File file = pkg2path(activity, pkg);
+    private void downloadIcon(Activity activity, String pkgName, String name, Runnable callback) {
+        final File iconFile = packageToPath(activity, pkgName);
         new Thread(() -> {
             try {
                 String autogen = null;
-                if (ignoredIcons.contains(file.getName())) {
+                if (excludedIconPackages.contains(iconFile.getName())) {
                     // ignored icon
-                } else if (downloadIconFromUrl(ICONS1_URL + pkg + ".jpg", file)) {
+                } else if (downloadIconFromUrl(ICONS1_URL + pkgName + ".jpg", iconFile)) {
                     activity.runOnUiThread(callback);
-                } else if (downloadIconFromUrl(ICONS2_URL + pkg.toLowerCase(Locale.US) + ".jpg", file)) {
+                } else if (downloadIconFromUrl(ICONS2_URL + pkgName.toLowerCase(Locale.US) + ".jpg", iconFile)) {
                     activity.runOnUiThread(callback);
                 } else {
                     int count = 0;
-                    File info = new File(activity.getApplicationInfo().dataDir, "applab.info");
-                    if (downloadIconFromUrl(ICONS2_URL + "applab.info", info)) {
+                    File infoFile = new File(activity.getApplicationInfo().dataDir, "applab.info");
+                    if (downloadIconFromUrl(ICONS2_URL + "applab.info", infoFile)) {
                         try {
-                            FileInputStream fis = new FileInputStream(info);
+                            FileInputStream fis = new FileInputStream(infoFile);
                             Scanner sc = new Scanner(fis);
                             while (sc.hasNext()) {
                                 String line = sc.nextLine();
                                 if (line.contains(name)) {
-                                    Scanner lsc = new Scanner(line);
-                                    autogen = lsc.next();
-                                    lsc.close();
+                                    Scanner lineScanner = new Scanner(line);
+                                    autogen = lineScanner.next();
+                                    lineScanner.close();
                                     count++;
                                 }
                             }
@@ -117,18 +117,18 @@ public class VRPlatform extends AbstractPlatform {
                         }
                     }
                     if (count == 0) {
-                        Log.d("Missing icon", file.getName());
-                        ignoredIcons.add(file.getName());
+                        Log.d("Missing icon", iconFile.getName());
+                        excludedIconPackages.add(iconFile.getName());
                     } else if (count == 1) {
-                        if (downloadIconFromUrl(ICONS2_URL + autogen + ".jpg", file)) {
+                        if (downloadIconFromUrl(ICONS2_URL + autogen + ".jpg", iconFile)) {
                             activity.runOnUiThread(callback);
                         } else {
-                            Log.d("Missing icon", file.getName());
-                            ignoredIcons.add(file.getName());
+                            Log.d("Missing icon", iconFile.getName());
+                            excludedIconPackages.add(iconFile.getName());
                         }
                     } else {
-                        Log.d("Too many icons", file.getName());
-                        ignoredIcons.add(file.getName());
+                        Log.d("Too many icons", iconFile.getName());
+                        excludedIconPackages.add(iconFile.getName());
                     }
                 }
             } catch (Exception e) {

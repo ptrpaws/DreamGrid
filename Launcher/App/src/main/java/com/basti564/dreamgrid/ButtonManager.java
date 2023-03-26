@@ -6,35 +6,35 @@ import android.content.Intent;
 import android.view.accessibility.AccessibilityEvent;
 
 public class ButtonManager extends AccessibilityService {
-    public static void isAccesibilityInitialized(Context context) {
+    public static void checkAccessibilitySettings(Context context) {
         try {
             android.provider.Settings.Secure.getInt(
                     context.getApplicationContext().getContentResolver(),
                     android.provider.Settings.Secure.ACCESSIBILITY_ENABLED);
 
-            String settingValue = android.provider.Settings.Secure.getString(
+            String enabledServices = android.provider.Settings.Secure.getString(
                     context.getApplicationContext().getContentResolver(),
                     android.provider.Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
-            if (settingValue != null) {
+            if (enabledServices != null) {
                 context.getPackageName();
             }
         } catch (android.provider.Settings.SettingNotFoundException ignored) {
         }
     }
 
-    public static void requestAccessibility(Context context) {
-        Intent localIntent = new Intent("android.settings.ACCESSIBILITY_SETTINGS");
-        localIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        localIntent.setPackage("com.android.settings");
-        context.startActivity(localIntent);
+    public static void requestAccessibilitySettings(Context context) {
+        Intent intent = new Intent("android.settings.ACCESSIBILITY_SETTINGS");
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setPackage("com.android.settings");
+        context.startActivity(intent);
     }
 
     public void onAccessibilityEvent(AccessibilityEvent event) {
         if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
             String eventText = event.getText().toString();
-            String[] exploreAccessibilityEventNames = getResources().getStringArray(R.array.explore_accessibility_event_names);
+            String[] eventNames = getResources().getStringArray(R.array.explore_accessibility_event_names);
 
-            for (String eventName : exploreAccessibilityEventNames) {
+            for (String eventName : eventNames) {
                 if (eventName.compareTo(eventText) == 0) {
                     MainActivity.reset(getApplicationContext());
                     break;
@@ -46,6 +46,7 @@ public class ButtonManager extends AccessibilityService {
     public void onInterrupt() {
     }
 
+    @Override
     protected void onServiceConnected() {
         super.onServiceConnected();
     }
