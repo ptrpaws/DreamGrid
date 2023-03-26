@@ -63,7 +63,7 @@
             android:verticalSpacing="15dp"/>
     </LinearLayout>
 
-    <ImageButton
+    <ImageView
         android:id="@+id/logo"
         android:layout_width="64dp"
         android:layout_height="64dp"

@@ -30,7 +30,6 @@ import android.view.ViewOutlineProvider;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.GridView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 
@@ -171,7 +170,7 @@ public class MainActivity extends Activity
         });
 
         // Set logo button
-        ImageButton logo = findViewById(R.id.logo);
+        ImageView logo = findViewById(R.id.logo);
         logo.setOnClickListener(view -> showSettingsMain());
 
         // Update Message
