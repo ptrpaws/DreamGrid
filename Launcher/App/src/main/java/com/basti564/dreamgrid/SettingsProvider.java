@@ -76,7 +76,7 @@ public class SettingsProvider
         if (isPlatformEnabled(KEY_PLATFORM_ANDROID)) {
             List<ApplicationInfo> androidApps = new AndroidPlatform().getInstalledApps(context);
             for (ApplicationInfo app : androidApps) {
-                if (!mAppList.containsKey(app.packageName)) {
+                if (!mAppList.containsKey(app.packageName) && mAppGroups.contains("Tools")) {
                     mAppList.put(app.packageName, "Tools");
                 }
             }
@@ -86,13 +86,19 @@ public class SettingsProvider
             // only add PSP apps if the platform is supported
             List<ApplicationInfo> pspApps = new PSPPlatform().getInstalledApps(context);
             for (ApplicationInfo app : pspApps) {
-                if (!mAppList.containsKey(app.packageName)) {
+                if (!mAppList.containsKey(app.packageName) && mAppGroups.contains("PSP")) {
                     mAppList.put(app.packageName, "PSP");
                 }
             }
             installedApplications.addAll(pspApps);
         }
         if (isPlatformEnabled(KEY_PLATFORM_VR)) {
+            List<ApplicationInfo> androidApps = new VRPlatform().getInstalledApps(context);
+            for (ApplicationInfo app : androidApps) {
+                if (!mAppList.containsKey(app.packageName) && mAppGroups.contains(context.getString(R.string.default_apps_group))) {
+                    mAppList.put(app.packageName, context.getString(R.string.default_apps_group));
+                }
+            }
             installedApplications.addAll(new VRPlatform().getInstalledApps(context));
         }
 
