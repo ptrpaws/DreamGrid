@@ -63,21 +63,44 @@ public class GroupsAdapter extends BaseAdapter {
         return position;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) mainActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View itemView = inflater.inflate(R.layout.lv_group, parent, false);
+    static class ViewHolder {
+        TextView textView;
+        View menu;
 
-        if (position >= MAX_GROUPS - 1) {
-            itemView.setVisibility(View.GONE);
+        ViewHolder(View itemView) {
+            textView = itemView.findViewById(R.id.textLabel);
+            menu = itemView.findViewById(R.id.menu);
+        }
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder holder;
+
+        if (convertView == null) {
+            LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+            convertView = inflater.inflate(R.layout.lv_group, parent, false);
+
+            holder = new ViewHolder(convertView);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
+
+        // set value into textview
+        String item = getItem(position);
+        if (HIDDEN_GROUP.equals(item)) {
+            holder.textView.setText(" -  " + mainActivity.getString(R.string.apps_hidden));
+        } else {
+            holder.textView.setText(item);
         }
 
         // set menu action
-        View menu = itemView.findViewById(R.id.menu);
-        Drawable drawable = menu.getContext().getDrawable(R.drawable.ic_info);
+        Drawable drawable = holder.menu.getContext().getDrawable(R.drawable.ic_info);
         assert drawable != null;
         drawable.setColorFilter(Color.parseColor("#90000000"), PorterDuff.Mode.SRC_ATOP);
-        menu.setBackground(drawable);
-        menu.setOnClickListener(view -> {
+        holder.menu.setBackground(drawable);
+        holder.menu.setOnClickListener(view -> {
 
             final Map<String, String> apps = settingsProvider.getAppList();
             final Set<String> appGroupsList = settingsProvider.getAppGroups();
@@ -139,16 +162,17 @@ public class GroupsAdapter extends BaseAdapter {
         });
 
         // set the look
-        setLook(position, itemView, menu);
+        setLook(position, convertView, holder.menu);
 
         // set drag and drop
-        itemView.setOnDragListener((view, event) -> {
+        final View finalConvertView = convertView;
+        convertView.setOnDragListener((view, event) -> {
             if (event.getAction() == DragEvent.ACTION_DRAG_ENTERED) {
                 int[] colors = new int[]{Color.argb(192, 128, 128, 255), Color.TRANSPARENT};
                 GradientDrawable.Orientation orientation = GradientDrawable.Orientation.LEFT_RIGHT;
-                itemView.setBackground(new GradientDrawable(orientation, colors));
+                finalConvertView.setBackground(new GradientDrawable(orientation, colors));
             } else if (event.getAction() == DragEvent.ACTION_DRAG_EXITED) {
-                setLook(position, view, menu);
+                setLook(position, finalConvertView, holder.menu);
             } else if (event.getAction() == DragEvent.ACTION_DROP) {
                 // add group or hidden group selection
                 String name = appGroups.get(position);
@@ -173,15 +197,16 @@ public class GroupsAdapter extends BaseAdapter {
             return true;
         });
 
+
         // set value into textview
-        TextView textView = itemView.findViewById(R.id.textLabel);
+        TextView textView = convertView.findViewById(R.id.textLabel);
         if (HIDDEN_GROUP.equals(appGroups.get(position))) {
             textView.setText(" -  " + mainActivity.getString(R.string.apps_hidden));
         } else {
             textView.setText(appGroups.get(position));
         }
 
-        return itemView;
+        return convertView;
     }
 
     private void setLook(int position, View itemView, View menu) {
