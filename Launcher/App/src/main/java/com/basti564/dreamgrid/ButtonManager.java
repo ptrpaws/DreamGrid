@@ -45,9 +45,4 @@ public class ButtonManager extends AccessibilityService {
 
     public void onInterrupt() {
     }
-
-    @Override
-    protected void onServiceConnected() {
-        super.onServiceConnected();
-    }
 }
