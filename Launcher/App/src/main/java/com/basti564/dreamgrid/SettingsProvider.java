@@ -38,6 +38,7 @@ public class SettingsProvider {
     private Map<String, String> mAppList = new HashMap<>();
     private Set<String> mAppGroups = new HashSet<>();
     private Set<String> mSelectedGroups = new HashSet<>();
+
     private SettingsProvider(Context context) {
         mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         SettingsProvider.context = context;
@@ -125,7 +126,7 @@ public class SettingsProvider {
                 String[] systemAppPrefixes = {
                         "metapwa", "oculuspwa", "com.facebook.arvr", "com.meta.environment",
                         "com.oculus.avatar2", "com.oculus.environment", "com.oculus.helpcenter",
-                        "com.oculus.systemutilities", "com.meta.AccountsCenter.pwa", "com.pico", "com.pvr"
+                        "com.oculus.systemutilities", "com.oculus.mobile_mrc_setup", "com.meta.AccountsCenter.pwa", "com.pico", "com.pvr"
                 };
                 String[] nonSystemAppPrefixes = {
                         "com.oculus.browser", "com.pico.playsys", "com.picovr.assistantphone", "com.pico.metricstool", "com.ss.android.ttvr.global", "com.android.settings"
