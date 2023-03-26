@@ -128,7 +128,7 @@ public class SettingsProvider {
                         "com.oculus.systemutilities", "com.meta.AccountsCenter.pwa", "com.pico", "com.pvr"
                 };
                 String[] nonSystemAppPrefixes = {
-                        "com.oculus.browser", "com.pico.playsys", "com.picovr.assistantphone", "com.pico.metricstool"
+                        "com.oculus.browser", "com.pico.playsys", "com.picovr.assistantphone", "com.pico.metricstool", "com.android.settings"
                 };
                 for (String prefix : systemAppPrefixes) {
                     if (pkg.startsWith(prefix)) {

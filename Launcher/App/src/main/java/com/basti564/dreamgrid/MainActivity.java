@@ -397,17 +397,6 @@ public class MainActivity extends Activity {
 
         dialog.findViewById(R.id.settings_look).setOnClickListener(view -> showSettingsLook());
         dialog.findViewById(R.id.settings_platforms).setOnClickListener(view -> showSettingsPlatforms());
-        View deviceSettingsView = dialog.findViewById(R.id.settings_device);
-        if (AbstractPlatform.isMagicLeapHeadset()) {
-            deviceSettingsView.setVisibility(View.GONE);
-        } else {
-            deviceSettingsView.setOnClickListener(view -> {
-                Intent intent = new Intent();
-                intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                intent.setPackage("com.android.settings");
-                startActivity(intent);
-            });
-        }
 
         View appShortcutView = dialog.findViewById(R.id.service_app_shortcut);
         if (!(AbstractPlatform.isOculusHeadset() || AbstractPlatform.isPicoHeadset())) {

@@ -19,12 +19,6 @@
             android:src="@drawable/ic_look"/>
 
         <ImageView
-            android:id="@+id/settings_device"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@drawable/ic_device"/>
-
-        <ImageView
             android:id="@+id/settings_apps"
             android:layout_width="120dp"
             android:layout_height="120dp"
