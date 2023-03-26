@@ -1,7 +1,6 @@
 package com.basti564.dreamgrid.ui;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
