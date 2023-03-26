@@ -53,7 +53,7 @@ public class SettingsProvider
 
     private SettingsProvider(Context context) {
         mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        this.context = context;
+        SettingsProvider.context = context;
     }
 
     public void setAppList(Map<String, String> appList)

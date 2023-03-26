@@ -29,7 +29,7 @@ public class ButtonManager extends AccessibilityService
         super.onServiceConnected();
     }
 
-    public static boolean isAccesibilityInitialized(Context context)
+    public static void isAccesibilityInitialized(Context context)
     {
         try {
             android.provider.Settings.Secure.getInt(
@@ -40,12 +40,10 @@ public class ButtonManager extends AccessibilityService
                     context.getApplicationContext().getContentResolver(),
                     android.provider.Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
             if (settingValue != null) {
-                return settingValue.contains(context.getPackageName());
+                context.getPackageName();
             }
-        } catch (android.provider.Settings.SettingNotFoundException e) {
-            return false;
+        } catch (android.provider.Settings.SettingNotFoundException ignored) {
         }
-        return false;
     }
 
     public static void requestAccessibility(Context context) {
