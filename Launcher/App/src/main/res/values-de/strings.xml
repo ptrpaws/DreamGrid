@@ -4,12 +4,12 @@
     <string name="default_apps_group">Apps</string>
     <string name="add_group">Gruppe hinzufügen</string>
     <string name="delete_group">Gruppe löschen</string>
-    <string name="edit_group">Gruppe editieren</string>
-    <string name="app_details">App Details</string>
+    <string name="edit_group">Gruppe bearbeiten</string>
+    <string name="app_details">App-Details</string>
     <string name="apps_hidden">Versteckt</string>
 
-    <string name="background_opacity">Hintergrund sichtbarkeit</string>
-    <string name="icons_size">Icons Größe</string>
-    <string name="show_app_names">Zeige App Namen</string>
-    <string name="start_shortcut">Öffne den Launcher mit dem Entdecken Icon vom Dashboard aus. Für ein flüssigeres Erlebnis sollte die Entdecken App deaktiviert werden.</string>
+    <string name="background_opacity">Hintergrundtransparenz</string>
+    <string name="icons_size">Symbolgröße</string>
+    <string name="show_app_names">App-Namen anzeigen</string>
+    <string name="start_shortcut">Öffnen Sie den Launcher mit dem Explorer-Symbol in der Systemsteuerung. Für eine reibungslose Erfahrung wird empfohlen, die Explorer-App zu deaktivieren.</string>
 </resources>
