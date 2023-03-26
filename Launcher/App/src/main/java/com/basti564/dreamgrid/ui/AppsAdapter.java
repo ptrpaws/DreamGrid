@@ -55,7 +55,7 @@ public class AppsAdapter extends BaseAdapter
 
         ArrayList<String> groups = mSettings.getAppGroupsSorted(false);
         ArrayList<String> selected = mSettings.getAppGroupsSorted(true);
-        boolean first = !selected.isEmpty() && selected.get(0).compareTo(groups.get(0)) == 0;
+        boolean first = !selected.isEmpty() && !groups.isEmpty() && selected.get(0).compareTo(groups.get(0)) == 0;
         mInstalledApps = mSettings.getInstalledApps(context, selected, first);
     }
 
