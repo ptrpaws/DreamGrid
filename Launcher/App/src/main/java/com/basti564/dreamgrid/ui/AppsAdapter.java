@@ -57,6 +57,13 @@ public class AppsAdapter extends BaseAdapter {
         appList = settingsProvider.getInstalledApps(context, sortedSelectedGroups, isFirstGroupSelected);
     }
 
+    private static class ViewHolder {
+        RelativeLayout layout;
+        ImageView imageView;
+        TextView textView;
+        ProgressBar progressBar;
+    }
+
     public int getCount() {
         return appList.size();
     }
@@ -70,28 +77,41 @@ public class AppsAdapter extends BaseAdapter {
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder holder;
+
         final ApplicationInfo currentApp = appList.get(position);
         LayoutInflater layoutInflater = (LayoutInflater) mainActivityContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View gridView = layoutInflater.inflate(R.layout.lv_app, parent, false);
 
-        // Set size of items
-        RelativeLayout layout = gridView.findViewById(R.id.layout);
-        ViewGroup.LayoutParams params = layout.getLayoutParams();
-        params.width = itemScale;
-        params.height = itemScale;
-        layout.setLayoutParams(params);
+        if (convertView == null) {
+            // Create a new ViewHolder and inflate the layout
+            convertView = layoutInflater.inflate(R.layout.lv_app, parent, false);
+            holder = new ViewHolder();
+            holder.layout = convertView.findViewById(R.id.layout);
+            holder.imageView = convertView.findViewById(R.id.imageLabel);
+            holder.textView = convertView.findViewById(R.id.textLabel);
+            holder.progressBar = convertView.findViewById(R.id.progress_bar);
+
+            // Set size of items
+            ViewGroup.LayoutParams params = holder.layout.getLayoutParams();
+            params.width = itemScale;
+            params.height = itemScale;
+            holder.layout.setLayoutParams(params);
+
+            convertView.setTag(holder);
+        } else {
+            // ViewHolder already exists, reuse it
+            holder = (ViewHolder) convertView.getTag();
+        }
 
         // set value into textview
         PackageManager packageManager = mainActivityContext.getPackageManager();
         String name = SettingsProvider.getAppDisplayName(mainActivityContext, currentApp.packageName, currentApp.loadLabel(packageManager));
-        ProgressBar progressBar = gridView.findViewById(R.id.progress_bar);
-        TextView textView = gridView.findViewById(R.id.textLabel);
-        textView.setText(name);
-        textView.setVisibility(showTextLabels ? View.VISIBLE : View.GONE);
+        holder.textView.setText(name);
+        holder.textView.setVisibility(showTextLabels ? View.VISIBLE : View.GONE);
 
         if (isEditMode) {
             // short click for app details, long click to activate drag and drop
-            layout.setOnTouchListener((view, motionEvent) -> {
+            holder.layout.setOnTouchListener((view, motionEvent) -> {
                 if ((motionEvent.getAction() == MotionEvent.ACTION_DOWN) ||
                         (motionEvent.getAction() == MotionEvent.ACTION_POINTER_DOWN)) {
                     packageName = currentApp.packageName;
@@ -104,7 +124,7 @@ public class AppsAdapter extends BaseAdapter {
             });
 
             // drag and drop
-            layout.setOnDragListener((view, event) -> {
+            holder.layout.setOnDragListener((view, event) -> {
                 if (currentApp.packageName.compareTo(packageName) == 0) {
                     if (event.getAction() == DragEvent.ACTION_DRAG_STARTED) {
                         view.setVisibility(View.INVISIBLE);
@@ -122,11 +142,11 @@ public class AppsAdapter extends BaseAdapter {
                 return true;
             });
         } else {
-            layout.setOnClickListener(view -> {
-                progressBar.setVisibility(View.VISIBLE);
+            holder.layout.setOnClickListener(view -> {
+                holder.progressBar.setVisibility(View.VISIBLE);
                 mainActivityContext.openApp(currentApp);
             });
-            layout.setOnLongClickListener(view -> {
+            holder.layout.setOnLongClickListener(view -> {
                 showAppDetails(currentApp);
                 return false;
             });
@@ -134,15 +154,13 @@ public class AppsAdapter extends BaseAdapter {
 
         // set application icon
         AbstractPlatform appPlatform = AbstractPlatform.getPlatform(currentApp);
-        ImageView imageView = gridView.findViewById(R.id.imageLabel);
-
         try {
-            appPlatform.loadIcon(mainActivityContext, imageView, currentApp, name);
+            appPlatform.loadIcon(mainActivityContext, holder.imageView, currentApp, name);
         } catch (Resources.NotFoundException e) {
             Log.e("DreamGrid", "Error loading icon for app: " + currentApp.packageName, e);
         }
 
-        return gridView;
+        return convertView;
     }
 
     public void onImageSelected(String path, ImageView selectedImageView) {
