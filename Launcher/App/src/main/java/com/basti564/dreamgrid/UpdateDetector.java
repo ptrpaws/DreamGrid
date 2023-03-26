@@ -20,10 +20,10 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 public class UpdateDetector {
-    private RequestQueue requestQueue;
-    private PackageManager packageManager;
-    private Context appContext;
-    private SharedPreferences sharedPreferences;
+    private final RequestQueue requestQueue;
+    private final PackageManager packageManager;
+    private final Context appContext;
+    private final SharedPreferences sharedPreferences;
 
     public UpdateDetector(Context appContext, SharedPreferences sharedPreferences) {
         this.appContext = appContext;
