@@ -170,9 +170,9 @@ public class MainActivity extends Activity
             return true;
         });
 
-        // Set pi button
-        ImageButton pi = findViewById(R.id.pi);
-        pi.setOnClickListener(view -> showSettingsMain());
+        // Set logo button
+        ImageButton logo = findViewById(R.id.logo);
+        logo.setOnClickListener(view -> showSettingsMain());
 
         // Update Message
         RequestQueue queue = Volley.newRequestQueue(this);

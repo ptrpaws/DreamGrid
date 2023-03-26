@@ -64,7 +64,7 @@
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/pi"
+        android:id="@+id/logo"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_alignParentBottom="true"
