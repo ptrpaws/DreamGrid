@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DreamGrid</string>
+    <string name="default_apps_group">Apps</string>
+    <string name="add_group">Tilføj gruppe</string>
+    <string name="delete_group">Slet gruppe</string>
+    <string name="edit_group">Rediger gruppe</string>
+    <string name="app_details">App-detaljer</string>
+    <string name="apps_hidden">Skjulte</string>
+
+    <string name="background_opacity">Baggrundsgennemsigtighed</string>
+    <string name="icons_size">Ikonstørrelse</string>
+    <string name="show_app_names">Vis app-navne</string>
+    <string name="start_shortcut">Åbn launcher med Udforsk-ikonet fra systempanelet. For en glat oplevelse anbefales det at deaktivere Udforsk-appen.</string>
+</resources>

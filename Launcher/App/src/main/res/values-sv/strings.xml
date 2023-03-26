@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DreamGrid</string>
+    <string name="default_apps_group">Appar</string>
+    <string name="add_group">Lägg till grupp</string>
+    <string name="delete_group">Radera grupp</string>
+    <string name="edit_group">Redigera grupp</string>
+    <string name="app_details">App-information</string>
+    <string name="apps_hidden">Dolda</string>
+
+    <string name="background_opacity">Bakgrundstransparens</string>
+    <string name="icons_size">Symbolstorlek</string>
+    <string name="show_app_names">Visa appnamn</string>
+    <string name="start_shortcut">Öppna startmenyn med Utforska-ikonen från systempanelen. För en smidig upplevelse rekommenderas att inaktivera Utforska-appen.</string>
+</resources>

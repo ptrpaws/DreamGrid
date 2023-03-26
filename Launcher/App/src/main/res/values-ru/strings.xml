@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DreamGrid</string>
+    <string name="default_apps_group">Приложения</string>
+    <string name="add_group">Добавить группу</string>
+    <string name="delete_group">Удалить группу</string>
+    <string name="edit_group">Редактировать группу</string>
+    <string name="app_details">Сведения о приложении</string>
+    <string name="apps_hidden">Скрыто</string>
+
+    <string name="background_opacity">Прозрачность фона</string>
+    <string name="icons_size">Размер значков</string>
+    <string name="show_app_names">Показать имена приложений</string>
+    <string name="start_shortcut">Откройте лаунчер с помощью иконки Исследовать на панели задач. Для более плавной работы рекомендуется отключить приложение Исследовать.</string>
+</resources>
