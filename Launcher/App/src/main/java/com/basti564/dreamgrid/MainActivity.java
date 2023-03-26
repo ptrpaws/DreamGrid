@@ -93,12 +93,17 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         if (AbstractPlatform.isMagicLeapHeadset()) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         settingsProvider = SettingsProvider.getInstance(this);
         instance = this;
+
+        UpdateDetector updateDetector = new UpdateDetector(this, sharedPreferences);
+
+        updateDetector.checkForUpdateIfIntervalElapsed(24 * 60 * 60 * 1000);
 
         BlurView blurView = findViewById(R.id.blurView);
 
