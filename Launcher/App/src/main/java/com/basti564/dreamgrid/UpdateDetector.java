@@ -71,7 +71,7 @@ public class UpdateDetector {
                                         dialog.dismiss();
                                         SharedPreferences.Editor editor = sharedPreferences.edit();
                                         editor.putLong("lastUpdateCheckTime", currentTime);
-                                        editor.commit();
+                                        editor.apply();
                                     });
                                     AlertDialog updateAlertDialog = updateDialogBuilder.create();
                                     updateAlertDialog.show();
