@@ -125,8 +125,8 @@ public class SettingsProvider {
                 boolean isSystemApp = (installedApplication.flags & ApplicationInfo.FLAG_SYSTEM) == 1;
                 String[] systemAppPrefixes = {
                         "metapwa", "oculuspwa", "com.facebook.arvr", "com.meta.environment",
-                        "com.oculus.avatar2", "com.oculus.environment", "com.oculus.helpcenter",
-                        "com.oculus.systemutilities", "com.oculus.mobile_mrc_setup", "com.meta.AccountsCenter.pwa", "com.pico", "com.pvr"
+                        "com.oculus.avatar2", "com.oculus.environment", "com.oculus.helpcenter", "com.oculus.remotedesktop",
+                        "com.oculus.systemutilities", "com.oculus.mobile_mrc_setup", "com.meta.AccountsCenter.pwa", "com.oculus.accountscenter", "com.pico", "com.pvr"
                 };
                 String[] nonSystemAppPrefixes = {
                         "com.oculus.browser", "com.pico.playsys", "com.picovr.assistantphone", "com.pico.metricstool", "com.ss.android.ttvr.global", "com.android.settings"
