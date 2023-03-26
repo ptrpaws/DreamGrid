@@ -410,13 +410,6 @@ public class MainActivity extends Activity
             });
         }
 
-        View tweaksSettingsView = dialog.findViewById(R.id.settings_tweaks);
-        if (!AbstractPlatform.isOculusHeadset()) {
-            tweaksSettingsView.setVisibility(View.GONE);
-        } else {
-            tweaksSettingsView.setOnClickListener(view -> showSettingsTweaks());
-        }
-
         View appShortcutView = dialog.findViewById(R.id.service_app_shortcut);
         if (!(AbstractPlatform.isOculusHeadset() || AbstractPlatform.isPicoHeadset())) {
             appShortcutView.setVisibility(View.GONE);
@@ -427,6 +420,12 @@ public class MainActivity extends Activity
             });
         }
 
+        View appExploreView = dialog.findViewById(R.id.service_explore_app);
+        if (!AbstractPlatform.isOculusHeadset()) {
+            appExploreView.setVisibility(View.GONE);
+        } else {
+            appExploreView.setOnClickListener(view -> openAppDetails("com.oculus.explore"));
+        }
     }
 
     private void showSettingsLook() {
@@ -544,13 +543,6 @@ public class MainActivity extends Activity
             reloadUI();
         });
         vr.setVisibility(new VRPlatform().isSupported(this) ? View.VISIBLE : View.GONE);
-    }
-
-    private void showSettingsTweaks() {
-        Dialog d = showPopup(R.layout.dialog_tweaks);
-
-        d.findViewById(R.id.service_explore_app).setOnClickListener(view -> openAppDetails("com.oculus.explore"));
-        d.findViewById(R.id.service_os_updater).setOnClickListener(view -> openAppDetails("com.oculus.updater"));
     }
 
     private int getPixelFromDip(int dip) {
