@@ -32,12 +32,12 @@ import java.util.List;
 
 public class AppsAdapter extends BaseAdapter
 {
-    private MainActivity mContext;
-    private List<ApplicationInfo> mInstalledApps;
-    private boolean mEditMode;
-    private boolean mNames;
-    private int mScale;
-    private SettingsProvider mSettings;
+    private final MainActivity mContext;
+    private final List<ApplicationInfo> mInstalledApps;
+    private final boolean mEditMode;
+    private final boolean mNames;
+    private final int mScale;
+    private final SettingsProvider mSettings;
 
     private static Drawable mTempIcon;
     private static File mTempFile;

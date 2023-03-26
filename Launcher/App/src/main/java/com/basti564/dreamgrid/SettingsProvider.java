@@ -46,7 +46,7 @@ public class SettingsProvider
     }
 
     //storage
-    private SharedPreferences mPreferences;
+    private final SharedPreferences mPreferences;
     private Map<String, String> mAppList = new HashMap<>();
     private Set<String> mAppGroups = new HashSet<>();
     private Set<String> mSelectedGroups = new HashSet<>();

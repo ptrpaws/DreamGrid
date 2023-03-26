@@ -29,11 +29,11 @@ public class GroupsAdapter extends BaseAdapter
     public static final int MAX_GROUPS = 12;
     public static final String HIDDEN_GROUP = "HIDDEN!";
 
-    private MainActivity mActivity;
-    private List<String> mItems;
-    private Set<String> mSelection;
-    private SettingsProvider mSettings;
-    private boolean mEditMode;
+    private final MainActivity mActivity;
+    private final List<String> mItems;
+    private final Set<String> mSelection;
+    private final SettingsProvider mSettings;
+    private final boolean mEditMode;
 
     /** Create new adapter */
     public GroupsAdapter(MainActivity activity, boolean editMode)
