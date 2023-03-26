@@ -74,7 +74,13 @@ public class SettingsProvider
         Map<String, String> apps = getAppList();
         ArrayList<ApplicationInfo> installedApplications = new ArrayList<>();
         if (isPlatformEnabled(KEY_PLATFORM_ANDROID)) {
-            installedApplications.addAll(new AndroidPlatform().getInstalledApps(context));
+            List<ApplicationInfo> androidApps = new AndroidPlatform().getInstalledApps(context);
+            for (ApplicationInfo app : androidApps) {
+                if (!mAppList.containsKey(app.packageName)) {
+                    mAppList.put(app.packageName, "B2D");
+                }
+            }
+            installedApplications.addAll(androidApps);
         }
         if (isPlatformEnabled(KEY_PLATFORM_PSP)) {
             installedApplications.addAll(new PSPPlatform().getInstalledApps(context));
@@ -189,6 +195,7 @@ public class SettingsProvider
         {
             Set<String> def = new HashSet<>();
             def.add(context.getString(R.string.default_apps_group));
+            def.add("B2D");
             mAppGroups = mPreferences.getStringSet(KEY_APP_GROUPS, def);
             mSelectedGroups = mPreferences.getStringSet(KEY_SELECTED_GROUPS, def);
 
