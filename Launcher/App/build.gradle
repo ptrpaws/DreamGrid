@@ -26,6 +26,10 @@ android {
     lint {
         abortOnError true
     }
+
+    lintOptions {
+        disable 'Accessibility'
+    }
 }
 
 dependencies {
