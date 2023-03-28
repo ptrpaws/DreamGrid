@@ -36,7 +36,7 @@
             android:id="@+id/app_icon"
             android:layout_width="120dp"
             android:layout_height="67.5dp"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginEnd="10dp"/>
 
         <EditText
             android:id="@+id/app_name"
@@ -44,14 +44,16 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@android:color/white"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white"
+            android:autofillHints="text"
+            android:inputType="text" />
     </LinearLayout>
 
     <Button
         android:id="@+id/ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:background="@drawable/bkg_dialog"
         android:textColor="@android:color/white"
         android:text="@android:string/ok"/>
