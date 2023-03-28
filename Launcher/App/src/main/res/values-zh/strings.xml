@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DreamGrid</string>
+    <string name="default_apps_group">应用程序</string>
+    <string name="add_group">添加组</string>
+    <string name="delete_group">删除组</string>
+    <string name="edit_group">编辑组</string>
+    <string name="app_details">应用程序详细信息</string>
+    <string name="apps_hidden">隐藏的</string>
+
+    <string name="background_opacity">背景不透明度</string>
+    <string name="icons_size">图标大小</string>
+    <string name="show_app_names">显示应用程序名称</string>
+    <string name="start_shortcut">使用系统仪表板上的“资源管理器”图标打开启动器。为了获得更流畅的体验，建议禁用“资源管理器”应用程序。</string>
+</resources>

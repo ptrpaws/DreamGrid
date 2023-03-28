@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">드림그리드</string>
+    <string name="default_apps_group">앱</string>
+    <string name="add_group">그룹 추가</string>
+    <string name="delete_group">그룹 삭제</string>
+    <string name="edit_group">그룹 편집</string>
+    <string name="app_details">앱 세부 정보</string>
+    <string name="apps_hidden">숨겨진</string>
+
+    <string name="background_opacity">배경 불투명도</string>
+    <string name="icons_size">아이콘 크기</string>
+    <string name="show_app_names">앱 이름 표시</string>
+    <string name="start_shortcut">시스템 대시 보드에서 탐색기 아이콘으로 런처를 엽니다. 원활한 경험을 위해 탐색기 앱을 비활성화하는 것이 좋습니다.</string>
+</resources>

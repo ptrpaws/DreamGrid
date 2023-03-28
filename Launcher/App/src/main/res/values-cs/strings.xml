@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DreamGrid</string>
+    <string name="default_apps_group">Aplikace</string>
+    <string name="add_group">Přidat skupinu</string>
+    <string name="delete_group">Smazat skupinu</string>
+    <string name="edit_group">Upravit skupinu</string>
+    <string name="app_details">Podrobnosti aplikace</string>
+    <string name="apps_hidden">Skryté</string>
+
+    <string name="background_opacity">Průhlednost pozadí</string>
+    <string name="icons_size">Velikost ikon</string>
+    <string name="show_app_names">Zobrazovat názvy aplikací</string>
+    <string name="start_shortcut">Otevřete spouštěč s ikonou Průzkumníka v panelu systému. Pro plynulý zážitek se doporučuje vypnout aplikaci Průzkumník.</string>
+</resources>

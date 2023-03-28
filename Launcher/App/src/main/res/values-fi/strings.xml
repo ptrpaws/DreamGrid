@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DreamGrid</string>
+    <string name="default_apps_group">Sovellukset</string>
+    <string name="add_group">Lisää ryhmä</string>
+    <string name="delete_group">Poista ryhmä</string>
+    <string name="edit_group">Muokkaa ryhmää</string>
+    <string name="app_details">Sovelluksen tiedot</string>
+    <string name="apps_hidden">Piilotettu</string>
+
+    <string name="background_opacity">Taustan läpinäkyvyys</string>
+    <string name="icons_size">Kuvakkeen koko</string>
+    <string name="show_app_names">Näytä sovellusten nimet</string>
+    <string name="start_shortcut">Avaa käynnistin Tutki-kuvakkeella järjestelmän kojelaudasta. Sujuvan kokemuksen saavuttamiseksi on suositeltavaa poistaa Tutki-sovellus käytöstä.</string>
+</resources>

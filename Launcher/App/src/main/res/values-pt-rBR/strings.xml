@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DreamGrid</string>
+    <string name="default_apps_group">Aplicativos</string>
+    <string name="add_group">Adicionar grupo</string>
+    <string name="delete_group">Excluir grupo</string>
+    <string name="edit_group">Editar grupo</string>
+    <string name="app_details">Detalhes do aplicativo</string>
+    <string name="apps_hidden">Oculto</string>
+
+    <string name="background_opacity">Opacidade do plano de fundo</string>
+    <string name="icons_size">Tamanho dos ícones</string>
+    <string name="show_app_names">Mostrar nomes dos aplicativos</string>
+    <string name="start_shortcut">Abra o lançador com o ícone Explorar no painel do sistema. Para uma experiência suave, é recomendável desativar o aplicativo Explorador.</string>
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">夢幻網格</string>
+    <string name="default_apps_group">應用程式</string>
+    <string name="add_group">新增群組</string>
+    <string name="delete_group">刪除群組</string>
+    <string name="edit_group">編輯群組</string>
+    <string name="app_details">應用程式詳細資料</string>
+    <string name="apps_hidden">隱藏的</string>
+
+    <string name="background_opacity">背景不透明度</string>
+    <string name="icons_size">圖示大小</string>
+    <string name="show_app_names">顯示應用程式名稱</string>
+    <string name="start_shortcut">使用系統儀表板上的「檔案總管」圖示開啟啟動器。為了獲得更流暢的體驗，建議停用「檔案總管」應用程式。</string>
+</resources>

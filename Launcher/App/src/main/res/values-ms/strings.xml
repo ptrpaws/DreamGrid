@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DreamGrid</string>
+    <string name="default_apps_group">Aplikasi</string>
+    <string name="add_group">Tambah kumpulan</string>
+    <string name="delete_group">Padam kumpulan</string>
+    <string name="edit_group">Edit kumpulan</string>
+    <string name="app_details">Butiran aplikasi</string>
+    <string name="apps_hidden">Tersembunyi</string>
+
+    <string name="background_opacity">Ketelusan latar belakang</string>
+    <string name="icons_size">Saiz icon</string>
+    <string name="show_app_names">Tunjukkan nama aplikasi</string>
+    <string name="start_shortcut">Buka pelancar dengan ikon Explorer dari papan pemuka sistem. Untuk pengalaman yang lancar, disarankan untuk mematikan aplikasi Explorer.</string>
+</resources>

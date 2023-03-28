@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DreamGrid</string>
+    <string name="default_apps_group">Aplicații</string>
+    <string name="add_group">Adaugă grup</string>
+    <string name="delete_group">Șterge grup</string>
+    <string name="edit_group">Editează grup</string>
+    <string name="app_details">Detalii aplicație</string>
+    <string name="apps_hidden">Ascuns</string>
+
+    <string name="background_opacity">Opacitate fundal</string>
+    <string name="icons_size">Dimensiune pictograme</string>
+    <string name="show_app_names">Afișează nume aplicații</string>
+    <string name="start_shortcut">Deschide lansatorul cu pictograma Explorer din panoul de control al sistemului. Pentru o experiență mai bună, se recomandă dezactivarea aplicației Explorer.</string>
+</resources>

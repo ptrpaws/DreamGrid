@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DreamGrid</string>
+    <string name="default_apps_group">Εφαρμογές</string>
+    <string name="add_group">Προσθήκη ομάδας</string>
+    <string name="delete_group">Διαγραφή ομάδας</string>
+    <string name="edit_group">Επεξεργασία ομάδας</string>
+    <string name="app_details">Λεπτομέρειες εφαρμογής</string>
+    <string name="apps_hidden">Κρυφό</string>
+
+    <string name="background_opacity">Διαφάνεια φόντου</string>
+    <string name="icons_size">Μέγεθος εικονιδίων</string>
+    <string name="show_app_names">Εμφάνιση ονομάτων εφαρμογών</string>
+    <string name="start_shortcut">Ανοίξτε τον εκκινητή με το εικονίδιο Εξερεύνηση από το πίνακα ελέγχου του συστήματος. Για μια ομαλή εμπειρία, συνιστάται να απενεργοποιήσετε την εφαρμογή Εξερεύνηση.</string>
+</resources>

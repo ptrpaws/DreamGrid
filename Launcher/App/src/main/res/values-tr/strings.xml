@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DreamGrid</string>
+    <string name="default_apps_group">Uygulamalar</string>
+    <string name="add_group">Grup ekle</string>
+    <string name="delete_group">Grup sil</string>
+    <string name="edit_group">Grup düzenle</string>
+    <string name="app_details">Uygulama ayrıntıları</string>
+    <string name="apps_hidden">Gizli</string>
+
+    <string name="background_opacity">Arka plan opaklığı</string>
+    <string name="icons_size">Simge boyutu</string>
+    <string name="show_app_names">Uygulama adlarını göster</string>
+    <string name="start_shortcut">Sistemin gösterge panelinden Keşfet simgesiyle başlatıcıyı açın. Sorunsuz bir deneyim için Keşfet uygulamasının devre dışı bırakılması önerilir.</string>
+</resources>
