@@ -65,8 +65,7 @@ public class MainActivity extends Activity {
             R.drawable.bkg_dawn,
             R.drawable.bkg_bland
     };
-    private static ImageView[] selectedThemeImageViews;
-    private static MainActivity instance = null;
+    private ImageView[] selectedThemeImageViews;
     private GridView appGridView;
     private ImageView backgroundImageView;
     private GridView groupPanelGridView;
@@ -78,11 +77,10 @@ public class MainActivity extends Activity {
 
     public static void reset(Context context) {
         try {
-            if (instance != null) {
-                instance.finishAffinity();
-                instance = null;
-            }
-            context.startActivity(context.getPackageManager().getLaunchIntentForPackage(context.getPackageName()));
+            Intent intent = new Intent(context, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+            ((Activity)context).finish();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -99,7 +97,6 @@ public class MainActivity extends Activity {
         }
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         settingsProvider = SettingsProvider.getInstance(this);
-        instance = this;
 
         UpdateDetector updateDetector = new UpdateDetector(this, sharedPreferences);
 
