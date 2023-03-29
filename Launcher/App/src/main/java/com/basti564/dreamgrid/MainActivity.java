@@ -271,33 +271,8 @@ public class MainActivity extends Activity {
         views[index].setAlpha(255 * sharedPreferences.getInt(SettingsProvider.KEY_CUSTOM_OPACITY, DEFAULT_OPACITY) / 10);
     }
 
-    public Dialog showPopup(int layout) {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setView(layout);
-        AlertDialog dialog = alertDialogBuilder.create();
-        dialog.show();
-
-        WindowManager.LayoutParams windowLayoutParams = new WindowManager.LayoutParams();
-        windowLayoutParams.copyFrom(dialog.getWindow().getAttributes());
-        windowLayoutParams.width = 660;
-        windowLayoutParams.height = getWindowHeight() - 200;
-        windowLayoutParams.gravity = Gravity.END;  // or Gravity.RIGHT
-        windowLayoutParams.x = 50;  // add some distance from the border
-        windowLayoutParams.y = 50;
-        dialog.getWindow().setAttributes(windowLayoutParams);
-        dialog.findViewById(R.id.layout).requestLayout();
-        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bkg_dialog);
-        return dialog;
-    }
-
-    private int getWindowHeight() {
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        return displayMetrics.heightPixels;
-    }
-
     private void showSettingsMain() {
-        Dialog dialog = showPopup(R.layout.dialog_settings);
+        Dialog dialog = PopupUtils.showPopup(this, R.layout.dialog_settings);
 
         dialog.findViewById(R.id.settings_look).setOnClickListener(view -> {
             if (!isSettingsLookOpen) {
@@ -344,7 +319,7 @@ public class MainActivity extends Activity {
     }
 
     private void showSettingsLook() {
-        Dialog dialog = showPopup(R.layout.dialog_look);
+        Dialog dialog = PopupUtils.showPopup(this, R.layout.dialog_look);
 
         // set onDismissListener to reset the flag when dialog is dismissed
         dialog.setOnDismissListener(dialogInterface -> isSettingsLookOpen = false);
@@ -431,7 +406,7 @@ public class MainActivity extends Activity {
     }
 
     private void showSettingsPlatforms() {
-        Dialog dialog = showPopup(R.layout.dialog_platforms);
+        Dialog dialog = PopupUtils.showPopup(this, R.layout.dialog_platforms);
 
         ImageView androidPlatformImageView = dialog.findViewById(R.id.settings_android);
         androidPlatformImageView.setOnClickListener(view -> {
