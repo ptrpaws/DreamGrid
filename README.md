@@ -12,12 +12,12 @@ DreamGrid is an enhanced version of the original [PiLauncher](https://github.com
 - Custom icon repositories
 - Up-to-date icons for both Pico and Oculus
 - Support for replacing Explore on Pico (in addition to Oculus)
+- Get high resolution icons for sideloaded app icons
 - Additional localization options
 - Improved code quality
 - Automatic grouping of apps
 - Removed broken/unused functionality
 - Multilingual support
-- Get higher resolution for sideloaded app icons
 
 ## Releases
 
