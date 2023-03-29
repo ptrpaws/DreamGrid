@@ -75,7 +75,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_gravity="center_vertical"
-            android:progressBackgroundTint="@android:color/white"/>
+            android:progressBackgroundTint="@android:color/white"
+            android:progressDrawable="@drawable/seekbar_custom"
+            android:thumb="@null"/>
     </LinearLayout>
 
     <LinearLayout
@@ -99,7 +101,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_gravity="center_vertical"
-            android:progressBackgroundTint="@android:color/white"/>
+            android:progressDrawable="@drawable/seekbar_custom"
+            android:thumb="@null"/>
     </LinearLayout>
 
     <LinearLayout
@@ -117,10 +120,11 @@
             android:textColor="@android:color/white"
             android:textSize="16sp"/>
 
-        <CheckBox
-            android:id="@+id/checkbox_names"
+        <Switch
+            android:id="@+id/switch_names"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:drawable/checkbox_off_background" />
+            android:thumb="@drawable/switch_thumb_custom"
+            android:track="@drawable/switch_track_custom" />
     </LinearLayout>
 </LinearLayout>

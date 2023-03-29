@@ -3,7 +3,6 @@ package com.basti564.dreamgrid;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -19,17 +18,14 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.DisplayMetrics;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
-import android.view.WindowManager;
-import android.widget.CheckBox;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.SeekBar;
+import android.widget.Switch;
 
 import com.basti564.dreamgrid.platforms.AbstractPlatform;
 import com.basti564.dreamgrid.platforms.AndroidPlatform;
@@ -324,7 +320,7 @@ public class MainActivity extends Activity {
         // set onDismissListener to reset the flag when dialog is dismissed
         dialog.setOnDismissListener(dialogInterface -> isSettingsLookOpen = false);
 
-        CheckBox names = dialog.findViewById(R.id.checkbox_names);
+        Switch names = dialog.findViewById(R.id.switch_names);
         names.setChecked(sharedPreferences.getBoolean(SettingsProvider.KEY_CUSTOM_NAMES, DEFAULT_NAMES));
         names.setOnCheckedChangeListener((compoundButton, value) -> {
             SharedPreferences.Editor editor = sharedPreferences.edit();
