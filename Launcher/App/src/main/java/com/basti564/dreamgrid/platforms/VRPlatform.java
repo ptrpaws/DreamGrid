@@ -45,7 +45,7 @@ public class VRPlatform extends AbstractPlatform {
     }
 
     @Override
-    public void loadIcon(Activity activity, ImageView iconView, ApplicationInfo appInfo, String name) {
+    public void loadIcon(Activity activity, ImageView iconView, ApplicationInfo appInfo) {
         PackageManager packageManager = activity.getPackageManager();
         Resources resources;
         try {
@@ -74,7 +74,7 @@ public class VRPlatform extends AbstractPlatform {
             }
         }
 
-        downloadIcon(activity, pkgName, name, () -> updateIcon(iconView, iconFile, pkgName));
+        downloadIcon(activity, pkgName, () -> updateIcon(iconView, iconFile, pkgName));
     }
 
     @Override
@@ -83,52 +83,19 @@ public class VRPlatform extends AbstractPlatform {
         context.getApplicationContext().startActivity(launchIntent);
     }
 
-    private void downloadIcon(Activity activity, String pkgName, String name, Runnable callback) {
+    private void downloadIcon(Activity activity, String pkgName, Runnable callback) {
         final File iconFile = packageToPath(activity, pkgName);
         new Thread(() -> {
             try {
-                String autogen = null;
-                if (excludedIconPackages.contains(iconFile.getName())) {
-                    // ignored icon
-                } else if (downloadIconFromUrl(ICONS1_URL + pkgName + ".jpg", iconFile)) {
-                    activity.runOnUiThread(callback);
-                } else if (downloadIconFromUrl(ICONS2_URL + pkgName.toLowerCase(Locale.US) + ".jpg", iconFile)) {
+                String url = ICONS1_URL + pkgName + ".jpg";
+                if (downloadIconFromUrl(url, iconFile)) {
                     activity.runOnUiThread(callback);
                 } else {
-                    int count = 0;
-                    File infoFile = new File(activity.getApplicationInfo().dataDir, "applab.info");
-                    if (downloadIconFromUrl(ICONS2_URL + "applab.info", infoFile)) {
-                        try {
-                            FileInputStream fis = new FileInputStream(infoFile);
-                            Scanner sc = new Scanner(fis);
-                            while (sc.hasNext()) {
-                                String line = sc.nextLine();
-                                if (line.contains(name)) {
-                                    Scanner lineScanner = new Scanner(line);
-                                    autogen = lineScanner.next();
-                                    lineScanner.close();
-                                    count++;
-                                }
-                            }
-                            sc.close();
-                            fis.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    if (count == 0) {
-                        Log.d("Missing icon", iconFile.getName());
-                        excludedIconPackages.add(iconFile.getName());
-                    } else if (count == 1) {
-                        if (downloadIconFromUrl(ICONS2_URL + autogen + ".jpg", iconFile)) {
-                            activity.runOnUiThread(callback);
-                        } else {
-                            Log.d("Missing icon", iconFile.getName());
-                            excludedIconPackages.add(iconFile.getName());
-                        }
+                    url = ICONS2_URL + pkgName.toLowerCase(Locale.US) + ".jpg";
+                    if (downloadIconFromUrl(url, iconFile)) {
+                        activity.runOnUiThread(callback);
                     } else {
-                        Log.d("Too many icons", iconFile.getName());
-                        excludedIconPackages.add(iconFile.getName());
+                        Log.d("Missing icon", iconFile.getName());
                     }
                 }
             } catch (Exception e) {

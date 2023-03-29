@@ -128,7 +128,7 @@ public abstract class AbstractPlatform {
 
     public abstract boolean isSupported(Context context);
 
-    public abstract void loadIcon(Activity activity, ImageView iconView, ApplicationInfo applicationInfo, String name);
+    public abstract void loadIcon(Activity activity, ImageView iconView, ApplicationInfo applicationInfo);
 
     public abstract void runApp(Context context, ApplicationInfo applicationInfo, boolean multiwindow);
 

@@ -155,7 +155,7 @@ public class AppsAdapter extends BaseAdapter {
         // set application icon
         AbstractPlatform appPlatform = AbstractPlatform.getPlatform(currentApp);
         try {
-            appPlatform.loadIcon(mainActivityContext, holder.imageView, currentApp, name);
+            appPlatform.loadIcon(mainActivityContext, holder.imageView, currentApp);
         } catch (Resources.NotFoundException e) {
             Log.e("DreamGrid", "Error loading icon for app: " + currentApp.packageName, e);
         }
@@ -203,7 +203,7 @@ public class AppsAdapter extends BaseAdapter {
         // load icon
         ImageView tempImage = appDetailsDialog.findViewById(R.id.app_icon);
         AbstractPlatform appPlatform = AbstractPlatform.getPlatform(currentApp);
-        appPlatform.loadIcon(mainActivityContext, tempImage, currentApp, name);
+        appPlatform.loadIcon(mainActivityContext, tempImage, currentApp);
 
         tempImage.setOnClickListener(iconPickerView -> {
             iconDrawable = currentApp.loadIcon(packageManager);

@@ -51,7 +51,7 @@ public class PSPPlatform extends AbstractPlatform {
     }
 
     @Override
-    public void loadIcon(Activity activity, ImageView icon, ApplicationInfo app, String name) {
+    public void loadIcon(Activity activity, ImageView icon, ApplicationInfo app) {
         final File file = packageToPath(activity, app.packageName);
         if (file.exists()) {
             if (AbstractPlatform.updateIcon(icon, file, app.packageName)) {

@@ -32,7 +32,7 @@ public class AndroidPlatform extends AbstractPlatform {
     }
 
     @Override
-    public void loadIcon(Activity activity, ImageView iconView, ApplicationInfo appInfo, String appName) {
+    public void loadIcon(Activity activity, ImageView iconView, ApplicationInfo appInfo) {
         PackageManager packageManager = activity.getPackageManager();
         Resources appResources;
         try {
