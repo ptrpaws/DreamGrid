@@ -39,6 +39,7 @@ public class ImageUtils {
     public static void showImagePicker(Activity activity, int requestCode) {
         ImagePicker imagePicker = ImagePicker.create(activity).single();
         imagePicker.showCamera(false);
+        imagePicker.folderMode(true);
         imagePicker.start(requestCode);
     }
 }
