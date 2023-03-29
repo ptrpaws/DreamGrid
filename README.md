@@ -17,6 +17,7 @@ DreamGrid is an enhanced version of the original [PiLauncher](https://github.com
 - Automatic grouping of apps
 - Removed broken/unused functionality
 - Multilingual support
+- Get higher resolution for sideloaded app icons
 
 ## Releases
 
@@ -28,6 +29,7 @@ Please note that the following issues were already present in the original launc
 
 - Resizing can cause a black screen when launched via Android Studio or replaced Explore.
 - Relaunching the activity repeatedly via Android Studio breaks icons permanently.
+- Deleting the last remaining group crashes the app.
 - Sometimes unable to move icons.
 
 ## Compiling the Launcher
