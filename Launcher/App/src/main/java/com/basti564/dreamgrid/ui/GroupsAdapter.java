@@ -72,6 +72,14 @@ public class GroupsAdapter extends BaseAdapter {
         }
     }
 
+    private void setTextViewValue(TextView textView, String value) {
+        if (HIDDEN_GROUP.equals(value)) {
+            textView.setText(" -  " + mainActivity.getString(R.string.apps_hidden));
+        } else {
+            textView.setText(value);
+        }
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
@@ -86,13 +94,7 @@ public class GroupsAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        // set value into textview
-        String item = getItem(position);
-        if (HIDDEN_GROUP.equals(item)) {
-            holder.textView.setText(" -  " + mainActivity.getString(R.string.apps_hidden));
-        } else {
-            holder.textView.setText(item);
-        }
+        setTextViewValue(holder.textView, getItem(position));
 
         // set menu action
         Drawable drawable = holder.menu.getContext().getDrawable(R.drawable.ic_info);
@@ -196,14 +198,8 @@ public class GroupsAdapter extends BaseAdapter {
             return true;
         });
 
-
-        // set value into textview
         TextView textView = convertView.findViewById(R.id.textLabel);
-        if (HIDDEN_GROUP.equals(appGroups.get(position))) {
-            textView.setText(" -  " + mainActivity.getString(R.string.apps_hidden));
-        } else {
-            textView.setText(appGroups.get(position));
-        }
+        setTextViewValue(textView, appGroups.get(position));
 
         return convertView;
     }
