@@ -17,8 +17,8 @@ import java.util.Locale;
 
 public class VRPlatform extends AbstractPlatform {
 
-    private static final String ICONS1_URL = "https://github.com/vKolerts/quest_icons/raw/master/450/";
-    private static final String ICONS2_URL = "https://raw.githubusercontent.com/lvonasek/binary/master/QuestPiLauncher/icons/";
+    private static final String ICONS1_URL = "https://raw.githubusercontent.com/basti564/LauncherIcons/main/oculus_square/";
+    private static final String ICONS2_URL = "https://raw.githubusercontent.com/basti564/LauncherIcons/main/pico_square/";
 
     @Override
     public ArrayList<ApplicationInfo> getInstalledApps(Context context) {
@@ -88,7 +88,7 @@ public class VRPlatform extends AbstractPlatform {
                 if (downloadIconFromUrl(url, iconFile)) {
                     activity.runOnUiThread(callback);
                 } else {
-                    url = ICONS2_URL + pkgName.toLowerCase(Locale.US) + ".jpg";
+                    url = ICONS2_URL + pkgName.toLowerCase(Locale.US) + ".png";
                     if (downloadIconFromUrl(url, iconFile)) {
                         activity.runOnUiThread(callback);
                     } else {
