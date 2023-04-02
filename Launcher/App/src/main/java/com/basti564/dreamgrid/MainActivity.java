@@ -267,6 +267,8 @@ public class MainActivity extends Activity {
         views[index].setAlpha(255 * sharedPreferences.getInt(SettingsProvider.KEY_CUSTOM_OPACITY, DEFAULT_OPACITY) / 10);
     }
 
+    private boolean editMode = false;
+
     private void showSettingsMain() {
         Dialog dialog = PopupUtils.showPopup(this, R.layout.dialog_settings);
 
@@ -277,7 +279,7 @@ public class MainActivity extends Activity {
             }
         });
         ImageView apps = dialog.findViewById(R.id.settings_apps);
-        boolean editMode = !sharedPreferences.getBoolean(SettingsProvider.KEY_EDITMODE, false);
+        editMode = !sharedPreferences.getBoolean(SettingsProvider.KEY_EDITMODE, false);
         apps.setImageResource(editMode ? R.drawable.ic_editing_on : R.drawable.ic_editing_off);
         apps.setOnClickListener(view1 -> {
             ArrayList<String> selectedGroups = settingsProvider.getAppGroupsSorted(true);
@@ -290,7 +292,8 @@ public class MainActivity extends Activity {
             editor.putBoolean(SettingsProvider.KEY_EDITMODE, editMode);
             editor.apply();
             reloadUI();
-            dialog.dismiss();
+            editMode = !editMode;
+            apps.setImageResource(editMode ? R.drawable.ic_editing_on : R.drawable.ic_editing_off);
         });
 
         dialog.findViewById(R.id.settings_look).setOnClickListener(view -> showSettingsLook());
