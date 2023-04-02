@@ -30,6 +30,7 @@ android {
     lintOptions {
         disable 'Accessibility'
     }
+    buildToolsVersion '33.0.0'
 }
 
 dependencies {
