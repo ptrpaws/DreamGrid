@@ -69,7 +69,6 @@ public class MainActivity extends Activity {
     private SharedPreferences sharedPreferences;
     private SettingsProvider settingsProvider;
     private ImageView selectedImageView;
-    private boolean isSettingsLookOpen = false;
 
     public static void reset(Context context) {
         try {
@@ -272,12 +271,6 @@ public class MainActivity extends Activity {
     private void showSettingsMain() {
         Dialog dialog = PopupUtils.showPopup(this, R.layout.dialog_settings);
 
-        dialog.findViewById(R.id.settings_look).setOnClickListener(view -> {
-            if (!isSettingsLookOpen) {
-                isSettingsLookOpen = true;
-                showSettingsLook();
-            }
-        });
         ImageView apps = dialog.findViewById(R.id.settings_apps);
         editMode = !sharedPreferences.getBoolean(SettingsProvider.KEY_EDITMODE, false);
         apps.setImageResource(editMode ? R.drawable.ic_editing_on : R.drawable.ic_editing_off);
@@ -319,9 +312,6 @@ public class MainActivity extends Activity {
 
     private void showSettingsLook() {
         Dialog dialog = PopupUtils.showPopup(this, R.layout.dialog_look);
-
-        // set onDismissListener to reset the flag when dialog is dismissed
-        dialog.setOnDismissListener(dialogInterface -> isSettingsLookOpen = false);
 
         Switch names = dialog.findViewById(R.id.switch_names);
         names.setChecked(sharedPreferences.getBoolean(SettingsProvider.KEY_CUSTOM_NAMES, DEFAULT_NAMES));
