@@ -271,10 +271,10 @@ public class MainActivity extends Activity {
 
         for (ImageView image : views) {
             image.setBackgroundColor(Color.TRANSPARENT);
-            image.setAlpha(255);
+            image.setImageAlpha(255);
         }
         views[index].setBackgroundColor(Color.WHITE);
-        views[index].setAlpha(192);
+        views[index].setImageAlpha(192);
     }
 
     private boolean editMode = false;
@@ -406,10 +406,10 @@ public class MainActivity extends Activity {
         };
         for (ImageView image : views) {
             image.setBackgroundColor(Color.TRANSPARENT);
-            image.setAlpha(255);
+            image.setImageAlpha(255);
         }
         views[theme].setBackgroundColor(Color.WHITE);
-        views[theme].setAlpha(192);
+        views[theme].setImageAlpha(192);
         for (int i = 0; i < views.length; i++) {
             int index = i;
             views[i].setOnClickListener(view12 -> {
