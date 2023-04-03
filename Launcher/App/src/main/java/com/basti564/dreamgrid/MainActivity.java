@@ -50,10 +50,9 @@ public class MainActivity extends Activity {
     public static final int PICK_THEME_CODE = 95;
     private static final String CUSTOM_THEME = "theme.png";
     private static final boolean DEFAULT_NAMES = true;
-    private static final int DEFAULT_OPACITY = 10;
-    private static final int DEFAULT_SCALE = 2;
+    private static final int DEFAULT_OPACITY = 255;
+    private static final int DEFAULT_SCALE = 95;
     private static final int DEFAULT_THEME = 0;
-    private static final int[] SCALE_VALUES = {55, 70, 95, 130, 210};
     private static final int[] THEME_DRAWABLES = {
             R.drawable.bkg_blossoms,
             R.drawable.bkg_drips,
@@ -230,17 +229,17 @@ public class MainActivity extends Activity {
         boolean names = sharedPreferences.getBoolean(SettingsProvider.KEY_CUSTOM_NAMES, DEFAULT_NAMES);
         int opacity = sharedPreferences.getInt(SettingsProvider.KEY_CUSTOM_OPACITY, DEFAULT_OPACITY);
         int backgroundThemeIndex = sharedPreferences.getInt(SettingsProvider.KEY_CUSTOM_THEME, DEFAULT_THEME);
-        int newScaleValueIndex = getPixelFromDip(SCALE_VALUES[sharedPreferences.getInt(SettingsProvider.KEY_CUSTOM_SCALE, DEFAULT_SCALE)]);
+        int newScaleValueIndex = getPixelFromDip(sharedPreferences.getInt(SettingsProvider.KEY_CUSTOM_SCALE, DEFAULT_SCALE));
         appGridView.setColumnWidth(newScaleValueIndex);
         if (backgroundThemeIndex < THEME_DRAWABLES.length) {
             Drawable backgroundThemeDrawable = getDrawable(THEME_DRAWABLES[backgroundThemeIndex]);
-            backgroundThemeDrawable.setAlpha(255 * opacity / 10);
+            backgroundThemeDrawable.setAlpha(opacity);
             backgroundImageView.setImageDrawable(backgroundThemeDrawable);
         } else {
             File file = new File(getApplicationInfo().dataDir, CUSTOM_THEME);
             Bitmap themeBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
             Drawable backgroundThemeDrawable = new BitmapDrawable(getResources(), themeBitmap);
-            backgroundThemeDrawable.setAlpha(255 * opacity / 10);
+            backgroundThemeDrawable.setAlpha(opacity);
             backgroundImageView.setImageDrawable(backgroundThemeDrawable);
         }
 
@@ -263,7 +262,7 @@ public class MainActivity extends Activity {
             image.setAlpha(255);
         }
         views[index].setBackgroundColor(Color.WHITE);
-        views[index].setAlpha(255 * sharedPreferences.getInt(SettingsProvider.KEY_CUSTOM_OPACITY, DEFAULT_OPACITY) / 10);
+        views[index].setAlpha(192);
     }
 
     private boolean editMode = false;
@@ -341,7 +340,7 @@ public class MainActivity extends Activity {
             }
         });
         opacity.setProgress(sharedPreferences.getInt(SettingsProvider.KEY_CUSTOM_OPACITY, DEFAULT_OPACITY));
-        opacity.setMax(10);
+        opacity.setMax(255);
         opacity.setMin(0);
 
         SeekBar scale = dialog.findViewById(R.id.bar_scale);
@@ -363,8 +362,8 @@ public class MainActivity extends Activity {
             }
         });
         scale.setProgress(sharedPreferences.getInt(SettingsProvider.KEY_CUSTOM_SCALE, DEFAULT_SCALE));
-        scale.setMax(SCALE_VALUES.length - 1);
-        scale.setMin(0);
+        scale.setMax(210);
+        scale.setMin(55);
 
         int theme = sharedPreferences.getInt(SettingsProvider.KEY_CUSTOM_THEME, DEFAULT_THEME);
         ImageView[] views = {
@@ -380,7 +379,7 @@ public class MainActivity extends Activity {
             image.setAlpha(255);
         }
         views[theme].setBackgroundColor(Color.WHITE);
-        views[theme].setAlpha(255 * sharedPreferences.getInt(SettingsProvider.KEY_CUSTOM_OPACITY, DEFAULT_OPACITY) / 10);
+        views[theme].setAlpha(192);
         for (int i = 0; i < views.length; i++) {
             int index = i;
             views[i].setOnClickListener(view12 -> {

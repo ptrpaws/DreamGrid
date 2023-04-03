@@ -73,11 +73,12 @@
             android:id="@+id/bar_scale"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:max="255"
             android:progressBackgroundTint="@android:color/white"
             android:progressDrawable="@drawable/seekbar_custom"
-            android:thumb="@null"/>
+            android:thumb="@null" />
     </LinearLayout>
 
     <LinearLayout
@@ -99,10 +100,11 @@
             android:id="@+id/bar_opacity"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:max="255"
             android:progressDrawable="@drawable/seekbar_custom"
-            android:thumb="@null"/>
+            android:thumb="@null" />
     </LinearLayout>
 
     <LinearLayout
