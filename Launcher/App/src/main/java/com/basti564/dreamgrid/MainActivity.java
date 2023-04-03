@@ -282,9 +282,7 @@ public class MainActivity extends Activity {
     private void showSettingsMain() {
         Dialog dialog = PopupUtils.showPopup(this, R.layout.dialog_settings);
 
-        dialog.setOnDismissListener(dialogInterface -> {
-            settingsPageOpen = false;
-        });
+        dialog.setOnDismissListener(dialogInterface -> settingsPageOpen = false);
 
         ImageView apps = dialog.findViewById(R.id.settings_apps);
         editMode = !sharedPreferences.getBoolean(SettingsProvider.KEY_EDITMODE, false);
@@ -338,9 +336,7 @@ public class MainActivity extends Activity {
     private void showSettingsLook() {
         Dialog dialog = PopupUtils.showPopup(this, R.layout.dialog_look);
 
-        dialog.setOnDismissListener(dialogInterface -> {
-            lookPageOpen = false;
-        });
+        dialog.setOnDismissListener(dialogInterface -> lookPageOpen = false);
 
         Switch names = dialog.findViewById(R.id.switch_names);
         names.setChecked(sharedPreferences.getBoolean(SettingsProvider.KEY_CUSTOM_NAMES, DEFAULT_NAMES));
@@ -426,9 +422,7 @@ public class MainActivity extends Activity {
     private void showSettingsPlatforms() {
         Dialog dialog = PopupUtils.showPopup(this, R.layout.dialog_platforms);
 
-        dialog.setOnDismissListener(dialogInterface -> {
-            platformsPageOpen = false;
-        });
+        dialog.setOnDismissListener(dialogInterface -> platformsPageOpen = false);
 
         ImageView androidPlatformImageView = dialog.findViewById(R.id.settings_android);
         androidPlatformImageView.setOnClickListener(view -> {
