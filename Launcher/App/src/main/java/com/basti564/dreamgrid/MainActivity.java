@@ -69,6 +69,10 @@ public class MainActivity extends Activity {
     private SettingsProvider settingsProvider;
     private ImageView selectedImageView;
 
+    private boolean settingsPageOpen = false;
+    private boolean lookPageOpen = false;
+    private boolean platformsPageOpen = false;
+
     public static void reset(Context context) {
         try {
             Intent intent = new Intent(context, MainActivity.class);
@@ -153,7 +157,12 @@ public class MainActivity extends Activity {
 
         // Set logo button
         ImageView settingsLogoImageView = findViewById(R.id.logo);
-        settingsLogoImageView.setOnClickListener(view -> showSettingsMain());
+        settingsLogoImageView.setOnClickListener(view -> {
+            if (!settingsPageOpen) {
+                showSettingsMain();
+                settingsPageOpen = true;
+            }
+        });
     }
 
     @Override
@@ -161,7 +170,10 @@ public class MainActivity extends Activity {
         if (AbstractPlatform.isMagicLeapHeadset()) {
             super.onBackPressed();
         } else {
-            showSettingsMain();
+            if (!settingsPageOpen) {
+                showSettingsMain();
+                settingsPageOpen = true;
+            }
         }
     }
 
@@ -270,6 +282,10 @@ public class MainActivity extends Activity {
     private void showSettingsMain() {
         Dialog dialog = PopupUtils.showPopup(this, R.layout.dialog_settings);
 
+        dialog.setOnDismissListener(dialogInterface -> {
+            settingsPageOpen = false;
+        });
+
         ImageView apps = dialog.findViewById(R.id.settings_apps);
         editMode = !sharedPreferences.getBoolean(SettingsProvider.KEY_EDITMODE, false);
         apps.setImageResource(editMode ? R.drawable.ic_editing_on : R.drawable.ic_editing_off);
@@ -288,8 +304,18 @@ public class MainActivity extends Activity {
             apps.setImageResource(editMode ? R.drawable.ic_editing_on : R.drawable.ic_editing_off);
         });
 
-        dialog.findViewById(R.id.settings_look).setOnClickListener(view -> showSettingsLook());
-        dialog.findViewById(R.id.settings_platforms).setOnClickListener(view -> showSettingsPlatforms());
+        dialog.findViewById(R.id.settings_look).setOnClickListener(view -> {
+            if (!lookPageOpen) {
+                showSettingsLook();
+                lookPageOpen = true;
+            }
+        });
+        dialog.findViewById(R.id.settings_platforms).setOnClickListener(view -> {
+            if (!platformsPageOpen) {
+                showSettingsPlatforms();
+                platformsPageOpen = true;
+            }
+        });
 
         View appShortcutView = dialog.findViewById(R.id.service_app_shortcut);
         if (!(AbstractPlatform.isOculusHeadset() || AbstractPlatform.isPicoHeadset())) {
@@ -311,6 +337,10 @@ public class MainActivity extends Activity {
 
     private void showSettingsLook() {
         Dialog dialog = PopupUtils.showPopup(this, R.layout.dialog_look);
+
+        dialog.setOnDismissListener(dialogInterface -> {
+            lookPageOpen = false;
+        });
 
         Switch names = dialog.findViewById(R.id.switch_names);
         names.setChecked(sharedPreferences.getBoolean(SettingsProvider.KEY_CUSTOM_NAMES, DEFAULT_NAMES));
@@ -395,6 +425,10 @@ public class MainActivity extends Activity {
 
     private void showSettingsPlatforms() {
         Dialog dialog = PopupUtils.showPopup(this, R.layout.dialog_platforms);
+
+        dialog.setOnDismissListener(dialogInterface -> {
+            platformsPageOpen = false;
+        });
 
         ImageView androidPlatformImageView = dialog.findViewById(R.id.settings_android);
         androidPlatformImageView.setOnClickListener(view -> {
