@@ -9,47 +9,54 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="6">
 
         <ImageView
             android:id="@+id/theme0"
-            android:layout_width="80dp"
+            android:layout_width="0dp"
             android:layout_height="60dp"
+            android:layout_weight="1"
             android:padding="5dp"
             android:src="@drawable/bkg_blossoms"/>
 
         <ImageView
             android:id="@+id/theme1"
-            android:layout_width="80dp"
+            android:layout_width="0dp"
             android:layout_height="60dp"
+            android:layout_weight="1"
             android:padding="5dp"
             android:src="@drawable/bkg_drips"/>
 
         <ImageView
             android:id="@+id/theme2"
-            android:layout_width="80dp"
+            android:layout_width="0dp"
             android:layout_height="60dp"
+            android:layout_weight="1"
             android:padding="5dp"
             android:src="@drawable/bkg_orange"/>
 
         <ImageView
             android:id="@+id/theme3"
-            android:layout_width="80dp"
+            android:layout_width="0dp"
             android:layout_height="60dp"
+            android:layout_weight="1"
             android:padding="5dp"
             android:src="@drawable/bkg_dawn"/>
 
         <ImageView
             android:id="@+id/theme4"
-            android:layout_width="80dp"
+            android:layout_width="0dp"
             android:layout_height="60dp"
+            android:layout_weight="1"
             android:padding="5dp"
             android:src="@drawable/bkg_bland"/>
 
         <ImageView
             android:id="@+id/theme_custom"
-            android:layout_width="80dp"
+            android:layout_width="0dp"
             android:layout_height="60dp"
+            android:layout_weight="1"
             android:padding="5dp"
             android:src="@drawable/bkg_custom"/>
     </LinearLayout>
