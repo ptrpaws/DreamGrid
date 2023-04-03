@@ -75,6 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
+            android:padding="0dp"
             android:max="255"
             android:progressBackgroundTint="@android:color/white"
             android:progressDrawable="@drawable/seekbar_custom"
@@ -102,6 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
+            android:padding="0dp"
             android:max="255"
             android:progressDrawable="@drawable/seekbar_custom"
             android:thumb="@null" />
