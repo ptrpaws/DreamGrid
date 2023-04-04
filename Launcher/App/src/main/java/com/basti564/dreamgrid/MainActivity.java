@@ -49,7 +49,7 @@ public class MainActivity extends Activity {
     public static final int PICK_ICON_CODE = 450;
     public static final int PICK_THEME_CODE = 95;
     private static final String CUSTOM_THEME = "theme.png";
-    private static final boolean DEFAULT_NAMES = true;
+    private static final boolean DEFAULT_NAMES = false;
     private static final int DEFAULT_OPACITY = 255;
     private static final int DEFAULT_SCALE = 95;
     private static final int DEFAULT_THEME = 0;
