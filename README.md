@@ -23,6 +23,10 @@ DreamGrid is an enhanced version of the original [PiLauncher](https://github.com
 
 Find the latest releases of DreamGrid [here](https://github.com/basti564/DreamGrid/releases).
 
+## Screenshot
+
+![screenshot](https://user-images.githubusercontent.com/34898868/229709039-ac4401d3-59bb-4ade-a551-1060e19474c6.png)
+
 ## Known Issues
 
 Please note that the following issues were already present in the original launcher and may not exist on Pico:
