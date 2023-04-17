@@ -7,8 +7,8 @@ android {
         minSdkVersion 23
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 23
-        versionCode 55
-        versionName "0.5.5"
+        versionCode 100
+        versionName "1.0.0"
     }
 
     compileOptions {
