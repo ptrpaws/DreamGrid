@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.net.Uri;
+import android.os.Environment;
 import android.widget.ImageView;
 
 import net.didion.loopy.iso9660.ISO9660FileEntry;
@@ -19,7 +20,7 @@ import java.util.Scanner;
 public class PSPPlatform extends AbstractPlatform {
 
     public static final String PACKAGE_PREFIX = "psp/";
-    private static final String CONFIG_FILE_PATH = "/mnt/sdcard/PSP/SYSTEM/ppssppvr.ini";
+    private static final String CONFIG_FILE_PATH = Environment.getExternalStorageDirectory().getPath() + "/PSP/SYSTEM/ppssppvr.ini";
     private static final String PPSSPPVR_PACKAGE_NAME = "org.ppsspp.ppssppvr";
     private static final String GAME_FILENAME_PREFIX = "FileName";
     private static final String RECENT_GAMES_TAG = "[Recent]";
