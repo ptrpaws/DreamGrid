@@ -10,6 +10,8 @@ import android.graphics.drawable.Drawable;
 import android.util.DisplayMetrics;
 import android.widget.ImageView;
 
+import androidx.core.content.res.ResourcesCompat;
+
 import java.io.File;
 import java.util.ArrayList;
 
@@ -45,7 +47,7 @@ public class AndroidPlatform extends AbstractPlatform {
         if (iconId == 0) {
             iconId = android.R.drawable.sym_def_app_icon;
         }
-        Drawable appIconDrawable = appResources.getDrawableForDensity(iconId, DisplayMetrics.DENSITY_XXXHIGH);
+        Drawable appIconDrawable = ResourcesCompat.getDrawableForDensity(appResources, iconId, DisplayMetrics.DENSITY_XXXHIGH, null);
         iconView.setImageDrawable(appIconDrawable);
 
         final File appFilePath = packageToPath(activity, appInfo.packageName);
