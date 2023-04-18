@@ -9,6 +9,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
@@ -118,7 +119,11 @@ public class AppsAdapter extends BaseAdapter {
                     lastClickTime = System.currentTimeMillis();
                     ClipData dragData = ClipData.newPlainText(name, name);
                     View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
-                    view.startDragAndDrop(dragData, shadowBuilder, view, 0);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        view.startDragAndDrop(dragData, shadowBuilder, view, 0);
+                    } else {
+                        view.startDrag(dragData, shadowBuilder, view, 0);
+                    }
                 }
                 return false;
             });

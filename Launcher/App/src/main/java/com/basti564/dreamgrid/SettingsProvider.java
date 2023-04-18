@@ -11,6 +11,7 @@ import com.basti564.dreamgrid.platforms.PSPPlatform;
 import com.basti564.dreamgrid.platforms.VRPlatform;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -146,7 +147,7 @@ public class SettingsProvider {
         // Create new list of apps
         PackageManager packageManager = context.getPackageManager();
         ArrayList<ApplicationInfo> sortedApps = new ArrayList<>(appMap.values());
-        sortedApps.sort((a, b) -> {
+        Collections.sort(sortedApps, (a, b) -> {
             String displayNameA = getAppDisplayName(context, a.packageName, a.loadLabel(packageManager)).toUpperCase();
             String displayNameB = getAppDisplayName(context, b.packageName, b.loadLabel(packageManager)).toUpperCase();
             return displayNameA.compareTo(displayNameB);
@@ -188,7 +189,7 @@ public class SettingsProvider {
     public ArrayList<String> getAppGroupsSorted(boolean selected) {
         readValues();
         ArrayList<String> sortedApplicationList = new ArrayList<>(selected ? selectedGroupsSet : appGroupsSet);
-        sortedApplicationList.sort((a, b) -> {
+        Collections.sort(sortedApplicationList, (a, b) -> {
             String simplifiedNameA = simplifyName(a.toUpperCase());
             String simplifiedNameB = simplifyName(b.toUpperCase());
             return simplifiedNameA.compareTo(simplifiedNameB);

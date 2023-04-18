@@ -16,6 +16,7 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.TypedValue;
@@ -367,14 +368,16 @@ public class MainActivity extends Activity {
         });
         opacity.setProgress(sharedPreferences.getInt(SettingsProvider.KEY_CUSTOM_OPACITY, DEFAULT_OPACITY));
         opacity.setMax(255);
-        opacity.setMin(0);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            opacity.setMin(0);
+        }
 
         SeekBar scale = dialog.findViewById(R.id.bar_scale);
         scale.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int value, boolean b) {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putInt(SettingsProvider.KEY_CUSTOM_SCALE, value);
+                editor.putInt(SettingsProvider.KEY_CUSTOM_SCALE, value + 55);
                 editor.apply();
                 reloadUI();
             }
@@ -387,9 +390,9 @@ public class MainActivity extends Activity {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
-        scale.setProgress(sharedPreferences.getInt(SettingsProvider.KEY_CUSTOM_SCALE, DEFAULT_SCALE));
-        scale.setMax(210);
-        scale.setMin(55);
+        scale.setProgress(sharedPreferences.getInt(SettingsProvider.KEY_CUSTOM_SCALE, DEFAULT_SCALE) -55);
+        scale.setMax(210 - 55);
+        // scale.setMin(55);
 
         int theme = sharedPreferences.getInt(SettingsProvider.KEY_CUSTOM_THEME, DEFAULT_THEME);
         ImageView[] views = {
