@@ -6,6 +6,9 @@
         <item>com.pico.metricstool</item>
         <item>com.pico.playsys</item>
         <item>com.picovr.assistantphone</item>
-        <item>com.ss.android.ttvr.global</item>
+        <item>com.ss.android.ttvr</item>
+        <item>com.pico.browser</item>
+        <item>com.pico4.settings</item>
+        <item>com.picovr.picostreamassistant</item>
     </string-array>
 </resources>
