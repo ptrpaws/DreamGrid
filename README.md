@@ -28,6 +28,10 @@ Find the latest releases of DreamGrid [here](https://github.com/basti564/DreamGr
 
 ![screenshot](https://user-images.githubusercontent.com/34898868/229709039-ac4401d3-59bb-4ade-a551-1060e19474c6.png)
 
+## Similar Projects
+
+Also check out [PiLauncherNext](https://github.com/Veticia/PiLauncherNext), a more true to the original fork of PiLauncher.
+
 ## TO:DO
 
 - Implement custom icon repos
