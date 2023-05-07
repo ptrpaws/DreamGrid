@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:id="@+id/linearLayoutMain">
+    android:id="@+id/linearLayoutMain"
+    android:background="@drawable/bkg_window">
 
     <ImageView
         android:id="@+id/background"

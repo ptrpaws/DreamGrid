@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Switch;
 
@@ -62,6 +63,7 @@ public class MainActivity extends Activity {
             R.drawable.bkg_bland
     };
     private ImageView[] selectedThemeImageViews;
+    private RelativeLayout mainView;
     private GridView appGridView;
     private ImageView backgroundImageView;
     private GridView groupPanelGridView;
@@ -118,9 +120,16 @@ public class MainActivity extends Activity {
         blurView.setClipToOutline(true);
 
         // Get UI instances
+        mainView = findViewById(R.id.linearLayoutMain);
         appGridView = findViewById(R.id.appsView);
         backgroundImageView = findViewById(R.id.background);
         groupPanelGridView = findViewById(R.id.groupsView);
+
+        // Set clipToOutline to true on mainView (Workaround for bug)
+        if (!AbstractPlatform.isOculusHeadset()) {
+            mainView.setOutlineProvider(ViewOutlineProvider.BACKGROUND);
+            mainView.setClipToOutline(true);
+        }
 
         // Handle group click listener
         groupPanelGridView.setOnItemClickListener((parent, view, position, id) -> {
