@@ -19,8 +19,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.basti564.dreamgrid.ImageUtils;
@@ -59,7 +59,7 @@ public class AppsAdapter extends BaseAdapter {
     }
 
     private static class ViewHolder {
-        RelativeLayout layout;
+        LinearLayout layout;
         ImageView imageView;
         TextView textView;
         ProgressBar progressBar;
