@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="system_app_prefixes">
-        <item>com.android.settings.intelligence</item>
         <item>com.facebook.arvr</item>
         <item>com.meta.AccountsCenter.pwa</item>
         <item>com.meta.environment</item>

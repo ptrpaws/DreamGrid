@@ -138,6 +138,7 @@ public class SettingsProvider {
                         break;
                     }
                 }
+                if (pkg.equals("com.android.settings")) isSystemApp = false;
                 if (!isSystemApp && !isEnvironment && !pkg.equals(packageName)) {
                     appMap.put(pkg, installedApplication);
                 }
