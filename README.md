@@ -39,11 +39,12 @@ Also check out [PiLauncherNext](https://github.com/Veticia/PiLauncherNext), a mo
 
 ## Known Issues
 
-Please note that the following issues were already present in the original launcher and may not exist on Pico:
+Please note that the following issues were already present in the original pilauncher
 
-- Resizing can cause a black screen when launched via Android Studio or replaced Explore.
-- Relaunching the activity repeatedly via Android Studio breaks icons permanently.
+### General
 - Deleting the last remaining group crashes the app.
+### Oculus
+- Resizing can cause a black screen when launched via Android Studio or replaced Explore.
 - Sometimes unable to move icons.
 
 ## Compiling the Launcher
