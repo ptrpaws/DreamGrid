@@ -63,8 +63,8 @@ public class GroupsAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
-        TextView textView;
-        View menu;
+        final TextView textView;
+        final View menu;
 
         ViewHolder(View itemView) {
             textView = itemView.findViewById(R.id.textLabel);
