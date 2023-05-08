@@ -25,11 +25,9 @@ android {
     namespace 'com.basti564.dreamgrid'
     lint {
         abortOnError true
-    }
-
-    lintOptions {
         disable 'Accessibility'
     }
+
     buildToolsVersion '33.0.0'
 }
 
