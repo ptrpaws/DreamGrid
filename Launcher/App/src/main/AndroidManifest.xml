@@ -31,8 +31,24 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
             <meta-data
+                android:name="platform_logo1"
+                android:value="0" />
+
+            <meta-data
                 android:name="pico.vr.position"
                 android:value="near" />
+
+            <meta-data
+                android:name="pico.vr.theme"
+                android:value="NoCaptionBar" />
+
+            <meta-data
+                android:name="isPUI"
+                android:value="1" />
+
+            <meta-data
+                android:name="pvr.vrshell.mode"
+                android:value="1" />
         </activity>
 
         <service
