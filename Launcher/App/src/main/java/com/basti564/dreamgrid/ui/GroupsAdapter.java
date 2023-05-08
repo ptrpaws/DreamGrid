@@ -155,8 +155,12 @@ public class GroupsAdapter extends BaseAdapter {
                 settingsProvider.setAppGroups(appGroupsList);
 
                 Set<String> firstSelectedGroup = new HashSet<>();
-                firstSelectedGroup.add(settingsProvider.getAppGroupsSorted(false).get(0));
-                settingsProvider.setSelectedGroups(firstSelectedGroup);
+                try{
+                    firstSelectedGroup.add(settingsProvider.getAppGroupsSorted(false).get(0));
+                    settingsProvider.setSelectedGroups(firstSelectedGroup);
+                }catch(IndexOutOfBoundsException e){
+                    settingsProvider.resetGroups();
+                }
                 mainActivity.reloadUI();
                 dialog.dismiss();
             });

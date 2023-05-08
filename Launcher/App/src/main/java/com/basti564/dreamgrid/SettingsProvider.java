@@ -198,6 +198,15 @@ public class SettingsProvider {
         return sortedApplicationList;
     }
 
+    public void resetGroups(){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove(KEY_APP_GROUPS);
+        editor.remove(KEY_SELECTED_GROUPS);
+        editor.remove(KEY_APP_LIST);
+        editor.apply();
+        readValues();
+    }
+
     private synchronized void readValues() {
         try {
             Set<String> defaultGroupsSet = new HashSet<>();
