@@ -3,11 +3,17 @@ package com.basti564.dreamgrid.platforms;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.widget.ImageView;
+
+import androidx.core.content.res.ResourcesCompat;
 
 import java.io.DataInputStream;
 import java.io.File;
@@ -18,11 +24,15 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Locale;
 
 public abstract class AbstractPlatform {
 
     protected static final HashMap<String, Drawable> cachedIcons = new HashMap<>();
     protected static final HashSet<String> excludedIconPackages = new HashSet<>();
+
+    private static final String ICONS1_URL = "https://raw.githubusercontent.com/basti564/LauncherIcons/main/oculus_square/";
+    private static final String ICONS2_URL = "https://raw.githubusercontent.com/basti564/LauncherIcons/main/pico_square/";
 
     public static void clearIconCache() {
         excludedIconPackages.clear();
@@ -128,7 +138,63 @@ public abstract class AbstractPlatform {
 
     public abstract boolean isSupported(Context context);
 
-    public abstract void loadIcon(Activity activity, ImageView iconView, ApplicationInfo applicationInfo);
+    public void loadIcon(Activity activity, ImageView iconView, ApplicationInfo appInfo) {
+        PackageManager packageManager = activity.getPackageManager();
+        Resources resources;
+        try {
+            resources = packageManager.getResourcesForApplication(appInfo.packageName);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        int iconId = appInfo.icon;
+        if (iconId == 0) {
+            iconId = android.R.drawable.sym_def_app_icon;
+        }
+
+        Drawable appIcon = ResourcesCompat.getDrawableForDensity(resources, iconId, DisplayMetrics.DENSITY_XXXHIGH, null);
+        iconView.setImageDrawable(appIcon);
+
+        final File iconFile = packageToPath(activity, appInfo.packageName);
+
+        if (iconFile.exists()) {
+            AbstractPlatform.updateIcon(iconView, iconFile, appInfo.packageName);
+            return;
+        }
+
+        if (cachedIcons.containsKey(appInfo.packageName)) {
+            iconView.setImageDrawable(cachedIcons.get(appInfo.packageName));
+            return;
+        }
+
+        downloadIcon(activity, appInfo.packageName, () -> {
+            if (updateIcon(iconView, iconFile, appInfo.packageName)) {
+                cachedIcons.put(appInfo.packageName, iconView.getDrawable());
+            }
+        });
+    }
+
+    private void downloadIcon(Activity activity, String pkgName, Runnable callback) {
+        final File iconFile = packageToPath(activity, pkgName);
+        new Thread(() -> {
+            try {
+                String url = ICONS1_URL + pkgName + ".jpg";
+                if (downloadIconFromUrl(url, iconFile)) {
+                    activity.runOnUiThread(callback);
+                } else {
+                    url = ICONS2_URL + pkgName.toLowerCase(Locale.US) + ".png";
+                    if (downloadIconFromUrl(url, iconFile)) {
+                        activity.runOnUiThread(callback);
+                    } else {
+                        Log.d("Missing icon", iconFile.getName());
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
 
     public abstract void runApp(Context context, ApplicationInfo applicationInfo, boolean multiwindow);
 
