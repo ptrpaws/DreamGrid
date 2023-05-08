@@ -63,7 +63,6 @@ public class MainActivity extends Activity {
             R.drawable.bkg_bland
     };
     private ImageView[] selectedThemeImageViews;
-    private RelativeLayout mainView;
     private GridView appGridView;
     private ImageView backgroundImageView;
     private GridView groupPanelGridView;
@@ -120,7 +119,7 @@ public class MainActivity extends Activity {
         blurView.setClipToOutline(true);
 
         // Get UI instances
-        mainView = findViewById(R.id.linearLayoutMain);
+        RelativeLayout mainView = findViewById(R.id.linearLayoutMain);
         appGridView = findViewById(R.id.appsView);
         backgroundImageView = findViewById(R.id.background);
         groupPanelGridView = findViewById(R.id.groupsView);
