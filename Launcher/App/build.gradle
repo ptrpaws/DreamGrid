@@ -38,4 +38,5 @@ dependencies {
     implementation 'com.github.stephenc.java-iso-tools:loopy-vfs:1.2.2'
     implementation 'com.github.Dimezis:BlurView:version-2.0.3'
     implementation 'com.android.volley:volley:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
 }

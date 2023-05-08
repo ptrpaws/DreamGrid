@@ -92,6 +92,9 @@ public class AppsAdapter extends BaseAdapter {
             holder.textView = convertView.findViewById(R.id.textLabel);
             holder.progressBar = convertView.findViewById(R.id.progress_bar);
 
+            // Set clipToOutline to true on imageView (Workaround for bug)
+            holder.imageView.setClipToOutline(true);
+
             // Set size of items
             ViewGroup.LayoutParams params = holder.layout.getLayoutParams();
             params.width = itemScale;
@@ -209,6 +212,8 @@ public class AppsAdapter extends BaseAdapter {
         ImageView tempImage = appDetailsDialog.findViewById(R.id.app_icon);
         AbstractPlatform appPlatform = AbstractPlatform.getPlatform(currentApp);
         appPlatform.loadIcon(mainActivityContext, tempImage, currentApp);
+
+        tempImage.setClipToOutline(true);
 
         tempImage.setOnClickListener(iconPickerView -> {
             iconDrawable = currentApp.loadIcon(packageManager);

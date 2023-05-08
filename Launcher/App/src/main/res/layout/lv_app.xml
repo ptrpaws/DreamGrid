@@ -7,38 +7,48 @@
     android:gravity="center"
     android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/imageLabel"
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:scaleType="fitCenter"
+            android:src="@android:drawable/ic_menu_gallery"
+            android:background="@drawable/bkg_app"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-            <ImageView
-                android:id="@+id/imageLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scaleType="fitCenter"
-                android:src="@android:drawable/ic_menu_gallery"
-                android:contentDescription="@string/app_name"/>
-
-            <ProgressBar
-                android:id="@+id/progress_bar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:theme="@style/ThemeOverlay.Holo"
-                android:visibility="gone"/>
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/textLabel"
-            android:singleLine="true"
-            android:textSize="16sp"
-            android:textColor="@android:color/white"
-            android:shadowColor="#80000000"
-            android:shadowRadius="5"
-            android:layout_width="match_parent"
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            app:strokeColor="#80000000"
-            app:strokeWidth="1.5dp"/>
+            android:layout_gravity="center"
+            android:theme="@style/ThemeOverlay.Holo"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@+id/imageLabel"
+            app:layout_constraintBottom_toBottomOf="@+id/imageLabel"
+            app:layout_constraintStart_toStartOf="@+id/imageLabel"
+            app:layout_constraintEnd_toEndOf="@+id/imageLabel"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textLabel"
+        android:singleLine="true"
+        android:textSize="16sp"
+        android:textColor="@android:color/white"
+        android:shadowColor="#80000000"
+        android:shadowRadius="5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:strokeColor="#80000000"
+        app:strokeWidth="1.5dp"/>
 </LinearLayout>
