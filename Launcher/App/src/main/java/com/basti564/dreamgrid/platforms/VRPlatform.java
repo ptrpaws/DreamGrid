@@ -27,7 +27,7 @@ public class VRPlatform extends AbstractPlatform {
 
     @Override
     public boolean isSupported(Context context) {
-        return isMagicLeapHeadset() || isOculusHeadset() || isPicoHeadset();
+        return isHTCHeadset() || isMagicLeapHeadset() || isOculusHeadset() || isPicoHeadset();
     }
 
     @Override

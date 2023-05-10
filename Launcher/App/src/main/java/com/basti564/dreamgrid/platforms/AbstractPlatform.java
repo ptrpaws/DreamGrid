@@ -99,6 +99,11 @@ public abstract class AbstractPlatform {
         }
     }
 
+    public static boolean isHTCHeadset() {
+        String manufacturer = Build.MANUFACTURER.toUpperCase();
+        return manufacturer.startsWith("HTC");
+    }
+
     public static boolean isMagicLeapHeadset() {
         String manufacturer = Build.MANUFACTURER.toUpperCase();
         return manufacturer.startsWith("MAGIC LEAP");
@@ -127,6 +132,9 @@ public abstract class AbstractPlatform {
                     return true;
                 }
                 if (key.contains("vr.application.mode")) {
+                    return true;
+                }
+                if (key.contains("com.htc.vr")) {
                     return true;
                 }
             }
