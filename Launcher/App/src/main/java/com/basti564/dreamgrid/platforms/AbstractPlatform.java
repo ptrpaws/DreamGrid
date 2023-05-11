@@ -35,6 +35,7 @@ public abstract class AbstractPlatform {
 
     private static final String OCULUS_ICONS_URL = "https://raw.githubusercontent.com/basti564/LauncherIcons/main/oculus_square/";
     private static final String PICO_ICONS_URL = "https://raw.githubusercontent.com/basti564/LauncherIcons/main/pico_square/";
+    private static final String VIVEPORT_ICONS_URL = "https://raw.githubusercontent.com/basti564/LauncherIcons/main/viveport_square/";
 
     public static void clearIconCache() {
         excludedIconPackages.clear();
@@ -234,6 +235,11 @@ public abstract class AbstractPlatform {
                         return;
                     }
                     url = PICO_ICONS_URL + pkgName + ".png";
+                    if (downloadIconFromUrl(url, iconFile)) {
+                        activity.runOnUiThread(callback);
+                        return;
+                    }
+                    url = VIVEPORT_ICONS_URL + pkgName + ".jpg";
                     if (downloadIconFromUrl(url, iconFile)) {
                         activity.runOnUiThread(callback);
                         return;
