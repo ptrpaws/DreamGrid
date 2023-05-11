@@ -72,6 +72,7 @@ public class PSPPlatform extends AbstractPlatform {
                     if (entry.getName().contains("ICON0.PNG")) {
                         if (saveStream(discFs.getInputStream(entry), file)) {
                             activity.runOnUiThread(() -> AbstractPlatform.updateIcon(icon, file, app.packageName));
+                            break;
                         }
                     }
                 }
