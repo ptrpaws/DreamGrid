@@ -33,8 +33,8 @@ public abstract class AbstractPlatform {
     protected static final HashMap<String, Drawable> cachedIcons = new HashMap<>();
     protected static final HashSet<String> excludedIconPackages = new HashSet<>();
 
-    private static final String ICONS1_URL = "https://raw.githubusercontent.com/basti564/LauncherIcons/main/oculus_square/";
-    private static final String ICONS2_URL = "https://raw.githubusercontent.com/basti564/LauncherIcons/main/pico_square/";
+    private static final String OCULUS_ICONS_URL = "https://raw.githubusercontent.com/basti564/LauncherIcons/main/oculus_square/";
+    private static final String PICO_ICONS_URL = "https://raw.githubusercontent.com/basti564/LauncherIcons/main/pico_square/";
 
     public static void clearIconCache() {
         excludedIconPackages.clear();
@@ -228,12 +228,12 @@ public abstract class AbstractPlatform {
             }
             synchronized (Objects.requireNonNull(lock)) {
                 try {
-                    String url = ICONS1_URL + pkgName + ".jpg";
+                    String url = OCULUS_ICONS_URL + pkgName + ".jpg";
                     if (downloadIconFromUrl(url, iconFile)) {
                         activity.runOnUiThread(callback);
                         return;
                     }
-                    url = ICONS2_URL + pkgName + ".png";
+                    url = PICO_ICONS_URL + pkgName + ".png";
                     if (downloadIconFromUrl(url, iconFile)) {
                         activity.runOnUiThread(callback);
                         return;
