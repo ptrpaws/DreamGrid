@@ -17,6 +17,7 @@ import androidx.core.content.res.ResourcesCompat;
 
 import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -245,6 +246,8 @@ public abstract class AbstractPlatform {
                     return true;
                 }
             }
+        } catch (FileNotFoundException e) {
+            System.err.println("File not found: " + e.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
         }
