@@ -39,6 +39,26 @@ public abstract class AbstractPlatform {
         cachedIcons.clear();
     }
 
+    public static boolean isImageFileComplete(File imageFile) {
+        boolean success = false;
+        try {
+            if (imageFile.length() > 0) {
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inJustDecodeBounds = true;
+                BitmapFactory.decodeFile(imageFile.getAbsolutePath(), options);
+                success = (options.outWidth > 0 && options.outHeight > 0);
+            }
+        } catch (Exception e) {
+            // Do nothing
+        }
+
+        if (!success) {
+            Log.e("imgComplete", "Failed to validate image file: " + imageFile);
+        }
+
+        return success;
+    }
+
     public static AbstractPlatform getPlatform(ApplicationInfo applicationInfo) {
         if (applicationInfo.packageName.startsWith(PSPPlatform.PACKAGE_PREFIX)) {
             return new PSPPlatform();
@@ -50,7 +70,7 @@ public abstract class AbstractPlatform {
     }
 
     public static File packageToPath(Context context, String packageName) {
-        return new File(context.getApplicationInfo().dataDir, packageName + ".jpg");
+        return new File(context.getApplicationInfo().dataDir, packageName + ".webp");
     }
 
     public static boolean updateIcon(ImageView iconView, File file, String packageName) {
@@ -80,21 +100,33 @@ public abstract class AbstractPlatform {
             fileOutputStream.flush();
             fileOutputStream.close();
 
-            if (outputFile.length() >= 64 * 1024) {
-                Bitmap bitmap = BitmapFactory.decodeFile(outputFile.getAbsolutePath());
-                if (bitmap != null) {
-                    try {
-                        fileOutputStream = new FileOutputStream(outputFile);
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 90, fileOutputStream);
-                        fileOutputStream.close();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+            if (!isImageFileComplete(outputFile)) {
+                return false;
+            }
+
+            Bitmap bitmap = BitmapFactory.decodeFile(outputFile.getAbsolutePath());
+            if (bitmap != null) {
+                int width = bitmap.getWidth();
+                int height = bitmap.getHeight();
+                float aspectRatio = (float) width / height;
+                if (width > 512) {
+                    width = 512;
+                    height = Math.round(width / aspectRatio);
+                    bitmap = Bitmap.createScaledBitmap(bitmap, width, height, false);
+                }
+
+                try {
+                    fileOutputStream = new FileOutputStream(outputFile);
+                    bitmap.compress(Bitmap.CompressFormat.WEBP, 90, fileOutputStream);
+                    fileOutputStream.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
 
             return true;
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }

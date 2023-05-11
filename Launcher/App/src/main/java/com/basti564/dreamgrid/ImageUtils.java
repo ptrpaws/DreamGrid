@@ -28,7 +28,7 @@ public class ImageUtils {
     public static void saveBitmap(Bitmap bitmap, File destinationFile) {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(destinationFile);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
+            bitmap.compress(Bitmap.CompressFormat.WEBP, 100, fileOutputStream);
             fileOutputStream.flush();
             fileOutputStream.close();
         } catch (Exception e) {
