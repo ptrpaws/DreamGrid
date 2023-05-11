@@ -14,8 +14,7 @@ public class PopupUtils {
         AlertDialog dialog = alertDialogBuilder.create();
         dialog.show();
 
-        WindowManager.LayoutParams windowLayoutParams = new WindowManager.LayoutParams();
-        windowLayoutParams.copyFrom(dialog.getWindow().getAttributes());
+        WindowManager.LayoutParams windowLayoutParams = dialog.getWindow().getAttributes();
         windowLayoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
         windowLayoutParams.height = getWindowHeight(activity) - 200;
         windowLayoutParams.gravity = Gravity.END;
