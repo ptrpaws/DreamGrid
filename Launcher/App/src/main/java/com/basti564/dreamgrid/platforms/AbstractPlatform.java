@@ -25,7 +25,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Locale;
+import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class AbstractPlatform {
 
@@ -216,23 +217,33 @@ public abstract class AbstractPlatform {
         });
     }
 
-    private void downloadIcon(Activity activity, String pkgName, Runnable callback) {
+    private final ConcurrentHashMap<String, Object> locks = new ConcurrentHashMap<>();
+
+    private void downloadIcon(final Activity activity, String pkgName, final Runnable callback) {
         final File iconFile = packageToPath(activity, pkgName);
         new Thread(() -> {
-            try {
-                String url = ICONS1_URL + pkgName + ".jpg";
-                if (downloadIconFromUrl(url, iconFile)) {
-                    activity.runOnUiThread(callback);
-                } else {
-                    url = ICONS2_URL + pkgName.toLowerCase(Locale.US) + ".png";
+            Object lock = locks.putIfAbsent(pkgName, new Object());
+            if (lock == null) {
+                lock = locks.get(pkgName);
+            }
+            synchronized (Objects.requireNonNull(lock)) {
+                try {
+                    String url = ICONS1_URL + pkgName + ".jpg";
                     if (downloadIconFromUrl(url, iconFile)) {
                         activity.runOnUiThread(callback);
-                    } else {
-                        Log.d("Missing icon", iconFile.getName());
+                        return;
                     }
+                    url = ICONS2_URL + pkgName + ".png";
+                    if (downloadIconFromUrl(url, iconFile)) {
+                        activity.runOnUiThread(callback);
+                        return;
+                    }
+                    Log.i("downloadIcon", "Missing icon: " +iconFile.getName());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    locks.remove(pkgName);
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
         }).start();
     }
