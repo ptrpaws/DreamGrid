@@ -239,7 +239,7 @@ public abstract class AbstractPlatform {
                         activity.runOnUiThread(callback);
                         return;
                     }
-                    url = VIVEPORT_ICONS_URL + pkgName + ".jpg";
+                    url = VIVEPORT_ICONS_URL + pkgName + ".webp";
                     if (downloadIconFromUrl(url, iconFile)) {
                         activity.runOnUiThread(callback);
                         return;
