@@ -62,7 +62,7 @@ class IconTask extends AsyncTask {
         return null;
     }
     @Override
-    protected void onPostExecute(Object _) {
+    protected void onPostExecute(Object result) {
         imageView.setImageDrawable(appIcon);
     }
 }
