@@ -3,7 +3,6 @@ package com.basti564.dreamgrid;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.WindowManager;
 
@@ -25,11 +24,5 @@ public class PopupUtils {
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.bkg_dialog);
 
         return dialog;
-    }
-
-    private static int getWindowHeight(Activity activity) {
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        return displayMetrics.heightPixels;
     }
 }
