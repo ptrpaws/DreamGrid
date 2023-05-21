@@ -12,7 +12,8 @@
         android:theme="@style/ThemeOverlay.Material"
         android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true"
-        android:allowBackup="true">
+        android:allowBackup="true"
+        android:supportsRtl="true">
 
 
         <activity
