@@ -38,12 +38,7 @@ public class ButtonManager extends AccessibilityService {
             for (String eventName : eventNames) {
                 if (eventName.compareTo(eventText) == 0) {
                     final Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            MainActivity.reset(getApplicationContext());
-                        }
-                    }, 1000);
+                    handler.postDelayed(() -> MainActivity.reset(getApplicationContext()), 1000);
                     break;
                 }
             }
