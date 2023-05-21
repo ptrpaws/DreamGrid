@@ -3,6 +3,8 @@ package com.basti564.dreamgrid;
 import android.accessibilityservice.AccessibilityService;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 
 public class ButtonManager extends AccessibilityService {
@@ -36,7 +38,13 @@ public class ButtonManager extends AccessibilityService {
 
             for (String eventName : eventNames) {
                 if (eventName.compareTo(eventText) == 0) {
-                    MainActivity.reset(getApplicationContext());
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            MainActivity.reset(getApplicationContext());
+                        }
+                    }, 1000);
                     break;
                 }
             }

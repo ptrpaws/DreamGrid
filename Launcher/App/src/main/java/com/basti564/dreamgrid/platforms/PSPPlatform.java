@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
-import android.widget.ImageView;
 
 import net.didion.loopy.iso9660.ISO9660FileEntry;
 import net.didion.loopy.iso9660.ISO9660FileSystem;
@@ -52,11 +52,14 @@ public class PSPPlatform extends AbstractPlatform {
     }
 
     @Override
-    public void loadIcon(Activity activity, ImageView icon, ApplicationInfo app) {
+    public Drawable loadIcon(Activity activity, ApplicationInfo app) {
         final File file = packageToPath(activity, app.packageName);
         if (file.exists()) {
-            if (AbstractPlatform.updateIcon(icon, file, app.packageName)) {
-                return;
+            if (AbstractPlatform.updateIcon(file, app.packageName)) {
+                if (cachedIcons.containsKey(app.packageName)) {
+                    return cachedIcons.get(app.packageName);
+                }
+                return null;
             }
         }
 
@@ -71,7 +74,7 @@ public class PSPPlatform extends AbstractPlatform {
                     ISO9660FileEntry entry = (ISO9660FileEntry) entries.nextElement();
                     if (entry.getName().contains("ICON0.PNG")) {
                         if (saveStream(discFs.getInputStream(entry), file)) {
-                            activity.runOnUiThread(() -> AbstractPlatform.updateIcon(icon, file, app.packageName));
+                            activity.runOnUiThread(() -> AbstractPlatform.updateIcon(file, app.packageName));
                             break;
                         }
                     }
@@ -80,6 +83,10 @@ public class PSPPlatform extends AbstractPlatform {
                 e.printStackTrace();
             }
         }).start();
+        if (cachedIcons.containsKey(app.packageName)) {
+            return cachedIcons.get(app.packageName);
+        }
+        return null;
     }
 
     @Override

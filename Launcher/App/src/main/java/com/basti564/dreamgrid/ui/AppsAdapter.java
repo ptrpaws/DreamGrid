@@ -1,5 +1,6 @@
 package com.basti564.dreamgrid.ui;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.Context;
@@ -9,6 +10,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.util.Log;
 import android.view.DragEvent;
@@ -33,7 +35,39 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AppsAdapter extends BaseAdapter {
+import javax.xml.transform.Result;
+
+interface IconCallback {
+    void setIconImage();
+}
+
+class IconTask extends AsyncTask {
+    private ApplicationInfo currentApp;
+    private ImageView imageView;
+    private Drawable appIcon;
+
+    @Override
+    protected Object doInBackground(Object[] objects) {
+        final AppsAdapter owner = (AppsAdapter) objects[0];
+        final ApplicationInfo currentApp = (ApplicationInfo) objects[1];
+        final MainActivity mainActivityContext = (MainActivity) objects[2];
+        final AbstractPlatform appPlatform = AbstractPlatform.getPlatform(currentApp);
+        imageView = (ImageView) objects[3];
+
+        try {
+            appIcon = appPlatform.loadIcon(mainActivityContext, currentApp);
+        } catch (Resources.NotFoundException | PackageManager.NameNotFoundException e) {
+            Log.e("DreamGrid", "Error loading icon for app: " + currentApp.packageName, e);
+        }
+        return null;
+    }
+    @Override
+    protected void onPostExecute(Object _) {
+        imageView.setImageDrawable(appIcon);
+    }
+}
+
+public class AppsAdapter extends BaseAdapter{
     private static Drawable iconDrawable;
     private static File iconFile;
     private static String packageName;
@@ -65,9 +99,7 @@ public class AppsAdapter extends BaseAdapter {
         ProgressBar progressBar;
     }
 
-    public int getCount() {
-        return appList.size();
-    }
+    public int getCount() { return appList.size(); }
 
     public Object getItem(int position) {
         return appList.get(position);
@@ -140,7 +172,11 @@ public class AppsAdapter extends BaseAdapter {
                         mainActivityContext.reloadUI();
                     } else if (event.getAction() == DragEvent.ACTION_DROP) {
                         if (System.currentTimeMillis() - lastClickTime < 250) {
-                            showAppDetails(currentApp);
+                            try {
+                                showAppDetails(currentApp);
+                            } catch (PackageManager.NameNotFoundException e) {
+                                throw new RuntimeException(e);
+                            }
                         } else {
                             mainActivityContext.reloadUI();
                         }
@@ -155,21 +191,42 @@ public class AppsAdapter extends BaseAdapter {
                 mainActivityContext.openApp(currentApp);
             });
             holder.layout.setOnLongClickListener(view -> {
-                showAppDetails(currentApp);
+                try {
+                    showAppDetails(currentApp);
+                } catch (PackageManager.NameNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
                 return false;
             });
         }
 
         // set application icon
-        AbstractPlatform appPlatform = AbstractPlatform.getPlatform(currentApp);
-        try {
-            appPlatform.loadIcon(mainActivityContext, holder.imageView, currentApp);
-        } catch (Resources.NotFoundException e) {
-            Log.e("DreamGrid", "Error loading icon for app: " + currentApp.packageName, e);
-        }
+        Log.i("DreamGrid", "loading icon for app: " + currentApp.packageName);
+
+        holder.imageView.setImageDrawable(Drawable.createFromPath("@drawable/bkg_app"));
+        new IconTask().execute(this, currentApp, mainActivityContext, holder.imageView);
 
         return convertView;
     }
+
+    public void onIconReady() {
+        Log.e("DreamGrid", "OnIconReady");
+
+        // callback code goes here
+    }
+    // The callback interface
+
+    // The class that takes the callback
+//
+//// Option 1:
+//
+//    class Callback implements MyCallback {
+//        void callbackCall() {
+//            // callback code goes here
+//        }
+//    }
+//
+//    worker.callback = new Callback();
 
     public void onImageSelected(String path, ImageView selectedImageView) {
         AbstractPlatform.clearIconCache();
@@ -179,13 +236,14 @@ public class AppsAdapter extends BaseAdapter {
             selectedImageView.setImageBitmap(bitmap);
         } else {
             selectedImageView.setImageDrawable(iconDrawable);
-            AbstractPlatform.updateIcon(selectedImageView, iconFile, packageName);
+            AbstractPlatform.updateIcon(iconFile, packageName);
+            //No longer sets icon here but that should be fine
         }
         mainActivityContext.reloadUI();
         this.notifyDataSetChanged(); // for real time updates
     }
 
-    private void showAppDetails(ApplicationInfo currentApp) {
+    private void showAppDetails(ApplicationInfo currentApp) throws PackageManager.NameNotFoundException {
         // set layout
         Context context = mainActivityContext;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
@@ -211,7 +269,7 @@ public class AppsAdapter extends BaseAdapter {
         // load icon
         ImageView tempImage = appDetailsDialog.findViewById(R.id.app_icon);
         AbstractPlatform appPlatform = AbstractPlatform.getPlatform(currentApp);
-        appPlatform.loadIcon(mainActivityContext, tempImage, currentApp);
+        tempImage.setImageDrawable(appPlatform.loadIcon(mainActivityContext, currentApp));
 
         tempImage.setClipToOutline(true);
 

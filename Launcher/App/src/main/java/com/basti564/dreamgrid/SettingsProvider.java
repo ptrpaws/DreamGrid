@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.basti564.dreamgrid.platforms.AndroidPlatform;
 import com.basti564.dreamgrid.platforms.PSPPlatform;

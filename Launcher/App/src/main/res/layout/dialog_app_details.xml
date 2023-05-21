@@ -3,8 +3,8 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="20dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,15 +16,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:paddingBottom="20dp"
-            android:textSize="20sp"
+            android:text="@string/app_details"
             android:textColor="@android:color/white"
-            android:text="@string/app_details"/>
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/info"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="@drawable/ic_info"/>
+            android:background="@drawable/ic_info" />
     </LinearLayout>
 
     <LinearLayout
@@ -36,17 +36,17 @@
             android:id="@+id/app_icon"
             android:layout_width="120dp"
             android:layout_height="67.5dp"
-            android:layout_marginEnd="10dp"/>
+            android:layout_marginEnd="10dp" />
 
         <EditText
             android:id="@+id/app_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="@android:color/white"
-            android:textColor="@android:color/white"
             android:autofillHints="text"
-            android:inputType="text" />
+            android:backgroundTint="@android:color/white"
+            android:inputType="text"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
     <Button
@@ -54,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:background="@drawable/bkg_dialog"
-        android:textColor="@android:color/white"
-        android:text="@android:string/ok"/>
+        android:background="@drawable/bkg_button"
+        android:text="@android:string/ok"
+        android:textColor="@android:color/white" />
 </LinearLayout>

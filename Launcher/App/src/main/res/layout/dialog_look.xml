@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="20dp"
-    android:orientation="vertical">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
 
-    <LinearLayout
+    <TextView
+        style="@style/SettingTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="Customize Appearance" />
+
+    <LinearLayout
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bkg_button"
         android:orientation="horizontal"
         android:weightSum="6">
 
@@ -17,8 +25,9 @@
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_weight="1"
+            android:background="@drawable/bkg_button"
             android:padding="5dp"
-            android:src="@drawable/bkg_blossoms"/>
+            android:src="@drawable/bkg_blossoms" />
 
         <ImageView
             android:id="@+id/theme1"
@@ -26,7 +35,7 @@
             android:layout_height="60dp"
             android:layout_weight="1"
             android:padding="5dp"
-            android:src="@drawable/bkg_drips"/>
+            android:src="@drawable/bkg_drips" />
 
         <ImageView
             android:id="@+id/theme2"
@@ -34,7 +43,7 @@
             android:layout_height="60dp"
             android:layout_weight="1"
             android:padding="5dp"
-            android:src="@drawable/bkg_orange"/>
+            android:src="@drawable/bkg_orange" />
 
         <ImageView
             android:id="@+id/theme3"
@@ -42,7 +51,7 @@
             android:layout_height="60dp"
             android:layout_weight="1"
             android:padding="5dp"
-            android:src="@drawable/bkg_dawn"/>
+            android:src="@drawable/bkg_dawn" />
 
         <ImageView
             android:id="@+id/theme4"
@@ -50,7 +59,7 @@
             android:layout_height="60dp"
             android:layout_weight="1"
             android:padding="5dp"
-            android:src="@drawable/bkg_bland"/>
+            android:src="@drawable/bkg_bland" />
 
         <ImageView
             android:id="@+id/theme_custom"
@@ -58,15 +67,16 @@
             android:layout_height="60dp"
             android:layout_weight="1"
             android:padding="5dp"
-            android:src="@drawable/bkg_custom"/>
+            android:src="@drawable/bkg_custom" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+        android:background="@drawable/bkg_button"
+        android:orientation="horizontal"
+        android:padding="10dp">
 
         <TextView
             android:layout_width="0dp"
@@ -74,7 +84,7 @@
             android:layout_weight="1"
             android:text="@string/icons_size"
             android:textColor="@android:color/white"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
 
         <SeekBar
             android:id="@+id/bar_scale"
@@ -82,8 +92,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:padding="0dp"
             android:max="255"
+            android:padding="0dp"
             android:progressBackgroundTint="@android:color/white"
             android:progressDrawable="@drawable/seekbar_custom"
             android:thumb="@null" />
@@ -92,9 +102,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+        android:background="@drawable/bkg_button"
+        android:orientation="horizontal"
+        android:padding="10dp">
 
         <TextView
             android:layout_width="0dp"
@@ -102,7 +113,7 @@
             android:layout_weight="1"
             android:text="@string/background_opacity"
             android:textColor="@android:color/white"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
 
         <SeekBar
             android:id="@+id/bar_opacity"
@@ -110,8 +121,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:padding="0dp"
             android:max="255"
+            android:padding="0dp"
             android:progressDrawable="@drawable/seekbar_custom"
             android:thumb="@null" />
     </LinearLayout>
@@ -119,9 +130,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+        android:background="@drawable/bkg_button"
+        android:orientation="horizontal"
+        android:padding="10dp">
 
         <TextView
             android:layout_width="0dp"
@@ -129,7 +141,7 @@
             android:layout_weight="1"
             android:text="@string/show_app_names"
             android:textColor="@android:color/white"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
 
         <Switch
             android:id="@+id/switch_names"

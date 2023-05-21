@@ -10,15 +10,19 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,15 +84,18 @@ public class MainActivity extends Activity {
             Intent intent = new Intent(context, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
-            ((Activity)context).finish();
+
         } catch (Exception e) {
             e.printStackTrace();
+            Log.w("DreamGridStartup", "Failed to start intent");
         }
     }
 
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i("DreamGridStartup", "Opening");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -97,26 +104,6 @@ public class MainActivity extends Activity {
         }
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         settingsProvider = SettingsProvider.getInstance(this);
-
-        UpdateDetector updateDetector = new UpdateDetector(this, sharedPreferences);
-
-        updateDetector.checkForUpdateIfIntervalElapsed(24 * 60 * 60 * 1000);
-
-        BlurView blurView = findViewById(R.id.blurView);
-
-        float blurRadiusDp = 20f;
-
-        View windowDecorView = getWindow().getDecorView();
-        ViewGroup rootViewGroup = windowDecorView.findViewById(android.R.id.content);
-
-        Drawable windowBackground = windowDecorView.getBackground();
-
-        blurView.setupWith(rootViewGroup, new RenderScriptBlur(this)) // or RenderEffectBlur
-                .setFrameClearDrawable(windowBackground) // Optional
-                .setBlurRadius(blurRadiusDp);
-
-        blurView.setOutlineProvider(ViewOutlineProvider.BACKGROUND);
-        blurView.setClipToOutline(true);
 
         // Get UI instances
         RelativeLayout mainView = findViewById(R.id.linearLayoutMain);
@@ -172,6 +159,38 @@ public class MainActivity extends Activity {
                 settingsPageOpen = true;
             }
         });
+
+        Log.i("DreamGridStartup", "Ready!");
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Log.i("DreamGridStartup", "Running Deferred");
+
+                UpdateDetector updateDetector = new UpdateDetector(getApplicationContext());
+                updateDetector.checkForUpdate();
+
+                BlurView blurView = findViewById(R.id.blurView);
+
+                float blurRadiusDp = 20f;
+
+                View windowDecorView = getWindow().getDecorView();
+                ViewGroup rootViewGroup = windowDecorView.findViewById(android.R.id.content);
+
+                Drawable windowBackground = windowDecorView.getBackground();
+
+                blurView.setupWith(rootViewGroup, new RenderScriptBlur(getApplicationContext())) // or RenderEffectBlur
+                        .setFrameClearDrawable(windowBackground) // Optional
+                        .setBlurRadius(blurRadiusDp);
+
+                blurView.setOutlineProvider(ViewOutlineProvider.BACKGROUND);
+                blurView.setClipToOutline(true);
+
+                Log.i("DreamGridStartup", "Deferred Done");
+            }
+        }, 500);
+
     }
 
     @Override
@@ -293,10 +312,10 @@ public class MainActivity extends Activity {
 
         dialog.setOnDismissListener(dialogInterface -> settingsPageOpen = false);
 
-        ImageView apps = dialog.findViewById(R.id.settings_apps);
+        ImageView apps = dialog.findViewById(R.id.settings_apps_image);
         editMode = !sharedPreferences.getBoolean(SettingsProvider.KEY_EDITMODE, false);
         apps.setImageResource(editMode ? R.drawable.ic_editing_on : R.drawable.ic_editing_off);
-        apps.setOnClickListener(view1 -> {
+        dialog.findViewById(R.id.settings_apps).setOnClickListener(view1 -> {
             ArrayList<String> selectedGroups = settingsProvider.getAppGroupsSorted(true);
             if (editMode && (selectedGroups.size() > 1)) {
                 Set<String> selectFirst = new HashSet<>();
@@ -435,7 +454,7 @@ public class MainActivity extends Activity {
 
         dialog.setOnDismissListener(dialogInterface -> platformsPageOpen = false);
 
-        ImageView androidPlatformImageView = dialog.findViewById(R.id.settings_android);
+        View androidPlatformImageView = dialog.findViewById(R.id.settings_android);
         androidPlatformImageView.setOnClickListener(view -> {
             boolean isPlatformEnabled = sharedPreferences.getBoolean(SettingsProvider.KEY_PLATFORM_ANDROID, true);
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -445,7 +464,7 @@ public class MainActivity extends Activity {
         });
         androidPlatformImageView.setVisibility(new AndroidPlatform().isSupported(this) ? View.VISIBLE : View.GONE);
 
-        ImageView pspPlatformImageView = dialog.findViewById(R.id.settings_psp);
+        View pspPlatformImageView = dialog.findViewById(R.id.settings_psp);
         pspPlatformImageView.setOnClickListener(view -> {
             boolean isPlatformEnabled = sharedPreferences.getBoolean(SettingsProvider.KEY_PLATFORM_PSP, true);
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -455,7 +474,7 @@ public class MainActivity extends Activity {
         });
         pspPlatformImageView.setVisibility(new PSPPlatform().isSupported(this) ? View.VISIBLE : View.GONE);
 
-        ImageView vrPlatformImageView = dialog.findViewById(R.id.settings_vr);
+        View vrPlatformImageView = dialog.findViewById(R.id.settings_vr);
         vrPlatformImageView.setOnClickListener(view -> {
             boolean isPlatformEnabled = sharedPreferences.getBoolean(SettingsProvider.KEY_PLATFORM_VR, true);
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -474,7 +493,7 @@ public class MainActivity extends Activity {
         //fallback action
         new Thread(() -> {
             try {
-                Thread.sleep(2000);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

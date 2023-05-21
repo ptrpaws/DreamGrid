@@ -1,30 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="20dp"
-    android:orientation="vertical">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/textView"
+        style="@style/SettingTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Platform Visibilty" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
 
-        <ImageView
-            android:id="@+id/settings_android"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@drawable/ic_platform_android"/>
-        <ImageView
-            android:id="@+id/settings_psp"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@drawable/ic_platform_psp"/>
-        <ImageView
+        <LinearLayout
             android:id="@+id/settings_vr"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@drawable/ic_platform_vr"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/bkg_button"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_platform_vr" />
+
+            <TextView
+                style="@style/SettingSubtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:text="VR" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/settings_android"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/bkg_button"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_platform_android" />
+
+            <TextView
+                style="@style/SettingSubtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:text="2D" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/settings_psp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bkg_button"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_platform_psp" />
+
+            <TextView
+                style="@style/SettingSubtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:text="PSP" />
+        </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>

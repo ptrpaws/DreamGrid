@@ -32,23 +32,23 @@
 
         <Button
             android:id="@+id/group_delete"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/bkg_button"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:background="@drawable/bkg_dialog"
-            android:textColor="@android:color/white"
             android:text="@string/delete_group"
-            style="?android:attr/buttonBarButtonStyle" />
+            android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/ok"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:background="@drawable/bkg_dialog"
-            android:textColor="@android:color/white"
+            android:background="@drawable/bkg_button"
             android:text="@android:string/ok"
-            style="?android:attr/buttonBarButtonStyle" />
+            android:textColor="@android:color/white" />
     </LinearLayout>
 </LinearLayout>

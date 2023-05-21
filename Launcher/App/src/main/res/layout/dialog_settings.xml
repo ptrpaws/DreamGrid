@@ -1,55 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="20dp"
-    android:orientation="vertical">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        style="@style/SettingTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Settings" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/settings_look"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:padding="20dp"
-            android:src="@drawable/ic_look"/>
+        <LinearLayout
+            android:layout_width="270dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/settings_apps"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:padding="20dp"
-            android:src="@drawable/ic_editing_on"/>
+            <LinearLayout
+                android:id="@+id/settings_apps"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/bkg_button">
 
-        <ImageView
-            android:id="@+id/settings_platforms"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:padding="20dp"
-            android:src="@drawable/ic_platforms"/>
+                <ImageView
+                    android:id="@+id/settings_apps_image"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_editing_on" />
+
+                <TextView
+                    style="@style/SettingSubtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:gravity="left|center_vertical"
+                    android:text="Toggle Edit Mode" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/settings_platforms"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/bkg_button">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_platforms" />
+
+                <TextView
+                    style="@style/SettingSubtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:gravity="left|center_vertical"
+                    android:text="Platform Visiblity" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/settings_look"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bkg_button">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_look" />
+
+                <TextView
+                    style="@style/SettingSubtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:gravity="left|center_vertical"
+                    android:text="Customize Appearance" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="270dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:layout_marginRight="10dp">
+
+            <TextView
+                style="@style/Widget.AppCompat.TextView"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Use the below settings to enable DreamGrid's accesiblity service, and replace the &quot;Explore&quot; app on your dock."
+                android:textColor="#FFFFFF" />
+
+            <LinearLayout
+                android:id="@+id/service_app_shortcut"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/bkg_button">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_shortcut" />
+
+                <TextView
+                    style="@style/SettingSubtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:gravity="left|center_vertical"
+                    android:text="Enable Redirect Service" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/service_explore_app"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bkg_button">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_explore" />
+
+                <TextView
+                    style="@style/SettingSubtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="left|center_vertical"
+                    android:text="Disable Explore App" />
+            </LinearLayout>
+        </LinearLayout>
+
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
-
-        <ImageView
-            android:id="@+id/service_app_shortcut"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:padding="20dp"
-            android:src="@drawable/ic_shortcut"/>
-
-        <ImageView
-            android:id="@+id/service_explore_app"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:padding="20dp"
-            android:src="@drawable/ic_explore"/>
-    </LinearLayout>
 </LinearLayout>

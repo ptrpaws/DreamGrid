@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linearLayoutMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:id="@+id/linearLayoutMain"
-    android:background="@drawable/bkg_window">
+    android:background="@drawable/bkg_window"
+    android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/background"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"/>
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:visibility="visible" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -22,27 +23,27 @@
             android:id="@+id/blurView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
-            android:layout_marginBottom="11dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="22dp"
             android:layout_marginRight="20dp"
+            android:layout_marginBottom="11dp"
             android:background="@drawable/rounded"
             app:blurOverlayColor="#30FFFFFF">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:baselineAligned="false">
+                android:baselineAligned="false"
+                android:orientation="horizontal">
 
                 <GridView
                     android:id="@+id/groupsView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:padding="0dp"
+                    android:divider="#00000000"
                     android:dividerHeight="0dp"
-                    android:divider="#00000000"/>
+                    android:padding="0dp" />
 
             </LinearLayout>
         </eightbitlab.com.blurview.BlurView>
@@ -51,29 +52,29 @@
             android:id="@+id/appsView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_weight="1"
+            android:columnWidth="101dp"
+            android:gravity="center"
+            android:horizontalSpacing="15dp"
+            android:numColumns="auto_fit"
+            android:paddingLeft="20dp"
             android:paddingTop="5dp"
             android:paddingRight="20dp"
-            android:paddingLeft="20dp"
-            android:numColumns="auto_fit"
-            android:columnWidth="101dp"
-            android:stretchMode="columnWidth"
-            android:gravity="center"
-            android:layout_weight="1"
             android:scrollbarStyle="outsideOverlay"
-            android:horizontalSpacing="15dp"
-            android:verticalSpacing="15dp"
-            android:scrollbars="none"/>
+            android:scrollbars="none"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="15dp" />
     </LinearLayout>
 
     <ImageView
         android:id="@+id/logo"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="16dp"
+        android:layout_alignParentBottom="true"
         android:layout_marginEnd="16dp"
-        android:src="@drawable/ic_launcher"
+        android:layout_marginBottom="16dp"
         android:background="@android:color/transparent"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_launcher" />
 </RelativeLayout>

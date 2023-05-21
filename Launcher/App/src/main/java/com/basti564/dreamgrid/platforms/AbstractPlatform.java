@@ -77,11 +77,10 @@ public abstract class AbstractPlatform {
         return new File(context.getApplicationInfo().dataDir, packageName + ".webp");
     }
 
-    public static boolean updateIcon(ImageView iconView, File file, String packageName) {
+    public static boolean updateIcon(File file, String packageName) {
         try {
             Drawable newIconDrawable = Drawable.createFromPath(file.getAbsolutePath());
             if (newIconDrawable != null) {
-                iconView.setImageDrawable(newIconDrawable);
                 cachedIcons.put(packageName, newIconDrawable);
                 return true;
             }
@@ -182,14 +181,14 @@ public abstract class AbstractPlatform {
 
     public abstract boolean isSupported(Context context);
 
-    public void loadIcon(Activity activity, ImageView iconView, ApplicationInfo appInfo) {
+    public Drawable loadIcon(Activity activity, ApplicationInfo appInfo) throws PackageManager.NameNotFoundException {
         PackageManager packageManager = activity.getPackageManager();
         Resources resources;
-        try {
-            resources = packageManager.getResourcesForApplication(appInfo.packageName);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-            return;
+
+        resources = packageManager.getResourcesForApplication(appInfo.packageName);
+
+        if (cachedIcons.containsKey(appInfo.packageName)) {
+            return cachedIcons.get(appInfo.packageName);
         }
 
         int iconId = appInfo.icon;
@@ -198,25 +197,21 @@ public abstract class AbstractPlatform {
         }
 
         Drawable appIcon = ResourcesCompat.getDrawableForDensity(resources, iconId, DisplayMetrics.DENSITY_XXXHIGH, null);
-        iconView.setImageDrawable(appIcon);
 
         final File iconFile = packageToPath(activity, appInfo.packageName);
 
         if (iconFile.exists()) {
-            AbstractPlatform.updateIcon(iconView, iconFile, appInfo.packageName);
-            return;
-        }
-
-        if (cachedIcons.containsKey(appInfo.packageName)) {
-            iconView.setImageDrawable(cachedIcons.get(appInfo.packageName));
-            return;
+            AbstractPlatform.updateIcon(iconFile, appInfo.packageName);
+            return Drawable.createFromPath(iconFile.getAbsolutePath());
         }
 
         downloadIcon(activity, appInfo.packageName, () -> {
-            if (updateIcon(iconView, iconFile, appInfo.packageName)) {
-                cachedIcons.put(appInfo.packageName, iconView.getDrawable());
-            }
+           updateIcon(iconFile, appInfo.packageName);
         });
+        if (cachedIcons.containsKey(appInfo.packageName)) {
+            return cachedIcons.get(appInfo.packageName);
+        }
+        return appIcon;
     }
 
     private final ConcurrentHashMap<String, Object> locks = new ConcurrentHashMap<>();
