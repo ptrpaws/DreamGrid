@@ -12,13 +12,13 @@
 
     <style name="SettingTitle">
         <item name="android:textColor">#FFFFFF</item>
-        <item name="android:textSize">30dp</item>
+        <item name="android:textSize">30sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_marginBottom">10dp</item>
     </style>
     <style name="SettingSubtitle">
         <item name="android:textColor">#FFFFFF</item>
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:gravity">center</item>
     </style>
 </resources>
