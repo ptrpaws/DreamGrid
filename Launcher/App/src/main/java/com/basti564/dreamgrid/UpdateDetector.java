@@ -27,17 +27,17 @@ public class UpdateDetector {
     private final RequestQueue requestQueue;
     private final PackageManager packageManager;
     private final Context appContext;
-//    private final SharedPreferences sharedPreferences;
+    private final SharedPreferences sharedPreferences;
 
-    public UpdateDetector(Context appContext) {
+    public UpdateDetector(Context appContext, SharedPreferences sharedPreferences) {
         this.appContext = appContext;
         this.requestQueue = Volley.newRequestQueue(appContext);
         this.packageManager = appContext.getPackageManager();
-//        this.sharedPreferences = sharedPreferences;
+        this.sharedPreferences = sharedPreferences;
     }
 
     public void checkForUpdate() {
-//        checkForUpdateIfIntervalElapsed(0);
+        checkForUpdateIfIntervalElapsed(0);
         StringRequest updateRequest = new StringRequest(
                 Request.Method.GET, UPDATE_URL,
                 this::handleUpdateResponse, this::handleUpdateError);
@@ -45,18 +45,18 @@ public class UpdateDetector {
         requestQueue.add(updateRequest);
     }
 
-//    public void checkForUpdateIfIntervalElapsed(long updateCheckInterval) {
-//        long lastUpdateCheckTime = sharedPreferences.getLong(LAST_UPDATE_CHECK_TIME_KEY, 0);
-//        long currentTime = System.currentTimeMillis();
-//
-//        if (updateCheckInterval == 0 || currentTime - lastUpdateCheckTime >= updateCheckInterval) {
-//            StringRequest updateRequest = new StringRequest(
-//                    Request.Method.GET, UPDATE_URL,
-//                    this::handleUpdateResponse, this::handleUpdateError);
-//
-//            requestQueue.add(updateRequest);
-//        }
-//    }
+    public void checkForUpdateIfIntervalElapsed(long updateCheckInterval) {
+        long lastUpdateCheckTime = sharedPreferences.getLong(LAST_UPDATE_CHECK_TIME_KEY, 0);
+        long currentTime = System.currentTimeMillis();
+
+        if (updateCheckInterval == 0 || currentTime - lastUpdateCheckTime >= updateCheckInterval) {
+            StringRequest updateRequest = new StringRequest(
+                    Request.Method.GET, UPDATE_URL,
+                    this::handleUpdateResponse, this::handleUpdateError);
+
+            requestQueue.add(updateRequest);
+        }
+    }
 
     private void handleUpdateResponse(String response) {
         try {

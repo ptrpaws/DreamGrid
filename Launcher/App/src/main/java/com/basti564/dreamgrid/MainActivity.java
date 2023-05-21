@@ -160,36 +160,26 @@ public class MainActivity extends Activity {
             }
         });
 
+        UpdateDetector updateDetector = new UpdateDetector(getApplicationContext(), sharedPreferences);
+        updateDetector.checkForUpdate();
+
+        BlurView blurView = findViewById(R.id.blurView);
+
+        float blurRadiusDp = 20f;
+
+        View windowDecorView = getWindow().getDecorView();
+        ViewGroup rootViewGroup = windowDecorView.findViewById(android.R.id.content);
+
+        Drawable windowBackground = windowDecorView.getBackground();
+
+        blurView.setupWith(rootViewGroup, new RenderScriptBlur(getApplicationContext())) // or RenderEffectBlur
+                .setFrameClearDrawable(windowBackground) // Optional
+                .setBlurRadius(blurRadiusDp);
+
+        blurView.setOutlineProvider(ViewOutlineProvider.BACKGROUND);
+        blurView.setClipToOutline(true);
+
         Log.i("DreamGridStartup", "Ready!");
-
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Log.i("DreamGridStartup", "Running Deferred");
-
-                UpdateDetector updateDetector = new UpdateDetector(getApplicationContext());
-                updateDetector.checkForUpdate();
-
-                BlurView blurView = findViewById(R.id.blurView);
-
-                float blurRadiusDp = 20f;
-
-                View windowDecorView = getWindow().getDecorView();
-                ViewGroup rootViewGroup = windowDecorView.findViewById(android.R.id.content);
-
-                Drawable windowBackground = windowDecorView.getBackground();
-
-                blurView.setupWith(rootViewGroup, new RenderScriptBlur(getApplicationContext())) // or RenderEffectBlur
-                        .setFrameClearDrawable(windowBackground) // Optional
-                        .setBlurRadius(blurRadiusDp);
-
-                blurView.setOutlineProvider(ViewOutlineProvider.BACKGROUND);
-                blurView.setClipToOutline(true);
-
-                Log.i("DreamGridStartup", "Deferred Done");
-            }
-        }, 500);
 
     }
 
