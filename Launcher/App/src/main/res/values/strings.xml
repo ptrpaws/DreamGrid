@@ -17,7 +17,7 @@
     <string name="platform_visibility">Platform Visibility</string>
     <string name="disable_explore_app">Disable Explore App</string>
     <string name="enable_redirect_service">Enable Redirect Service</string>
-    <string name="enable_dreamgrid_and_replace_explore_instructions">Use the below settings to enable DreamGrid\'s accesiblity service, and replace the \"Explore\" app on your dock.</string>
+    <string name="enable_dreamgrid_and_replace_explore_instructions">Use the below settings to enable DreamGrid\'s accessibility service, and replace the \"Explore\" app on your dock.</string>
     <string name="settings">Settings</string>
     <string name="toggle_edit_mode">Toggle Edit Mode</string>
     <string name="vr" translatable="false">VR</string>
