@@ -204,9 +204,7 @@ public abstract class AbstractPlatform {
             return Drawable.createFromPath(iconFile.getAbsolutePath());
         }
 
-        downloadIcon(activity, appInfo.packageName, () -> {
-           updateIcon(iconFile, appInfo.packageName);
-        });
+        downloadIcon(activity, appInfo.packageName, () -> updateIcon(iconFile, appInfo.packageName));
         if (cachedIcons.containsKey(appInfo.packageName)) {
             return cachedIcons.get(appInfo.packageName);
         }

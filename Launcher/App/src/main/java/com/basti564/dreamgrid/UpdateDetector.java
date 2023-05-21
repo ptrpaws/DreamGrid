@@ -96,9 +96,7 @@ public class UpdateDetector {
                 Log.e(TAG, "Unable to parse JSON for html_url", e);
             }
         });
-        updateDialogBuilder.setNegativeButton("Dismiss", (dialog, which) -> {
-            dialog.dismiss();
-        });
+        updateDialogBuilder.setNegativeButton("Dismiss", (dialog, which) -> dialog.dismiss());
         AlertDialog updateAlertDialog = updateDialogBuilder.create();
         updateAlertDialog.show();
         updateAlertDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
