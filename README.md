@@ -1,6 +1,6 @@
 # DreamGrid
 
-DreamGrid is a launcher designed for Oculus Quest and Pico VR headsets that supports both official and sideloaded apps and games.
+DreamGrid is a launcher designed for Oculus Quest, Pico VR and HTC headsets that supports both official and sideloaded apps and games.
 
 ## Features
 
@@ -10,7 +10,7 @@ DreamGrid is an enhanced version of the original [PiLauncher](https://github.com
 - Update detector
 - New default themes
 - [Custom icon repositories](https://github.com/basti564/LauncherIcons)
-- Up-to-date icons for both Pico and Oculus
+- Up-to-date icons for both Pico, Oculus and HTC
 - Support for replacing Explore on Pico (in addition to Oculus)
 - Get high resolution icons for sideloaded app icons
 - Additional localization options
