@@ -22,7 +22,7 @@
             android:id="@+id/settings_vr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:background="@drawable/bkg_button"
             android:orientation="vertical">
 
@@ -44,7 +44,7 @@
             android:id="@+id/settings_android"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:background="@drawable/bkg_button"
             android:orientation="vertical">
 

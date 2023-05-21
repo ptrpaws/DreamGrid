@@ -22,7 +22,7 @@
             android:layout_width="270dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -43,8 +43,8 @@
                     style="@style/SettingSubtitle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="10dp"
-                    android:gravity="left|center_vertical"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="start|center_vertical"
                     android:text="@string/toggle_edit_mode" />
             </LinearLayout>
 
@@ -65,15 +65,15 @@
                     style="@style/SettingSubtitle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="10dp"
-                    android:gravity="left|center_vertical"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="start|center_vertical"
                     android:text="@string/platform_visibility" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/settings_look"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="wrap_content"^
                 android:background="@drawable/bkg_button">
 
                 <ImageView
@@ -86,8 +86,8 @@
                     style="@style/SettingSubtitle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="10dp"
-                    android:gravity="left|center_vertical"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="start|center_vertical"
                     android:text="@string/customize_appearance" />
             </LinearLayout>
 
@@ -123,8 +123,8 @@
                     style="@style/SettingSubtitle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="10dp"
-                    android:gravity="left|center_vertical"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="start|center_vertical"
                     android:text="@string/enable_redirect_service" />
             </LinearLayout>
 
@@ -144,7 +144,7 @@
                     style="@style/SettingSubtitle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="left|center_vertical"
+                    android:gravity="start|center_vertical"
                     android:text="@string/disable_explore_app" />
             </LinearLayout>
         </LinearLayout>

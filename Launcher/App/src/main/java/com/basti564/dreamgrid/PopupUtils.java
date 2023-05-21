@@ -16,7 +16,7 @@ public class PopupUtils {
         WindowManager.LayoutParams windowLayoutParams = dialog.getWindow().getAttributes();
         windowLayoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
         windowLayoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        windowLayoutParams.gravity = Gravity.RIGHT & Gravity.BOTTOM;
+        windowLayoutParams.gravity = Gravity.END & Gravity.BOTTOM;
         windowLayoutParams.x = 50;
         windowLayoutParams.y = 50;
         dialog.getWindow().setAttributes(windowLayoutParams);
