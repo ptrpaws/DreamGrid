@@ -4,7 +4,6 @@ import android.accessibilityservice.AccessibilityService;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
-import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 
 public class ButtonManager extends AccessibilityService {

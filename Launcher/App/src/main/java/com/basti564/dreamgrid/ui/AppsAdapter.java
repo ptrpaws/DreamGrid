@@ -1,6 +1,5 @@
 package com.basti564.dreamgrid.ui;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.Context;
@@ -34,8 +33,6 @@ import com.basti564.dreamgrid.platforms.AbstractPlatform;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.transform.Result;
 
 interface IconCallback {
     void setIconImage();

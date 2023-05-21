@@ -3,16 +3,9 @@ package com.basti564.dreamgrid;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.graphics.drawable.Drawable;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewOutlineProvider;
 import android.view.WindowManager;
-
-import eightbitlab.com.blurview.BlurView;
-import eightbitlab.com.blurview.RenderScriptBlur;
 
 public class PopupUtils {
     public static Dialog showPopup(Activity activity, int layout) {
