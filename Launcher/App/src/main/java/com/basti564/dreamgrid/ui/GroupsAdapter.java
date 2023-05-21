@@ -13,6 +13,8 @@ import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
 import com.basti564.dreamgrid.MainActivity;
 import com.basti564.dreamgrid.R;
 import com.basti564.dreamgrid.SettingsProvider;
@@ -97,7 +99,7 @@ public class GroupsAdapter extends BaseAdapter {
         setTextViewValue(holder.textView, getItem(position));
 
         // set menu action
-        Drawable drawable = holder.menu.getContext().getDrawable(R.drawable.ic_info);
+        Drawable drawable = ContextCompat.getDrawable(holder.menu.getContext(), R.drawable.ic_info);
         assert drawable != null;
         drawable.setColorFilter(Color.parseColor("#90000000"), PorterDuff.Mode.SRC_ATOP);
         holder.menu.setBackground(drawable);
