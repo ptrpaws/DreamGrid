@@ -12,4 +12,12 @@
     <string name="icons_size">Размер значков</string>
     <string name="show_app_names">Показать имена приложений</string>
     <string name="start_shortcut">Откройте лаунчер с помощью иконки Исследовать на панели задач. Для более плавной работы рекомендуется отключить приложение Исследовать.</string>
+
+    <string name="customize_appearance">Настроить Внешний Вид</string>
+    <string name="platform_visibility">Видимость Платформы</string>
+    <string name="disable_explore_app">Отключить Приложение Исследовать</string>
+    <string name="enable_redirect_service">Включить Службу Переадресации</string>
+    <string name="enable_dreamgrid_and_replace_explore_instructions">Используйте следующие настройки для включения сервиса доступности DreamGrid и замены приложения "Исследовать" на вашей панели.</string>
+    <string name="settings">Настройки</string>
+    <string name="toggle_edit_mode">Переключить Режим Редактирования</string>
 </resources>

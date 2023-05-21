@@ -12,4 +12,12 @@
     <string name="icons_size">Tamanho das miniaturas</string>
     <string name="show_app_names">Mostrar nome dos aplicativos</string>
     <string name="start_shortcut">Abra o launcher com o ícone Explorar no painel do sistema. Para uma experiência fluída, é recomendável desativar o aplicativo Explorar.</string>
+
+    <string name="customize_appearance">Personalizar Aparência</string>
+    <string name="platform_visibility">Visibilidade da Plataforma</string>
+    <string name="disable_explore_app">Desativar o aplicativo Explorar</string>
+    <string name="enable_redirect_service">Habilitar serviço de redirecionamento</string>
+    <string name="enable_dreamgrid_and_replace_explore_instructions">Use as configurações abaixo para ativar o serviço de acessibilidade do DreamGrid e substituir o aplicativo "Explorar" na sua dock.</string>
+    <string name="settings">Configurações</string>
+    <string name="toggle_edit_mode">Alternar para o modo de edição</string>
 </resources>

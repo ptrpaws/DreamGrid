@@ -12,7 +12,7 @@
         style="@style/SettingTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Platform Visibilty" />
+        android:text="@string/platform_visibility" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
-                android:text="VR" />
+                android:text="@string/vr" />
 
         </LinearLayout>
 
@@ -59,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
-                android:text="2D" />
+                android:text="@string/_2d" />
 
         </LinearLayout>
 
@@ -80,7 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
-                android:text="PSP" />
+                android:text="@string/psp" />
         </LinearLayout>
 
     </LinearLayout>

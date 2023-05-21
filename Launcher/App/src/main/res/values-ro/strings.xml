@@ -12,4 +12,12 @@
     <string name="icons_size">Dimensiune pictograme</string>
     <string name="show_app_names">Afișează nume aplicații</string>
     <string name="start_shortcut">Deschide lansatorul cu pictograma Explorer din panoul de control al sistemului. Pentru o experiență mai bună, se recomandă dezactivarea aplicației Explorer.</string>
+
+    <string name="customize_appearance">Personalizează Apariția</string>
+    <string name="platform_visibility">Vizibilitate Platformă</string>
+    <string name="disable_explore_app">Dezactivează Aplicația Explore</string>
+    <string name="enable_redirect_service">Activează Serviciul de Redirecționare</string>
+    <string name="enable_dreamgrid_and_replace_explore_instructions">Folosiți setările de mai jos pentru a activa serviciul de accesibilitate DreamGrid și pentru a înlocui aplicația "Explore" de pe docul dvs.</string>
+    <string name="settings">Setări</string>
+    <string name="toggle_edit_mode">Comută Modul de Editare</string>
 </resources>

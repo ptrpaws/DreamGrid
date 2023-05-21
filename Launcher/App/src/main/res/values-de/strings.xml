@@ -12,4 +12,12 @@
     <string name="icons_size">Symbolgröße</string>
     <string name="show_app_names">App-Namen anzeigen</string>
     <string name="start_shortcut">Öffnen Sie den Launcher mit dem Explorer-Symbol in der Systemsteuerung. Für eine reibungslose Erfahrung wird empfohlen, die Explorer-App zu deaktivieren.</string>
+
+    <string name="customize_appearance">Aussehen anpassen</string>
+    <string name="platform_visibility">Plattformsichtbarkeit</string>
+    <string name="disable_explore_app">Explore-App deaktivieren</string>
+    <string name="enable_redirect_service">Umleitungsdienst aktivieren</string>
+    <string name="enable_dreamgrid_and_replace_explore_instructions">Nutzen Sie die untenstehenden Einstellungen, um den Zugriffsdienst von DreamGrid zu aktivieren und die \"Explore\"-App in Ihrem Dock zu ersetzen.</string>
+    <string name="settings">Einstellungen</string>
+    <string name="toggle_edit_mode">Bearbeitungsmodus umschalten</string>
 </resources>

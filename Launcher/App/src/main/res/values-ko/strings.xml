@@ -12,4 +12,12 @@
     <string name="icons_size">아이콘 크기</string>
     <string name="show_app_names">앱 이름 표시</string>
     <string name="start_shortcut">시스템 대시 보드에서 탐색기 아이콘으로 런처를 엽니다. 원활한 경험을 위해 탐색기 앱을 비활성화하는 것이 좋습니다.</string>
+
+    <string name="customize_appearance">외관 사용자 정의</string>
+    <string name="platform_visibility">플랫폼 가시성</string>
+    <string name="disable_explore_app">탐색기 앱 비활성화</string>
+    <string name="enable_redirect_service">리디렉션 서비스 활성화</string>
+    <string name="enable_dreamgrid_and_replace_explore_instructions">아래 설정을 사용하여 DreamGrid 액세스 가능성 서비스를 활성화하고 독의 \"탐색기\" 앱을 교체합니다.</string>
+    <string name="settings">설정</string>
+    <string name="toggle_edit_mode">편집 모드로 전환</string>
 </resources>

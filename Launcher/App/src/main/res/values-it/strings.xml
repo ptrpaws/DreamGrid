@@ -12,4 +12,12 @@
     <string name="icons_size">Dimensione icone</string>
     <string name="show_app_names">Mostra nomi app</string>
     <string name="start_shortcut">Apri il launcher con l\'icona Esplora dalla dashboard di sistema. Per un\'esperienza fluida, si consiglia di disattivare l\'app Esplora.</string>
+
+    <string name="customize_appearance">Personalizza Aspetto</string>
+    <string name="platform_visibility">Visibilità della piattaforma</string>
+    <string name="disable_explore_app">Disabilita App Esplora</string>
+    <string name="enable_redirect_service">Abilita Servizio di Reindirizzamento</string>
+    <string name="enable_dreamgrid_and_replace_explore_instructions">Utilizza le impostazioni sottostanti per abilitare il servizio di accessibilità di DreamGrid e sostituisci l\'app "Esplora" sulla tua dock.</string>
+    <string name="settings">Impostazioni</string>
+    <string name="toggle_edit_mode">Attiva Modalità Modifica</string>
 </resources>

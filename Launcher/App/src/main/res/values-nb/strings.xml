@@ -12,4 +12,12 @@
     <string name="icons_size">Ikonstørrelse</string>
     <string name="show_app_names">Vis appnavn</string>
     <string name="start_shortcut">Åpne lansereren med Utforsker-ikonet fra systemdashboardet. For en jevn opplevelse anbefales det å deaktivere Utforsker-appen.</string>
+
+    <string name="customize_appearance">Tilpass Utseende</string>
+    <string name="platform_visibility">Plattform Synlighet</string>
+    <string name="disable_explore_app">Deaktiver Utforsk-appen</string>
+    <string name="enable_redirect_service">Aktiver omdirigeringstjeneste</string>
+    <string name="enable_dreamgrid_and_replace_explore_instructions">Bruk innstillingene nedenfor for å aktivere DreamGrids tilgjengelighetstjeneste og erstatte "Utforsk"-appen i docken din.</string>
+    <string name="settings">Innstillinger</string>
+    <string name="toggle_edit_mode">Bytt til redigeringsmodus</string>
 </resources>

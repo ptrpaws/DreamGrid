@@ -12,4 +12,12 @@
     <string name="icons_size">Simge boyutu</string>
     <string name="show_app_names">Uygulama adlarını göster</string>
     <string name="start_shortcut">Sistemin gösterge panelinden Keşfet simgesiyle başlatıcıyı açın. Sorunsuz bir deneyim için Keşfet uygulamasının devre dışı bırakılması önerilir.</string>
+
+    <string name="customize_appearance">Görünümü Özelleştir</string>
+    <string name="platform_visibility">Platform Görünürlüğü</string>
+    <string name="disable_explore_app">Keşfet Uygulamasını Devre Dışı Bırak</string>
+    <string name="enable_redirect_service">Yönlendirme Hizmetini Etkinleştir</string>
+    <string name="enable_dreamgrid_and_replace_explore_instructions">Aşağıdaki ayarları kullanarak DreamGrid\'in erişilebilirlik hizmetini etkinleştirin ve "Keşfet" uygulamasını dock\'taki uygulama ile değiştirin.</string>
+    <string name="settings">Ayarlar</string>
+    <string name="toggle_edit_mode">Düzenleme Modunu Değiştir</string>
 </resources>

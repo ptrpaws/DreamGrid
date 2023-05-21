@@ -11,7 +11,7 @@
         style="@style/SettingTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Customize Appearance" />
+        android:text="@string/customize_appearance" />
 
     <LinearLayout
         android:layout_width="400dp"

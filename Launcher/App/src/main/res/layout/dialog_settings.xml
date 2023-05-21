@@ -11,7 +11,7 @@
         style="@style/SettingTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Settings" />
+        android:text="@string/settings" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -45,7 +45,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginRight="10dp"
                     android:gravity="left|center_vertical"
-                    android:text="Toggle Edit Mode" />
+                    android:text="@string/toggle_edit_mode" />
             </LinearLayout>
 
             <LinearLayout
@@ -67,7 +67,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginRight="10dp"
                     android:gravity="left|center_vertical"
-                    android:text="Platform Visiblity" />
+                    android:text="@string/platform_visibility" />
             </LinearLayout>
 
             <LinearLayout
@@ -88,7 +88,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginRight="10dp"
                     android:gravity="left|center_vertical"
-                    android:text="Customize Appearance" />
+                    android:text="@string/customize_appearance" />
             </LinearLayout>
 
         </LinearLayout>
@@ -103,7 +103,7 @@
                 style="@style/Widget.AppCompat.TextView"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="Use the below settings to enable DreamGrid's accesiblity service, and replace the &quot;Explore&quot; app on your dock."
+                android:text="@string/enable_dreamgrid_and_replace_explore_instructions"
                 android:textColor="#FFFFFF" />
 
             <LinearLayout
@@ -125,7 +125,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginRight="10dp"
                     android:gravity="left|center_vertical"
-                    android:text="Enable Redirect Service" />
+                    android:text="@string/enable_redirect_service" />
             </LinearLayout>
 
             <LinearLayout
@@ -145,7 +145,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="left|center_vertical"
-                    android:text="Disable Explore App" />
+                    android:text="@string/disable_explore_app" />
             </LinearLayout>
         </LinearLayout>
 

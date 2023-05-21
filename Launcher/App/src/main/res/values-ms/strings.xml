@@ -12,4 +12,12 @@
     <string name="icons_size">Saiz icon</string>
     <string name="show_app_names">Tunjukkan nama aplikasi</string>
     <string name="start_shortcut">Buka pelancar dengan ikon Explorer dari papan pemuka sistem. Untuk pengalaman yang lancar, disarankan untuk mematikan aplikasi Explorer.</string>
+
+    <string name="customize_appearance">Ubah Suai Rupa</string>
+    <string name="platform_visibility">Keterlihatan Platform</string>
+    <string name="disable_explore_app">Nyahaktifkan Aplikasi Explorer</string>
+    <string name="enable_redirect_service">Aktifkan Perkhidmatan Pengalihan</string>
+    <string name="enable_dreamgrid_and_replace_explore_instructions">Gunakan tetapan di bawah untuk mengaktifkan perkhidmatan aksesibiliti DreamGrid dan gantikan aplikasi "Explorer" di dok anda.</string>
+    <string name="settings">Tetapan</string>
+    <string name="toggle_edit_mode">Tukar ke Mod Penyuntingan</string>
 </resources>

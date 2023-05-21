@@ -12,4 +12,12 @@
     <string name="icons_size">图标大小</string>
     <string name="show_app_names">显示应用程序名称</string>
     <string name="start_shortcut">使用系统仪表板上的“资源管理器”图标打开启动器。为了获得更流畅的体验，建议禁用“资源管理器”应用程序。</string>
+
+    <string name="customize_appearance">自定义外观</string>
+    <string name="platform_visibility">平台可见性</string>
+    <string name="disable_explore_app">禁用探索应用</string>
+    <string name="enable_redirect_service">启用重定向服务</string>
+    <string name="enable_dreamgrid_and_replace_explore_instructions">使用以下设置启用DreamGrid的可访问性服务，并替换您码头上的"探索"应用。</string>
+    <string name="settings">设置</string>
+    <string name="toggle_edit_mode">切换编辑模式</string>
 </resources>
