@@ -158,7 +158,7 @@ public class MainActivity extends Activity {
         });
 
         UpdateDetector updateDetector = new UpdateDetector(this, sharedPreferences);
-        updateDetector.checkForUpdate();
+        updateDetector.checkForUpdateIfIntervalElapsed(12 * 60 * 60 * 1000);
 
         BlurView blurView = findViewById(R.id.blurView);
 

@@ -96,7 +96,12 @@ public class UpdateDetector {
                 Log.e(TAG, "Unable to parse JSON for html_url", e);
             }
         });
-        updateDialogBuilder.setNegativeButton("Dismiss", (dialog, which) -> dialog.dismiss());
+        updateDialogBuilder.setNegativeButton("Dismiss", (dialog, which) -> {
+            dialog.dismiss();
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putLong(LAST_UPDATE_CHECK_TIME_KEY, System.currentTimeMillis());
+            editor.apply();
+        });
         AlertDialog updateAlertDialog = updateDialogBuilder.create();
         updateAlertDialog.show();
         updateAlertDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
