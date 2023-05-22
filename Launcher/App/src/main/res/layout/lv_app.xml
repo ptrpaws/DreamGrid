@@ -44,11 +44,11 @@
         android:singleLine="true"
         android:textSize="16sp"
         android:textColor="@android:color/white"
-        android:shadowColor="#80000000"
-        android:shadowRadius="5"
+        android:shadowColor="#000000"
+        android:shadowDx="1.5"
+        android:shadowDy="1.5"
+        android:shadowRadius="3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        app:strokeColor="#80000000"
-        app:strokeWidth="1.5dp"/>
+        android:gravity="center"/>
 </LinearLayout>
