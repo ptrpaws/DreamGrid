@@ -157,7 +157,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        UpdateDetector updateDetector = new UpdateDetector(getApplicationContext(), sharedPreferences);
+        UpdateDetector updateDetector = new UpdateDetector(this, sharedPreferences);
         updateDetector.checkForUpdate();
 
         BlurView blurView = findViewById(R.id.blurView);
