@@ -94,6 +94,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ShortcutLinearLayout"
             android:layout_width="270dp"
             android:layout_height="match_parent"
             android:orientation="vertical"

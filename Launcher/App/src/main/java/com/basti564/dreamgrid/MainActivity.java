@@ -331,8 +331,10 @@ public class MainActivity extends Activity {
         });
 
         View appShortcutView = dialog.findViewById(R.id.service_app_shortcut);
+        View shortcutLinearLayout = dialog.findViewById(R.id.ShortcutLinearLayout);
         if (!(AbstractPlatform.isOculusHeadset() || AbstractPlatform.isPicoHeadset())) {
             appShortcutView.setVisibility(View.GONE);
+            shortcutLinearLayout.setVisibility(View.GONE);
         } else {
             appShortcutView.setOnClickListener(view -> {
                 ButtonManager.checkAccessibilitySettings(this);
