@@ -25,8 +25,7 @@ DreamGrid is an enhanced version of the original [PiLauncher](https://github.com
 Find the latest releases of DreamGrid [here](https://github.com/basti564/DreamGrid/releases).
 
 ## Screenshot
-
-![screenshot](https://user-images.githubusercontent.com/34898868/229709039-ac4401d3-59bb-4ade-a551-1060e19474c6.png)
+![screenshot](https://github.com/basti564/DreamGrid/assets/34898868/d3945a1c-9250-4f3b-9f99-f8d29a24c727)
 
 ## Similar Projects
 
