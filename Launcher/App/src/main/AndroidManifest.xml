@@ -20,7 +20,7 @@
             android:name=".MainActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="landscape"
-            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+            android:configChanges="density|keyboard|keyboardHidden|navigation|orientation|screenLayout|screenSize|uiMode"
             android:exported="true">
 
             <intent-filter>
