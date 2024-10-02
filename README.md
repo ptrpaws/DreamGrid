@@ -1,5 +1,8 @@
 # DreamGrid
 
+> [!WARNING]  
+> DreamGrid isn't mantained anymore. This repository will continue to exist only for archival purposes. I recommend using the much faster [LightningLauncher](https://github.com/threethan/LightningLauncher) as an alternative
+
 DreamGrid is a launcher designed for Oculus Quest, Pico VR and HTC headsets that supports both official and sideloaded apps and games.
 
 ## Features
